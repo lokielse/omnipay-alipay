@@ -158,16 +158,6 @@ abstract class BasePurchaseRequest extends BaseAbstractRequest
         $this->setParameter('subject', $value);
     }
 
-    public function setExpireTime($minutes)
-    {
-        $this->setParameter('it_b_pay', sprintf('%dm', $minutes));
-    }
-
-    public function getExpireTime()
-    {
-        return $this->getParameter('it_b_pay');
-    }
-
     /**
      * Send the request with specified data
      *
