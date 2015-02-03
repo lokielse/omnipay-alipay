@@ -161,6 +161,16 @@ abstract class BaseAbstractGateway extends AbstractGateway
         $this->setParameter('pay_method', $value);
     }
 
+    public function setExpireTime($minutes)
+    {
+        $this->setParameter('it_b_pay', sprintf('%dm', $minutes));
+    }
+
+    public function getExpireTime()
+    {
+        return $this->getParameter('it_b_pay');
+    }
+
     public function purchase(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressPurchaseRequest', $parameters);
