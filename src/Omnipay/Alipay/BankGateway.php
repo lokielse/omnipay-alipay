@@ -32,7 +32,7 @@ class BankGateway extends ExpressGateway
     {
         $this->setService($this->service_name);
         $this->setParameter('paymethod', 'bankPay');
-        if ($this->getParameter('defaul_tbank') === null) {
+        if ($this->getParameter('default_bank') === null) {
             throw new InvalidRequestException("The setDefaultBank(x) method is not called.");
         }
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressPurchaseRequest', $parameters);
