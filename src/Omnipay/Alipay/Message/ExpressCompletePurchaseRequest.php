@@ -49,6 +49,10 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
         return $params;
     }
 
+    /**
+     * The parameters alipay callback to server
+     * @return mixed
+     */
     public function getRequestParams()
     {
         return $this->getParameter('request_params');
@@ -146,12 +150,12 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
 
     public function setNotifyId($value)
     {
-        return $this->setParameter('notify_id', $value);
+        return $this->setRequestParam('notify_id', $value);
     }
 
     public function getAliPubicKey()
     {
-        return $this->getRequestParam('ali_public_key');
+        return $this->getParameter('ali_public_key');
     }
 
     public function setAliPubicKey($value)
