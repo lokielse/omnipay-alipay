@@ -26,7 +26,7 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
      */
     public function getData()
     {
-        $this->validate('request_params', 'transport', 'partner', 'ca_cert_path', 'sign_type', 'key');
+        $this->validate('request_params', 'transport', 'partner', 'sign_type', 'key');
         $this->validateRequestParams('trade_status', 'out_trade_no', 'trade_no');
         return $this->getParameters();
     }
