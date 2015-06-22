@@ -21,8 +21,6 @@ class MobileExpressPurchaseRequest extends BaseAbstractRequest
             'subject',
             'total_fee',
             'notify_url',
-            'show_url',
-            'return_url',
             'private_key'
         );
     }
@@ -47,9 +45,7 @@ class MobileExpressPurchaseRequest extends BaseAbstractRequest
             'service'        => $this->service,
             '_input_charset' => 'utf-8',
             'payment_type'   => '1',
-            'it_b_pay'       => $this->getItBPay(),
-            'show_url'       => $this->getShowUrl(),
-            'return_url'     => $this->getReturnUrl(),
+            'it_b_pay'       => $this->getItBPay()
         );
         $data                   = array_filter($data);
         $data['sign']           = $this->getParamsSignature($data);
@@ -172,16 +168,6 @@ class MobileExpressPurchaseRequest extends BaseAbstractRequest
         $this->setParameter('partner', $value);
     }
 
-    public function getShowUrl()
-    {
-        return $this->getParameter('show_url');
-    }
-
-    public function setShowUrl($value)
-    {
-        $this->setParameter('show_url', $value);
-    }
-
     public function getInputCharset()
     {
         return $this->getParameter('input_charset');
@@ -210,16 +196,6 @@ class MobileExpressPurchaseRequest extends BaseAbstractRequest
     public function setNotifyUrl($value)
     {
         $this->setParameter('notify_url', $value);
-    }
-
-    public function getReturnUrl()
-    {
-        return $this->getParameter('return_url');
-    }
-
-    public function setReturnUrl($value)
-    {
-        $this->setParameter('return_url', $value);
     }
 
     public function getSignType()
