@@ -213,7 +213,6 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
     public function sendData($data)
     {
         $notifyId = $this->getNotifyId();
-        $data                 = array();
 
         if ($notifyId) {
             $this->verifyResponse = $this->getVerifyResponse($this->getNotifyId());
