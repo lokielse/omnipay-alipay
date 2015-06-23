@@ -47,8 +47,8 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
         unset($params['sign']);
         unset($params['sign_type']);
         unset($params['notify_id']);
-        ksort($data);
-        reset($data);
+        ksort($params);
+        reset($params);
         return $params;
     }
 
