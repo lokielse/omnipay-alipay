@@ -1,31 +1,38 @@
 {
-	"name": "lokielse/omnipay-alipay",
-	"type": "library",
-	"description": "Alipay gateway for Omnipay payment processing library",
-	"keywords": [
-		"alipay",
-		"gateway",
-		"merchant",
-		"omnipay",
-		"pay",
-		"payment",
-		"purchase"
-	],
-	"homepage": "https://github.com/lokielse/omnipay-alipay",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Loki Else",
-			"email": "lokielse@gmail.com"
-		}
-	],
-	"autoload": {
-		"psr-0": { "Omnipay\\Alipay\\" : "src/" }
-	},
-	"require": {
-		"omnipay/common": "~2.0"
-	},
-	"require-dev": {
-		"omnipay/tests": "~2.0"
-	}
+  "name": "lokielse/omnipay-alipay",
+  "type": "library",
+  "description": "Alipay gateway for Omnipay payment processing library",
+  "keywords": [
+    "alipay",
+    "gateway",
+    "merchant",
+    "omnipay",
+    "pay",
+    "payment",
+    "purchase"
+  ],
+  "homepage": "https://github.com/lokielse/omnipay-alipay",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Loki Else",
+      "email": "lokielse@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-0": {"Omnipay\\Alipay\\": "src/"}
+  },
+  "require": {
+    "omnipay/common": "~2.0"
+  },
+  "require-dev": {
+    "omnipay/tests": "~2.0"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "http://pkg.phpcomposer.com/repo/packagist/"
+    },
+    {"packagist": false}
+  ]
 }
