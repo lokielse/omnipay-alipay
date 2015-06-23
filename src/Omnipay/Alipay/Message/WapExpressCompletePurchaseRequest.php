@@ -8,7 +8,6 @@ namespace Omnipay\Alipay\Message;
 
 use DOMDocument;
 
-
 class WapExpressCompletePurchaseRequest extends ExpressCompletePurchaseRequest
 {
 
@@ -22,6 +21,7 @@ class WapExpressCompletePurchaseRequest extends ExpressCompletePurchaseRequest
     {
         $this->validate('request_params', 'partner', 'private_key');
         $this->validateRequestParams('notify_data', 'service', 'v', 'sec_id');
+
         return $this->getParameters();
     }
 
@@ -76,6 +76,7 @@ class WapExpressCompletePurchaseRequest extends ExpressCompletePurchaseRequest
             $result .= $decrypt;
         }
         openssl_free_key($res);
+
         return $result;
     }
 
@@ -118,7 +119,7 @@ class WapExpressCompletePurchaseRequest extends ExpressCompletePurchaseRequest
         $params['v'] = $this->getRequestParam('v');
         $params['sec_id'] = $this->getRequestParam('sec_id');
         $params['notify_data'] = $this->getRequestParam('notify_data');
+
         return $params;
     }
-
 }
