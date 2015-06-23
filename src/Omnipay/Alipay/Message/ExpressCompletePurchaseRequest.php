@@ -156,12 +156,12 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
         return $this->setRequestParam('notify_id', $value);
     }
 
-    public function getAliPubicKey()
+    public function getAliPublicKey()
     {
         return $this->getParameter('ali_public_key');
     }
 
-    public function setAliPubicKey($value)
+    public function setAliPublicKey($value)
     {
         return $this->setParameter('ali_public_key', $value);
     }
@@ -193,9 +193,9 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
         if ($signType == 'MD5') {
             $sign = md5($queryString . $this->getKey());
         } elseif ($signType == 'RSA') {
-            $sign = $this->rsaVerify($queryString, trim($this->getAliPubicKey()), $this->getRequestParam('sign'));
+            $sign = $this->rsaVerify($queryString, trim($this->getAliPublicKey()), $this->getRequestParam('sign'));
         } elseif ($signType == '0001') {
-            $sign = $this->rsaVerify($queryString, trim($this->getAliPubicKey()), $this->getRequestParam('sign'));
+            $sign = $this->rsaVerify($queryString, trim($this->getAliPublicKey()), $this->getRequestParam('sign'));
         } else {
             $sign = '';
         }
