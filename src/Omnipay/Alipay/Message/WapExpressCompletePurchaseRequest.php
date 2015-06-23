@@ -13,10 +13,6 @@ use Omnipay\Common\Message\AbstractRequest;
 class WapExpressCompletePurchaseRequest extends ExpressCompletePurchaseRequest
 {
 
-    protected $endpoint = 'http://notify.alipay.com/trade/notify_query.do?';
-
-    protected $endpoint_https = 'https://mapi.alipay.com/gateway.do?service=notify_verify&';
-
     /**
      * Get the raw data array for this message. The format of this varies from gateway to
      * gateway, but will usually be either an associative array, or a SimpleXMLElement.
