@@ -41,11 +41,14 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
         }
     }
 
-    public function getParamsToSign()
+    protected function getParamsToSign()
     {
         $params = $this->getRequestParams();
         unset($params['sign']);
         unset($params['sign_type']);
+        unset($params['notify_id']);
+        ksort($data);
+        reset($data);
         return $params;
     }
 
@@ -75,7 +78,7 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
 
     public function setRequestParam($key, $value)
     {
-        $params       = $this->getRequestParams();
+        $params = $this->getRequestParams();
         $params[$key] = $value;
         return $this;
     }
@@ -184,17 +187,15 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
 
     protected function getParamsSignature($data)
     {
-        ksort($data);
-        reset($data);
-        $query_string = http_build_query($data);
-        $query_string = urldecode($query_string);
-        $sign_type    = $this->getSignType();
-        if ($sign_type == 'MD5') {
-            $sign = md5($query_string . $this->getKey());
-        } elseif ($sign_type == 'RSA') {
-            $sign = $this->rsaVerify($query_string, trim($this->getAliPubicKey()), $this->getRequestParam('sign'));
-        } elseif ($sign_type == '0001') {
-            $sign = $this->rsaVerify($query_string, trim($this->getAliPubicKey()), $this->getRequestParam('sign'));
+        $queryString = http_build_query($data);
+        $queryString = urldecode($queryString);
+        $signType = $this->getSignType();
+        if ($signType == 'MD5') {
+            $sign = md5($queryString . $this->getKey());
+        } elseif ($signType == 'RSA') {
+            $sign = $this->rsaVerify($queryString, trim($this->getAliPubicKey()), $this->getRequestParam('sign'));
+        } elseif ($signType == '0001') {
+            $sign = $this->rsaVerify($queryString, trim($this->getAliPubicKey()), $this->getRequestParam('sign'));
         } else {
             $sign = '';
         }
@@ -204,7 +205,7 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
     protected function rsaVerify($data, $ali_public_key_path, $sign)
     {
         $pubKey = file_get_contents($ali_public_key_path);
-        $res    = openssl_pkey_get_public($pubKey);
+        $res = openssl_pkey_get_public($pubKey);
         $result = (bool)openssl_verify($data, base64_decode($sign), $res);
         openssl_free_key($res);
         return $result;
@@ -217,7 +218,7 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
         if ($notifyId) {
             $this->verifyResponse = $this->getVerifyResponse($this->getNotifyId());
             $data['verify_success'] = $this->isSignMatch() && $this->isResponseOk($this->verifyResponse);
-        }else{
+        } else {
             $data['verify_success'] = $this->isSignMatch();
         }
 
@@ -235,9 +236,9 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
 
     protected function isSignMatch()
     {
-        if(!$this->getRequestParam('sign')){
+        if (!$this->getRequestParam('sign')) {
             return false;
-        }if ($this->getRequestParam('sign') == $this->getParamsSignature($this->getParamsToSign())) {
+        } elseif ($this->getRequestParam('sign') == $this->getParamsSignature($this->getParamsToSign())) {
             return true;
         } else {
             return false;
@@ -246,10 +247,10 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
 
     protected function getVerifyResponse($notify_id)
     {
-        $partner     = $this->getPartner();
-        $verify_url  = $this->getEndpoint();
-        $verify_url  = $verify_url . "partner=" . $partner . "&notify_id=" . $notify_id;
-        $responseTxt = $this->getHttpResponseGET($verify_url, $this->getCacertPath());
+        $partner = $this->getPartner();
+        $verifyUrl = $this->getEndpoint();
+        $verifyUrl = $verifyUrl . "partner=" . $partner . "&notify_id=" . $notify_id;
+        $responseTxt = $this->getHttpResponseGET($verifyUrl, $this->getCacertPath());
         return $responseTxt;
     }
 
