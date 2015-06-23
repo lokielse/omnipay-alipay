@@ -27,7 +27,7 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
     public function getData()
     {
         $this->validate('request_params', 'transport', 'partner', 'sign_type', 'key');
-        $this->validateRequestParams('trade_status', 'out_trade_no', 'trade_no');
+        $this->validateRequestParams('trade_status', 'out_trade_no', 'trade_no', 'sign');
         return $this->getParameters();
     }
 
@@ -212,23 +212,16 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        $notify_id = $this->getNotifyId();
-        $sign = $this->getRequestParam('sign');
-        $validateSign = !empty($sign);
+        $notifyId = $this->getNotifyId();
+        $data                 = array();
 
-        $this->verifyResponse = 'true';
-        if (!is_null($notify_id)) {
+        if ($notifyId) {
             $this->verifyResponse = $this->getVerifyResponse($this->getNotifyId());
-            $validateSign = true;
+            $data['verify_success'] = $this->isSignMatch() && $this->isResponseOk($this->verifyResponse);
+        }else{
+            $data['verify_success'] = $this->isSignMatch();
         }
-        
-        $data                    = array();
-        $data['verify_response'] = $this->verifyResponse;
-        if ($this->isResponseOk($this->verifyResponse) && (!$validateSign || $this->isSignMatch())) {
-            $data['verify_success'] = true;
-        } else {
-            $data['verify_success'] = false;
-        }
+
         return $this->response = new ExpressCompletePurchaseResponse($this, $data);
     }
 
@@ -243,7 +236,9 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
 
     protected function isSignMatch()
     {
-        if ($this->getRequestParam('sign') == $this->getParamsSignature($this->getParamsToSign())) {
+        if(!$this->getRequestParam('sign')){
+            return false;
+        }if ($this->getRequestParam('sign') == $this->getParamsSignature($this->getParamsToSign())) {
             return true;
         } else {
             return false;
