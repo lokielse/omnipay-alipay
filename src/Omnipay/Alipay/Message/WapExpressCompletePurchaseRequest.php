@@ -113,7 +113,7 @@ class WapExpressCompletePurchaseRequest extends ExpressCompletePurchaseRequest
         return $this->response = new ExpressCompletePurchaseResponse($this, $data);
     }
 
-    protected function getParamsToSign($para)
+    protected function getParamsToSign()
     {
         $params['service'] = $this->getRequestParam('service');
         $params['v'] = $this->getRequestParam('v');
