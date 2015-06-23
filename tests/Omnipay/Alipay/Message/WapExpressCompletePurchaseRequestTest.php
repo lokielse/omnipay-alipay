@@ -19,6 +19,9 @@ class WapExpressCompletePurchaseRequestTest extends TestCase
                  'request_params' => array(
                      'notify_data' => '<xml></xml>',
                      'trade_status' => 'TRADE_SUCCESS',
+                     'service' => 'a.b.c',
+                     'v' => '1.0',
+                     'sec_id' => '111111',
                  ),
                  'private_key'    => '-----BEGIN RSA PRIVATE KEY-----
 MIICWwIBAAKBgQDELAccoy5epvo9TEKr4sXLVNbM0ZXAu24G9z/k2D3SHtFuONCh
