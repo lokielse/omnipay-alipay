@@ -46,7 +46,7 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
         $params = $this->getRequestParams();
         unset($params['sign']);
         unset($params['sign_type']);
-        unset($params['notify_id']);
+        //unset($params['notify_id']);
         ksort($params);
         reset($params);
         return $params;
