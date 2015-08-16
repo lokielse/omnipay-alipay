@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by sqiu.
- * CreateTime: 14-1-2 上午2:57
- *
- */
+
 namespace Omnipay\Alipay\Message;
 
-class WapExpressPurchaseRequest extends BaseAbstractRequest
+class WapExpressPurchaseRequest extends BasePurchaseRequest
 {
-
-    protected $endpoint = 'http://wappaygw.alipay.com/service/rest.htm';
 
     /**
      * Get the raw data array for this message. The format of this varies from gateway to
@@ -19,74 +13,60 @@ class WapExpressPurchaseRequest extends BaseAbstractRequest
      */
     public function getData()
     {
-        //必填
-        $req_data = sprintf(
-            '<auth_and_execute_req><request_token>%s</request_token></auth_and_execute_req>',
-            $this->getToken()
-        );
-        /************************************************************/
-        //构造要请求的参数数组，无需改动
-        $data         = array(
-            "service"        => "alipay.wap.auth.authAndExecute",
+        $this->validateData();
+
+        $data = [
+            "service"        => $this->getService(),
             "partner"        => $this->getPartner(),
-            "sec_id"         => $this->getSignType(),
-            "format"         => 'xml',
-            "v"              => '2.0',
-            "req_id"         => microtime(true) . '',
-            "req_data"       => $req_data,
-            "_input_charset" => $this->getInputCharset()
-        );
-        $data['sign'] = $this->getParamsSignature($data);
+            "seller_id"      => $this->getPartner(),
+            "payment_type"   => $this->getPaymentType(),
+            "notify_url"     => $this->getNotifyUrl(),
+            "return_url"     => $this->getReturnUrl(),
+            "out_trade_no"   => $this->getOutTradeNo(),
+            "subject"        => $this->getSubject(),
+            "total_fee"      => $this->getTotalFee(),
+            "show_url"       => $this->getShowUrl(),
+            "body"           => $this->getBody(),
+            "it_b_pay"       => $this->getItBPay(),
+            "extern_token"   => $this->getToken(),
+            "_input_charset" => $this->getInputCharset(),
+        ];
+
+        $data              = array_filter($data);
+        $data['sign']      = $this->getParamsSignature($data);
+        $data['sign_type'] = $this->getSignType();
+
         return $data;
     }
 
-    public function getKey()
+
+    protected function validateData()
     {
-        return $this->getParameter('key');
+        parent::validateData();
+        $this->validate('total_fee');
     }
 
-    public function setKey($value)
+
+    public function getPayMethod()
     {
-        $this->setParameter('key', $value);
+        return $this->getParameter('pay_method');
     }
 
-    public function getInputCharset()
+
+    public function getDefaultBank()
     {
-        return $this->getParameter('input_charset');
+        return $this->getParameter('default_bank');
     }
 
-    public function setInputCharset($value)
+
+    public function setDefaultBank($value)
     {
-        $this->setParameter('input_charset', $value);
+        $this->setParameter('default_bank', $value);
     }
 
-    public function getSignType()
-    {
-        return $this->getParameter('sign_type');
-    }
 
-    public function setSignType($value)
+    public function setPayMethod($value)
     {
-        $this->setParameter('sign_type', $value);
-    }
-
-    public function getPartner()
-    {
-        return $this->getParameter('partner');
-    }
-
-    public function setPartner($value)
-    {
-        $this->setParameter('partner', $value);
-    }
-
-    public function sendData($data)
-    {
-        return $this->response = new WapExpressPurchaseResponse($this, $data);
-    }
-
-    public function getEndpoint()
-    {
-        return $this->endpoint;
+        $this->setParameter('pay_method', $value);
     }
 }

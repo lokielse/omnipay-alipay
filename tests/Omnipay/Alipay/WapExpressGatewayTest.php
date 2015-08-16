@@ -15,6 +15,7 @@ class WapExpressGatewayTest extends GatewayTestCase
 
     protected $options;
 
+
     public function setUp()
     {
         parent::setUp();
@@ -25,12 +26,13 @@ class WapExpressGatewayTest extends GatewayTestCase
         $this->gateway->setNotifyUrl('https://www.example.com/notify');
         $this->gateway->setReturnUrl('https://www.example.com/return');
         $this->gateway->setCancelUrl('https://www.example.com/return');
-        $this->options = array(
+        $this->options = [
             'out_trade_no' => '2014010122390001',
             'subject'      => 'test',
             'total_fee'    => '0.01',
-        );
+        ];
     }
+
 
     /**
      *
@@ -40,10 +42,12 @@ class WapExpressGatewayTest extends GatewayTestCase
         // no need
     }
 
+
     public function testCompleteAuthorize()
     {
         // no need
     }
+
 
     public function testPurchase()
     {

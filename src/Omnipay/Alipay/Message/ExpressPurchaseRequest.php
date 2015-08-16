@@ -1,21 +1,9 @@
 <?php
-/**
- * Created by sqiu.
- * CreateTime: 14-1-1 下午9:06
- *
- */
+
 namespace Omnipay\Alipay\Message;
 
 class ExpressPurchaseRequest extends BasePurchaseRequest
 {
-
-    protected function validateData()
-    {
-        parent::validateData();
-        $this->validate(
-            'total_fee'
-        );
-    }
 
     /**
      * Get the raw data array for this message. The format of this varies from gateway to
@@ -26,10 +14,10 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
     public function getData()
     {
         $this->validateData();
-        $data              = array(
+        $data              = [
             "service"           => $this->getService(),
             "partner"           => $this->getPartner(),
-            "payment_type"      => 1,
+            "payment_type"      => $this->getPaymentType(),
             "notify_url"        => $this->getNotifyUrl(),
             "return_url"        => $this->getReturnUrl(),
             "seller_email"      => $this->getSellerEmail(),
@@ -44,50 +32,59 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
             "paymethod"         => $this->getPayMethod(),
             "defaultbank"       => $this->getDefaultBank(),
             "_input_charset"    => $this->getInputCharset(),
-        );
+        ];
         $data              = array_filter($data);
         $data['sign']      = $this->getParamsSignature($data);
         $data['sign_type'] = $this->getSignType();
+
         return $data;
     }
 
-    public function getTotalFee()
+
+    public function getAntiPhishingKey()
     {
-        return $this->getParameter('total_fee');
+        return $this->getParameter('anti_phishing_key');
     }
 
-    public function setTotalFee($value)
+
+    public function getExterInvokeIp()
     {
-        $this->setParameter('total_fee', $value);
+        return $this->getParameter('exter_invoke_ip');
     }
 
-    public function getCurrency()
-    {
-        return $this->getParameter('currency');
-    }
-
-    public function setCurrency($value)
-    {
-        $this->setParameter('currency', $value);
-    }
-
-    public function getDefaultBank()
-    {
-        return $this->getParameter('default_bank');
-    }
-
-    public function setDefaultBank($value)
-    {
-        $this->setParameter('default_bank', $value);
-    }
 
     public function getPayMethod()
     {
         return $this->getParameter('pay_method');
     }
 
+
+    public function getDefaultBank()
+    {
+        return $this->getParameter('default_bank');
+    }
+
+
+    public function setDefaultBank($value)
+    {
+        $this->setParameter('default_bank', $value);
+    }
+
+
     public function setPayMethod($value)
     {
         $this->setParameter('pay_method', $value);
+    }
+
+
+    public function setAntiPhishingKey($value)
+    {
+        $this->setParameter('anti_phishing_key', $value);
+    }
+
+
+    public function setExterInvokeIp($value)
+    {
+        $this->setParameter('exter_invoke_ip', $value);
     }
 }

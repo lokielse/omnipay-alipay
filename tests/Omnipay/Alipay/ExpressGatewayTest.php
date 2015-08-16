@@ -15,6 +15,7 @@ class ExpressGatewayTest extends GatewayTestCase
 
     protected $options;
 
+
     public function setUp()
     {
         parent::setUp();
@@ -24,12 +25,13 @@ class ExpressGatewayTest extends GatewayTestCase
         $this->gateway->setSellerEmail('example@qq.com');
         $this->gateway->setNotifyUrl('https://www.example.com/notify');
         $this->gateway->setReturnUrl('https://www.example.com/return');
-        $this->options = array(
+        $this->options = [
             'out_trade_no' => '2014010122390001',
             'subject'      => 'test',
             'total_fee'    => '0.01',
-        );
+        ];
     }
+
 
     public function testPurchase()
     {

@@ -1,9 +1,5 @@
 <?php
-/**
- * Created by sqiu.
- * CreateTime: 14-1-2 上午5:03
- *
- */
+
 namespace Omnipay\Alipay\Message;
 
 use Omnipay\Common\Message\AbstractResponse;
@@ -21,6 +17,7 @@ class MobileExpressPurchaseResponse extends AbstractResponse implements Response
     {
         return true;
     }
+
 
     public function getRedirectData()
     {

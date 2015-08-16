@@ -1,22 +1,18 @@
 <?php
-/**
- * Created by sqiu.
- * CreateTime: 14-1-2 下午11:29
- *
- */
+
 namespace Omnipay\Alipay\Message;
 
 use Omnipay\Common\Exception\InvalidRequestException;
-use Omnipay\Common\Message\AbstractRequest;
 
-class ExpressCompletePurchaseRequest extends AbstractRequest
+class ExpressCompletePurchaseRequest extends BaseAbstractRequest
 {
+
+    public $verifyResponse;
 
     protected $endpoint = 'http://notify.alipay.com/trade/notify_query.do?';
 
-    protected $endpoint_https = 'https://mapi.alipay.com/gateway.do?service=notify_verify&';
+    protected $endpointHttps = 'https://mapi.alipay.com/gateway.do?service=notify_verify&';
 
-    public $verifyResponse;
 
     /**
      * Get the raw data array for this message. The format of this varies from gateway to
@@ -28,29 +24,32 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
     {
         $this->validate('request_params', 'transport', 'partner', 'sign_type', 'key');
         $this->validateRequestParams('trade_status', 'out_trade_no', 'trade_no', 'sign');
+
         return $this->getParameters();
     }
+
 
     public function validateRequestParams()
     {
         foreach (func_get_args() as $key) {
             $value = $this->getRequestParam($key);
-            if ($value === null) {
+            if (is_null($value)) {
                 throw new InvalidRequestException("The request_params.$key parameter is required");
             }
         }
     }
 
-    protected function getParamsToSign()
+
+    public function getRequestParam($key)
     {
         $params = $this->getRequestParams();
-        unset($params['sign']);
-        unset($params['sign_type']);
-        //unset($params['notify_id']);
-        ksort($params);
-        reset($params);
-        return $params;
+        if (isset( $params[$key] )) {
+            return $params[$key];
+        } else {
+            return null;
+        }
     }
+
 
     /**
      * The parameters alipay callback to server
@@ -61,169 +60,240 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
         return $this->getParameter('request_params');
     }
 
+
     public function setRequestParams($value)
     {
         return $this->setParameter('request_params', $value);
     }
 
-    public function getRequestParam($key)
-    {
-        $params = $this->getRequestParams();
-        if (isset($params[$key])) {
-            return $params[$key];
-        } else {
-            return null;
-        }
-    }
-
-    public function setRequestParam($key, $value)
-    {
-        $params = $this->getRequestParams();
-        $params[$key] = $value;
-        return $this;
-    }
-
-    public function getSignType()
-    {
-        return $this->getParameter('sign_type');
-    }
-
-    public function setSignType($value)
-    {
-        return $this->setParameter('sign_type', $value);
-    }
 
     public function getInputCharset()
     {
         return $this->getParameter('input_charset');
     }
 
+
     public function setInputCharset($value)
     {
         return $this->setParameter('input_charset', $value);
     }
 
-    public function getKey()
-    {
-        return $this->getParameter('key');
-    }
-
-    public function setKey($value)
-    {
-        return $this->setParameter('key', $value);
-    }
-
-    public function getTransport()
-    {
-        return $this->getParameter('transport');
-    }
 
     public function setTransport($value)
     {
         return $this->setParameter('transport', $value);
     }
 
-    public function getPartner()
-    {
-        return $this->getParameter('partner');
-    }
 
     public function setPartner($value)
     {
         return $this->setParameter('partner', $value);
     }
 
-    public function getCaCertPath()
-    {
-        return $this->getParameter('ca_cert_path');
-    }
-
-    public function setCaCertPath($value)
-    {
-        if (!is_file($value)) {
-            throw new InvalidRequestException("The ca_cert_path($value) is not exists");
-        }
-        return $this->setParameter('ca_cert_path', $value);
-    }
-
-    public function getNotifyId()
-    {
-        return $this->getRequestParam('notify_id');
-    }
 
     public function setNotifyId($value)
     {
         return $this->setRequestParam('notify_id', $value);
     }
 
-    public function getAliPublicKey()
+
+    public function setRequestParam($key, $value)
     {
-        return $this->getParameter('ali_public_key');
+        $params       = $this->getRequestParams();
+        $params[$key] = $value;
+
+        return $this;
     }
 
+
+    /**
+     * @deprecated use getAlipayPublicKey instead
+     * @return mixed
+     */
+    public function getAliPublicKey()
+    {
+        return $this->getParameter('alipay_public_key');
+    }
+
+
+    /**
+     * @deprecated use setAlipayPublicKey instead
+     *
+     * @param $value
+     *
+     * @return $this
+     */
     public function setAliPublicKey($value)
     {
-        return $this->setParameter('ali_public_key', $value);
+        return $this->setParameter('alipay_public_key', $value);
     }
+
+
+    public function setAlipayPublicKey($value)
+    {
+        return $this->setParameter('alipay_public_key', $value);
+    }
+
 
     public function getTradeStatus()
     {
         return $this->getRequestParam('trade_status');
     }
 
+
     public function setTradeStatus($value)
     {
         return $this->setRequestParam('trade_status', $value);
     }
 
-    public function getEndpoint()
+
+    public function setCaCertPath($value)
     {
-        if (strtolower($this->getTransport()) == 'http') {
-            return $this->endpoint;
-        } else {
-            return $this->endpoint_https;
+        if ( ! is_file($value)) {
+            throw new InvalidRequestException("The ca_cert_path($value) is not exists");
         }
+
+        return $this->setParameter('ca_cert_path', $value);
     }
 
-    protected function getParamsSignature($data)
-    {
-        $queryString = http_build_query($data);
-        $queryString = urldecode($queryString);
-        $signType = $this->getSignType();
-        if ($signType == 'MD5') {
-            $sign = md5($queryString . $this->getKey());
-        } elseif ($signType == 'RSA') {
-            $sign = $this->rsaVerify($queryString, trim($this->getAliPublicKey()), $this->getRequestParam('sign'));
-        } elseif ($signType == '0001') {
-            $sign = $this->rsaVerify($queryString, trim($this->getAliPublicKey()), $this->getRequestParam('sign'));
-        } else {
-            $sign = '';
-        }
-        return $sign;
-    }
-
-    protected function rsaVerify($data, $ali_public_key_path, $sign)
-    {
-        $pubKey = file_get_contents($ali_public_key_path);
-        $res = openssl_pkey_get_public($pubKey);
-        $result = (bool)openssl_verify($data, base64_decode($sign), $res);
-        openssl_free_key($res);
-        return $result;
-    }
 
     public function sendData($data)
     {
         $notifyId = $this->getNotifyId();
 
         if ($notifyId) {
-            $this->verifyResponse = $this->getVerifyResponse($this->getNotifyId());
-            $data['verify_success'] = $this->isSignMatch() && $this->isResponseOk($this->verifyResponse);
+            $this->verifyResponse   = $this->getVerifyResponse($notifyId);
+            $data['verify_success'] = $this->isSignMatch() && $this->isResponseOk();
         } else {
             $data['verify_success'] = $this->isSignMatch();
         }
 
         return $this->response = new ExpressCompletePurchaseResponse($this, $data);
     }
+
+
+    public function getNotifyId()
+    {
+        return $this->getRequestParam('notify_id');
+    }
+
+
+    protected function getVerifyResponse($notifyId)
+    {
+        $partner  = $this->getPartner();
+        $endpoint = $this->getEndpoint();
+
+        $url = "{$endpoint}partner={$partner}&notify_id={$notifyId}";
+
+        $responseTxt = $this->getHttpResponseGET($url, $this->getCacertPath());
+
+        return $responseTxt;
+    }
+
+
+    public function getPartner()
+    {
+        return $this->getParameter('partner');
+    }
+
+
+    public function getEndpoint()
+    {
+        if (strtolower($this->getTransport()) == 'http') {
+            return $this->endpoint;
+        } else {
+            return $this->endpointHttps;
+        }
+    }
+
+
+    public function getTransport()
+    {
+        return $this->getParameter('transport');
+    }
+
+
+    protected function getHttpResponseGET($url, $caCertUrl)
+    {
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($curl, CURLOPT_CAINFO, $caCertUrl);
+        $responseText = curl_exec($curl);
+        curl_close($curl);
+
+        return $responseText;
+    }
+
+
+    public function getCaCertPath()
+    {
+        return $this->getParameter('ca_cert_path');
+    }
+
+
+    protected function isSignMatch()
+    {
+        $requestSign = $this->getRequestParam('sign');
+
+        $queryString = http_build_query($this->getParamsToSign());
+        $queryString = urldecode($queryString);
+
+        $signType = $this->getSignType();
+
+        //dd($queryString);
+
+        switch (strtoupper($signType)) {
+            case 'MD5':
+                return $requestSign === md5($queryString . $this->getKey());
+                break;
+            case 'RSA':
+            case '0001':
+
+                $publicKey = $this->getAlipayPublicKey();
+
+                $result = $this->verifyWithRSA($queryString, trim($publicKey), $requestSign);
+
+                return $result;
+                break;
+            default:
+                return false;
+
+        }
+
+    }
+
+
+    protected function getParamsToSign()
+    {
+        $params = $this->getRequestParams();
+        unset( $params['sign'] );
+        unset( $params['sign_type'] );
+        ksort($params);
+        reset($params);
+
+        return $params;
+    }
+
+
+    public function getAlipayPublicKey()
+    {
+        return $this->getParameter('alipay_public_key');
+    }
+
+
+    protected function verifyWithRSA($data, $publicKey, $sign)
+    {
+        $publicKey = $this->prefixCertificateKeyPath($publicKey);
+        $res       = openssl_pkey_get_public($publicKey);
+        $result    = (bool) openssl_verify($data, base64_decode($sign), $res);
+        openssl_free_key($res);
+
+        return $result;
+    }
+
 
     protected function isResponseOk()
     {
@@ -232,38 +302,5 @@ class ExpressCompletePurchaseRequest extends AbstractRequest
         } else {
             return false;
         }
-    }
-
-    protected function isSignMatch()
-    {
-        if (!$this->getRequestParam('sign')) {
-            return false;
-        } elseif ($this->getRequestParam('sign') == $this->getParamsSignature($this->getParamsToSign())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    protected function getVerifyResponse($notify_id)
-    {
-        $partner = $this->getPartner();
-        $verifyUrl = $this->getEndpoint();
-        $verifyUrl = $verifyUrl . "partner=" . $partner . "&notify_id=" . $notify_id;
-        $responseTxt = $this->getHttpResponseGET($verifyUrl, $this->getCacertPath());
-        return $responseTxt;
-    }
-
-    protected function getHttpResponseGET($url, $cacert_url)
-    {
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
-        curl_setopt($curl, CURLOPT_CAINFO, $cacert_url);
-        $responseText = curl_exec($curl);
-        curl_close($curl);
-        return $responseText;
     }
 }
