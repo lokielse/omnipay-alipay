@@ -20,7 +20,9 @@
     }
   ],
   "autoload": {
-    "psr-0": {"Omnipay\\Alipay\\": "src/"}
+    "psr-4": {
+      "Omnipay\\Alipay\\": "src/"
+    }
   },
   "require": {
     "omnipay/common": "~2.0"
