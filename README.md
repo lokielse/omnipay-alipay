@@ -16,8 +16,7 @@ processing library for PHP 5.3+. This package implements Alipay support for Omni
 
 ## Installation
 
-Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply add it
-to your `composer.json` file:
+Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply add it to your `composer.json` file:
 
 ```json
 {
