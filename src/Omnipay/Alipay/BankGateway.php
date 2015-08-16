@@ -1,9 +1,5 @@
 <?php
-/**
- * Created by sqiu.
- * CreateTime: 14-1-2 上午1:00
- *
- */
+
 namespace Omnipay\Alipay;
 
 use Omnipay\Common\Exception\InvalidRequestException;
@@ -16,7 +12,8 @@ use Omnipay\Common\Exception\InvalidRequestException;
 class BankGateway extends ExpressGateway
 {
 
-    protected $service_name = 'create_direct_pay_by_user';
+    protected $service = 'create_direct_pay_by_user';
+
 
     /**
      * Get gateway display name
@@ -28,13 +25,16 @@ class BankGateway extends ExpressGateway
         return 'Alipay Bank';
     }
 
-    public function purchase(array $parameters = array())
+
+    public function purchase(array $parameters = [ ])
     {
-        $this->setService($this->service_name);
+        $this->setService($this->service);
         $this->setParameter('paymethod', 'bankPay');
+
         if ($this->getParameter('default_bank') === null) {
             throw new InvalidRequestException("The setDefaultBank(x) method is not called.");
         }
+
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressPurchaseRequest', $parameters);
     }
 }

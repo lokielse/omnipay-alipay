@@ -1,9 +1,5 @@
 <?php
-/**
- * Created by sqiu.
- * CreateTime: 14-1-2 上午12:52
- *
- */
+
 namespace Omnipay\Alipay;
 
 /**
@@ -24,18 +20,22 @@ class MobileExpressGateway extends BaseAbstractGateway
         return 'Alipay Mobile Express';
     }
 
-    public function purchase(array $parameters = array())
-    {
-        return $this->createRequest('\Omnipay\Alipay\Message\MobileExpressPurchaseRequest', $parameters);
-    }
 
     public function getPrivateKey()
     {
         return $this->getParameter('private_key');
     }
 
+
     public function setPrivateKey($value)
     {
         $this->setParameter('private_key', $value);
     }
+
+
+    public function purchase(array $parameters = [ ])
+    {
+        return $this->createRequest('\Omnipay\Alipay\Message\MobileExpressPurchaseRequest', $parameters);
+    }
+
 }

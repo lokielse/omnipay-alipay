@@ -14,16 +14,15 @@ class WapExpressCompletePurchaseRequestTest extends TestCase
     public function setUp()
     {
         $this->request = new WapExpressCompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
-        $this->request->initialize(
-            array(
-                 'request_params' => array(
-                     'notify_data' => '<xml></xml>',
-                     'trade_status' => 'TRADE_SUCCESS',
-                     'service' => 'a.b.c',
-                     'v' => '1.0',
-                     'sec_id' => '111111',
-                 ),
-                 'private_key'    => '-----BEGIN RSA PRIVATE KEY-----
+        $this->request->initialize([
+            'request_params' => [
+                'notify_data'  => '<xml></xml>',
+                'trade_status' => 'TRADE_SUCCESS',
+                'service'      => 'a.b.c',
+                'v'            => '1.0',
+                'sec_id'       => '111111',
+            ],
+            'private_key'    => '-----BEGIN RSA PRIVATE KEY-----
 MIICWwIBAAKBgQDELAccoy5epvo9TEKr4sXLVNbM0ZXAu24G9z/k2D3SHtFuONCh
 H1O5nF73332hSA1k1x/nexGNAMlot/H6IlucdRaL8zHcSA5AKVw0iCnD9BoVnXCG
 tElayPXQeLgtEP5FAJ9Ba1w28UWTgkgTj8dAFwYxADiAMm9i4LfWMtay0wIDAQAB
@@ -38,10 +37,10 @@ iFKk29VRkHaHt+26Mcf3M5cho/thfiAcXcLF9DBtrrpzYkmrm/H6/ax0dc6I0kr2
 jb0ZzA1p7cDK4Mt9swJACh0wFnEQvfFBVUZo/zWW5nEBnVQ4l1QhfG6DoWJJA866
 jdamyj2vQOFHLE2qpD+wprkUa86FJsdaEcuKjUl1lw==
 -----END RSA PRIVATE KEY-----',
-                 'partner'        => '451235632',
-            )
-        );
+            'partner'        => '451235632',
+        ]);
     }
+
 
     public function testGetData()
     {

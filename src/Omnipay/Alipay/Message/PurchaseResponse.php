@@ -16,10 +16,12 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         return false;
     }
 
+
     public function isRedirect()
     {
         return true;
     }
+
 
     public function getRedirectUrl()
     {
@@ -30,10 +32,12 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
         }
     }
 
+
     public function getRedirectMethod()
     {
         return 'GET';
     }
+
 
     public function getRedirectData()
     {

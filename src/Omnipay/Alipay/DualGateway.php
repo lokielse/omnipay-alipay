@@ -1,9 +1,5 @@
 <?php
-/**
- * Created by sqiu.
- * CreateTime: 14-1-2 上午12:53
- *
- */
+
 namespace Omnipay\Alipay;
 
 /**
@@ -14,7 +10,8 @@ namespace Omnipay\Alipay;
 class DualGateway extends SecuredGateway
 {
 
-    protected $service_name = 'trade_create_by_buyer';
+    protected $serviceName = 'trade_create_by_buyer';
+
 
     /**
      * Get gateway display name
@@ -26,9 +23,11 @@ class DualGateway extends SecuredGateway
         return 'AliPay Dual Func';
     }
 
-    public function purchase(array $parameters = array())
+
+    public function purchase(array $parameters = [ ])
     {
-        $this->setService($this->service_name);
+        $this->setService($this->serviceName);
+
         return $this->createRequest('\Omnipay\Alipay\Message\SecuredPurchaseRequest', $parameters);
     }
 }

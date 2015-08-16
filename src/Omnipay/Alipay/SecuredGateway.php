@@ -26,7 +26,8 @@ class SecuredGateway extends BaseAbstractGateway
 
     const LOGISTIC_PAYMENT_BUYER_PAY = 'BUYER_PAY';
 
-    protected $service_name = 'create_partner_trade_by_buyer';
+    protected $serviceName = 'create_partner_trade_by_buyer';
+
 
     /**
      * Get gateway display name
@@ -38,6 +39,7 @@ class SecuredGateway extends BaseAbstractGateway
         return 'Alipay Secured';
     }
 
+
     public function setLogisticsInfo($fee, $type, $payment)
     {
         $this->setLogisticsFee($fee);
@@ -45,35 +47,42 @@ class SecuredGateway extends BaseAbstractGateway
         $this->setLogisticsPayment($payment);
     }
 
-    public function getLogisticsFee()
-    {
-        return $this->getParameter('logistics_fee');
-    }
 
     public function setLogisticsFee($value)
     {
         $this->setParameter('logistics_fee', $value);
     }
 
-    public function getLogisticsType()
-    {
-        return $this->getParameter('logistics_type');
-    }
 
     public function setLogisticsType($value)
     {
         $this->setParameter('logistics_type', $value);
     }
 
-    public function getLogisticsPayment()
-    {
-        return $this->getParameter('logistics_payment');
-    }
 
     public function setLogisticsPayment($value)
     {
         $this->setParameter('logistics_payment', $value);
     }
+
+
+    public function getLogisticsFee()
+    {
+        return $this->getParameter('logistics_fee');
+    }
+
+
+    public function getLogisticsType()
+    {
+        return $this->getParameter('logistics_type');
+    }
+
+
+    public function getLogisticsPayment()
+    {
+        return $this->getParameter('logistics_payment');
+    }
+
 
     public function setReceiveInfo($name, $address, $zip, $phone, $mobile)
     {
@@ -84,59 +93,72 @@ class SecuredGateway extends BaseAbstractGateway
         $this->setReceiveMobile($mobile);
     }
 
-    public function getReceiveName()
-    {
-        return $this->getParameter('receive_name');
-    }
 
     public function setReceiveName($value)
     {
         $this->setParameter('receive_name', $value);
     }
 
-    public function getReceiveAddress()
-    {
-        return $this->getParameter('receive_address');
-    }
 
     public function setReceiveAddress($value)
     {
         $this->setParameter('receive_address', $value);
     }
 
-    public function getReceiveZip()
-    {
-        return $this->getParameter('receive_zip');
-    }
 
     public function setReceiveZip($value)
     {
         $this->setParameter('receive_zip', $value);
     }
 
-    public function getReceivePhone()
-    {
-        return $this->getParameter('receive_phone');
-    }
 
     public function setReceivePhone($value)
     {
         $this->setParameter('receive_phone', $value);
     }
 
-    public function getReceiveMobile()
-    {
-        return $this->getParameter('receive_mobile');
-    }
 
     public function setReceiveMobile($value)
     {
         $this->setParameter('receive_mobile', $value);
     }
 
-    public function purchase(array $parameters = array())
+
+    public function getReceiveName()
     {
-        $this->setService($this->service_name);
+        return $this->getParameter('receive_name');
+    }
+
+
+    public function getReceiveAddress()
+    {
+        return $this->getParameter('receive_address');
+    }
+
+
+    public function getReceiveZip()
+    {
+        return $this->getParameter('receive_zip');
+    }
+
+
+    public function getReceivePhone()
+    {
+        return $this->getParameter('receive_phone');
+    }
+
+
+    public function getReceiveMobile()
+    {
+        return $this->getParameter('receive_mobile');
+    }
+
+
+    public function purchase(array $parameters = [ ])
+    {
+        $this->setService($this->serviceName);
+
         return $this->createRequest('\Omnipay\Alipay\Message\SecuredPurchaseRequest', $parameters);
     }
+
 }
