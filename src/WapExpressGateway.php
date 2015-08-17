@@ -13,6 +13,16 @@ class WapExpressGateway extends BaseAbstractGateway
     protected $service = 'alipay.wap.create.direct.pay.by.user';
 
 
+    public function getDefaultParameters()
+    {
+        $params = parent::getDefaultParameters();
+
+        $params['signType'] = 'RSA';
+
+        return $params;
+    }
+
+
     /**
      * Get gateway display name
      *
@@ -36,11 +46,10 @@ class WapExpressGateway extends BaseAbstractGateway
     }
 
 
-    public function purchase(array $parameters = [ ])
+    public function purchase(array $parameters = [])
     {
         $this->setService($this->service);
 
         return $this->createRequest('\Omnipay\Alipay\Message\WapExpressPurchaseRequest', $parameters);
     }
-
 }

@@ -25,7 +25,8 @@ class MobileExpressGatewayTest extends GatewayTestCase
         $this->gateway->setNotifyUrl('https://www.example.com/notify');
         $this->gateway->setReturnUrl('https://www.example.com/return');
         $this->gateway->setShowUrl('https://www.example.com/return1');
-        $this->gateway->setPrivateKey('-----BEGIN RSA PRIVATE KEY-----
+        $this->gateway->setPrivateKey(
+            '-----BEGIN RSA PRIVATE KEY-----
 MIICWwIBAAKBgQDELAccoy5epvo9TEKr4sXLVNbM0ZXAu24G9z/k2D3SHtFuONCh
 H1O5nF73332hSA1k1x/nexGNAMlot/H6IlucdRaL8zHcSA5AKVw0iCnD9BoVnXCG
 tElayPXQeLgtEP5FAJ9Ba1w28UWTgkgTj8dAFwYxADiAMm9i4LfWMtay0wIDAQAB
@@ -39,11 +40,13 @@ K30RJq5MNnoOSCk9nmzxjpkOzO19+YgSz+tGpq35a6a4I3E+KTRSZdWLUQJAaMPa
 iFKk29VRkHaHt+26Mcf3M5cho/thfiAcXcLF9DBtrrpzYkmrm/H6/ax0dc6I0kr2
 jb0ZzA1p7cDK4Mt9swJACh0wFnEQvfFBVUZo/zWW5nEBnVQ4l1QhfG6DoWJJA866
 jdamyj2vQOFHLE2qpD+wprkUa86FJsdaEcuKjUl1lw==
------END RSA PRIVATE KEY-----');
+-----END RSA PRIVATE KEY-----'
+        );
         $this->options = [
             'out_trade_no' => '2014010122390001',
             'subject'      => 'test',
             'total_fee'    => '0.01',
+            'sign_type'    => 'RSA',
         ];
     }
 

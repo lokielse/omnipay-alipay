@@ -10,10 +10,6 @@
 processing library for PHP 5.3+. This package implements Alipay support for Omnipay.
 
 
-## Example Code
-[omnipay-alipay-example](https://github.com/lokielse/omnipay-alipay-example)
-
-
 ## Installation
 
 Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply add it to your `composer.json` file:
@@ -43,8 +39,73 @@ The following gateways are provided by this package:
 * Alipay_MobileExpress (Alipay Mobile Express Checkout) 支付宝无线支付接口
 * Alipay_Bank (Alipay Bank Checkout) 支付宝网银快捷接口
 
+## Usage
+
+### Purchase
+```php
+$gateway = Omnipay::create('Alipay_Express');
+$gateway->setPartner('8888666622221111');
+$gateway->setKey('your**key**here');
+$gateway->setSellerEmail('merchant@example.com');
+$gateway->setReturnUrl('http://www.example.com/return');
+$gateway->setNotifyUrl('http://www.example.com/notify');
+
+//For 'Alipay_MobileExpress', 'Alipay_WapExpress'
+//$gateway->setPrivateKey('/such-as/private_key.pem');
+
+$options = [
+    'out_trade_no' => date('YmdHis') . mt_rand(1000,9999), //your site trade no, unique
+    'subject'      => 'test', //order title
+    'total_fee'    => '0.01', //order total fee
+];
+
+$response = $gateway->purchase($options)->send();
+
+$response->getRedirectUrl();
+$response->getRedirectData();
+
+//For 'Alipay_MobileExpress'
+//Use the order string with iOS or Android SDK
+$response->getOrderString();
+```
+
+### Return/Notify
+```php
+$gateway = Omnipay::create('Alipay_Express');
+$gateway->setPartner('8888666622221111');
+$gateway->setKey('your**key**here');
+$gateway->setSellerEmail('merchant@example.com');
+
+//For 'Alipay_MobileExpress', 'Alipay_WapExpress'
+//$gateway->setAlipayPublicKey('/such-as/alipay_public_key.pem');
+
+$options = [
+    'request_params'=> $_REQUEST,
+];
+
+$response = $gateway->completePurchase($options)->send();
+
+if ($response->isSuccessful() && $response->isTradeStatusOk()) {
+
+   // Paid success, your statements go here.
+
+   //For notify, response 'success' only please.
+   //die('success');
+} else {
+
+   //For notify, response 'fail' only please.
+   //die('fail');
+}
+```
+
+
 For general usage instructions, please see the main [Omnipay](https://github.com/omnipay/omnipay)
 repository.
+
+## Related
+
+[Laravel-Omnipay](https://github.com/ignited/laravel-omnipay)
+[Omnipay-UnionPay](https://github.com/lokielse/omnipay-unionpay)
 
 ## Support
 

@@ -13,13 +13,13 @@ abstract class BaseAbstractGateway extends AbstractGateway
     public function getDefaultParameters()
     {
         return [
-            'partner'       => '',
-            'key'           => '',
-            'sign_type'     => 'MD5',
-            'input_charset' => 'utf-8',
-            'transport'     => 'https',
-            'payment_type'  => 1,
-            'it_b_pay'      => '1d',
+            'partner'      => '',
+            'key'          => '',
+            'signType'     => 'MD5',
+            'inputCharset' => 'utf-8',
+            'transport'    => 'http',
+            'paymentType'  => 1,
+            'itBPay'       => '1d',
         ];
     }
 
@@ -152,7 +152,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
 
     public function setSellerEmail($value)
     {
-        $this->setParameter('seller_email', $value);
+        return $this->setParameter('seller_email', $value);
     }
 
 
@@ -164,7 +164,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
 
     public function setService($value)
     {
-        $this->setParameter('service', $value);
+        return $this->setParameter('service', $value);
     }
 
 
@@ -176,7 +176,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
 
     public function setDefaultBank($value)
     {
-        $this->setParameter('default_bank', $value);
+        return $this->setParameter('default_bank', $value);
     }
 
 
@@ -188,7 +188,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
 
     public function setPayMethod($value)
     {
-        $this->setParameter('pay_method', $value);
+        return $this->setParameter('pay_method', $value);
     }
 
 
@@ -200,13 +200,13 @@ abstract class BaseAbstractGateway extends AbstractGateway
 
     public function setPaymentType($value)
     {
-        $this->setParameter('payment_type', $value);
+        return $this->setParameter('payment_type', $value);
     }
 
 
     public function setExpireTime($minutes)
     {
-        $this->setParameter('it_b_pay', sprintf('%dm', $minutes));
+        return $this->setParameter('it_b_pay', sprintf('%dm', $minutes));
     }
 
 
@@ -234,9 +234,33 @@ abstract class BaseAbstractGateway extends AbstractGateway
     }
 
 
+    public function setItBPay($value)
+    {
+        return $this->setParameter('itBPay', $value);
+    }
+
+
+    public function getItBPay()
+    {
+        return $this->getParameter('itBPay');
+    }
+
+
+    public function setCancelUrl($value)
+    {
+        return $this->setParameter('cancelUrl', $value);
+    }
+
+
+    public function getCancelUrl()
+    {
+        return $this->getParameter('cancelUrl');
+    }
+
+
     public function setCaCertPath($value)
     {
-        if ( ! is_file($value)) {
+        if (! is_file($value)) {
             throw new InvalidRequestException("The ca_cert_path($value) is not exists");
         }
 
@@ -244,15 +268,14 @@ abstract class BaseAbstractGateway extends AbstractGateway
     }
 
 
-    public function purchase(array $parameters = [ ])
+    public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressPurchaseRequest', $parameters);
     }
 
 
-    public function completePurchase(array $parameters = [ ])
+    public function completePurchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressCompletePurchaseRequest', $parameters);
     }
-
 }

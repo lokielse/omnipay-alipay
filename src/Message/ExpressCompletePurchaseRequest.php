@@ -4,7 +4,7 @@ namespace Omnipay\Alipay\Message;
 
 use Omnipay\Common\Exception\InvalidRequestException;
 
-class ExpressCompletePurchaseRequest extends BaseAbstractRequest
+class ExpressCompletePurchaseRequest extends BasePurchaseRequest
 {
 
     public $verifyResponse;
@@ -43,7 +43,7 @@ class ExpressCompletePurchaseRequest extends BaseAbstractRequest
     public function getRequestParam($key)
     {
         $params = $this->getRequestParams();
-        if (isset( $params[$key] )) {
+        if (isset($params[$key])) {
             return $params[$key];
         } else {
             return null;
@@ -149,7 +149,7 @@ class ExpressCompletePurchaseRequest extends BaseAbstractRequest
 
     public function setCaCertPath($value)
     {
-        if ( ! is_file($value)) {
+        if (! is_file($value)) {
             throw new InvalidRequestException("The ca_cert_path($value) is not exists");
         }
 
@@ -243,34 +243,25 @@ class ExpressCompletePurchaseRequest extends BaseAbstractRequest
 
         $signType = $this->getSignType();
 
-        //dd($queryString);
+        if ($signType == 'MD5') {
+            return $requestSign === md5($queryString . $this->getKey());
+        } elseif ($signType == 'RSA' || $signType == '0001') {
+            $publicKey = $this->getAlipayPublicKey();
 
-        switch (strtoupper($signType)) {
-            case 'MD5':
-                return $requestSign === md5($queryString . $this->getKey());
-                break;
-            case 'RSA':
-            case '0001':
+            $result = $this->verifyWithRSA($queryString, trim($publicKey), $requestSign);
 
-                $publicKey = $this->getAlipayPublicKey();
-
-                $result = $this->verifyWithRSA($queryString, trim($publicKey), $requestSign);
-
-                return $result;
-                break;
-            default:
-                return false;
-
+            return $result;
+        } else {
+            return false;
         }
-
     }
 
 
     protected function getParamsToSign()
     {
         $params = $this->getRequestParams();
-        unset( $params['sign'] );
-        unset( $params['sign_type'] );
+        unset($params['sign']);
+        unset($params['sign_type']);
         ksort($params);
         reset($params);
 

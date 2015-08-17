@@ -10,6 +10,16 @@ namespace Omnipay\Alipay;
 class MobileExpressGateway extends BaseAbstractGateway
 {
 
+    public function getDefaultParameters()
+    {
+        $params = parent::getDefaultParameters();
+
+        $params['signType'] = 'RSA';
+
+        return $params;
+    }
+
+
     /**
      * Get gateway display name
      *
@@ -33,9 +43,8 @@ class MobileExpressGateway extends BaseAbstractGateway
     }
 
 
-    public function purchase(array $parameters = [ ])
+    public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Alipay\Message\MobileExpressPurchaseRequest', $parameters);
     }
-
 }

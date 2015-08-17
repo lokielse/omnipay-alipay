@@ -26,7 +26,7 @@ class BankGateway extends ExpressGateway
     }
 
 
-    public function purchase(array $parameters = [ ])
+    public function purchase(array $parameters = [])
     {
         $this->setService($this->service);
         $this->setParameter('paymethod', 'bankPay');
