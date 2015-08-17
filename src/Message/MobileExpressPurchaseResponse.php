@@ -23,4 +23,9 @@ class MobileExpressPurchaseResponse extends AbstractResponse implements Response
     {
         return $this->data;
     }
+
+    public function getOrderString()
+    {
+        return $this->data['order_info_string'];
+    }
 }

@@ -26,6 +26,7 @@ class WapExpressGatewayTest extends GatewayTestCase
         $this->gateway->setNotifyUrl('https://www.example.com/notify');
         $this->gateway->setReturnUrl('https://www.example.com/return');
         $this->gateway->setCancelUrl('https://www.example.com/return');
+        $this->gateway->setPrivateKey(__DIR__ . '/Assets/rsa_private_key.pem');
         $this->options = [
             'out_trade_no' => '2014010122390001',
             'subject'      => 'test',

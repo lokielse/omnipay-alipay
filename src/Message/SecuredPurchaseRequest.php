@@ -49,9 +49,24 @@ class SecuredPurchaseRequest extends BasePurchaseRequest
 
     protected function validateData()
     {
-        parent::validateData();
-        $this->validate('out_trade_no', 'subject', 'price', 'quantity', 'logistics_fee', 'logistics_type',
-            'logistics_payment');
+        $this->validate(
+            'service',
+            'partner',
+            'key',
+            'seller_email',
+            'notify_url',
+            'return_url',
+            'out_trade_no',
+            'subject',
+            'input_charset',
+            'out_trade_no',
+            'subject',
+            'price',
+            'quantity',
+            'logistics_fee',
+            'logistics_type',
+            'logistics_payment'
+        );
     }
 
 

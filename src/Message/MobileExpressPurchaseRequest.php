@@ -25,8 +25,12 @@ class MobileExpressPurchaseRequest extends BasePurchaseRequest
         $signature = $this->signWithRSA($orderInfoStr, $this->getPrivateKey());
 
         if ($this->getSignType() != 'RSA') {
-            throw new \Exception(sprintf('Alipay_MobileExpress gateway support RSA only, not support %s.',
-                $this->getSignType()));
+            throw new \Exception(
+                sprintf(
+                    'Alipay_MobileExpress gateway support RSA only, not support %s.',
+                    $this->getSignType()
+                )
+            );
         }
 
         $resp['order_info_str'] = sprintf('%s&sign="%s"&sign_type="RSA"', $orderInfoStr, urlencode($signature));
@@ -81,5 +85,4 @@ class MobileExpressPurchaseRequest extends BasePurchaseRequest
     {
         return $this->response = new MobileExpressPurchaseResponse($this, $data);
     }
-
 }

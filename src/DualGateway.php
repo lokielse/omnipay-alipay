@@ -24,7 +24,7 @@ class DualGateway extends SecuredGateway
     }
 
 
-    public function purchase(array $parameters = [ ])
+    public function purchase(array $parameters = [])
     {
         $this->setService($this->serviceName);
 

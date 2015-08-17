@@ -10,6 +10,23 @@ abstract class BasePurchaseRequest extends BaseAbstractRequest
     protected $liveEndpoint = 'https://mapi.alipay.com/gateway.do';
 
 
+    protected function validateData()
+    {
+        $this->validate(
+            'service',
+            'partner',
+            'key',
+            'seller_email',
+            'notify_url',
+            'return_url',
+            'out_trade_no',
+            'subject',
+            'input_charset',
+            'total_fee'
+        );
+    }
+
+
     public function getService()
     {
         return $this->getParameter('service');
@@ -194,12 +211,5 @@ abstract class BasePurchaseRequest extends BaseAbstractRequest
     public function sendData($data)
     {
         return $this->response = new PurchaseResponse($this, $data);
-    }
-
-
-    protected function validateData()
-    {
-        $this->validate('service', 'partner', 'key', 'seller_email', 'notify_url', 'return_url', 'out_trade_no',
-            'subject', 'input_charset', 'total_fee');
     }
 }
