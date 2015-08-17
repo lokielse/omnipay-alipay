@@ -42,12 +42,12 @@ jb0ZzA1p7cDK4Mt9swJACh0wFnEQvfFBVUZo/zWW5nEBnVQ4l1QhfG6DoWJJA866
 jdamyj2vQOFHLE2qpD+wprkUa86FJsdaEcuKjUl1lw==
 -----END RSA PRIVATE KEY-----'
         );
-        $this->options = [
+        $this->options = array(
             'out_trade_no' => '2014010122390001',
             'subject'      => 'test',
             'total_fee'    => '0.01',
             'sign_type'    => 'RSA',
-        ];
+        );
     }
 
 
