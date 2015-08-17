@@ -24,7 +24,7 @@ class ExpressGateway extends BaseAbstractGateway
     }
 
 
-    public function purchase(array $parameters = [])
+    public function purchase(array $parameters = array())
     {
         $this->setService($this->service);
 

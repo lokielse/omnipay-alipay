@@ -14,7 +14,7 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
     public function getData()
     {
         $this->validateData();
-        $data              = [
+        $data              = array(
             "service"           => $this->getService(),
             "partner"           => $this->getPartner(),
             "payment_type"      => $this->getPaymentType(),
@@ -32,7 +32,7 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
             "paymethod"         => $this->getPayMethod(),
             "defaultbank"       => $this->getDefaultBank(),
             "_input_charset"    => $this->getInputCharset(),
-        ];
+        );
         $data              = array_filter($data);
         $data['sign']      = $this->getParamsSignature($data);
         $data['sign_type'] = $this->getSignType();
