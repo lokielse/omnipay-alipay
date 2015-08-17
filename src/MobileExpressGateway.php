@@ -43,7 +43,7 @@ class MobileExpressGateway extends BaseAbstractGateway
     }
 
 
-    public function purchase(array $parameters = [])
+    public function purchase(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\Alipay\Message\MobileExpressPurchaseRequest', $parameters);
     }

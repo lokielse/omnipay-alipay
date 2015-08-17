@@ -15,7 +15,7 @@ class WapExpressPurchaseRequest extends BasePurchaseRequest
     {
         $this->validateData();
 
-        $data = [
+        $data = array(
             "service"        => $this->getService(),
             "partner"        => $this->getPartner(),
             "seller_id"      => $this->getPartner(),
@@ -30,7 +30,7 @@ class WapExpressPurchaseRequest extends BasePurchaseRequest
             "it_b_pay"       => $this->getItBPay(),
             "extern_token"   => $this->getToken(),
             "_input_charset" => $this->getInputCharset(),
-        ];
+        );
 
         $data              = array_filter($data);
         $data['sign']      = $this->getParamsSignature($data);

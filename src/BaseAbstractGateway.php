@@ -12,7 +12,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
 
     public function getDefaultParameters()
     {
-        return [
+        return array(
             'partner'      => '',
             'key'          => '',
             'signType'     => 'MD5',
@@ -20,7 +20,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
             'transport'    => 'http',
             'paymentType'  => 1,
             'itBPay'       => '1d',
-        ];
+        );
     }
 
 
@@ -268,13 +268,13 @@ abstract class BaseAbstractGateway extends AbstractGateway
     }
 
 
-    public function purchase(array $parameters = [])
+    public function purchase(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressPurchaseRequest', $parameters);
     }
 
 
-    public function completePurchase(array $parameters = [])
+    public function completePurchase(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressCompletePurchaseRequest', $parameters);
     }

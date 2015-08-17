@@ -15,7 +15,7 @@ class SecuredPurchaseRequest extends BasePurchaseRequest
     {
         $this->validateData();
 
-        $data = [
+        $data = array(
             "service"           => $this->getService(),
             "partner"           => $this->getPartner(),
             "payment_type"      => 1,
@@ -37,7 +37,7 @@ class SecuredPurchaseRequest extends BasePurchaseRequest
             "receive_phone"     => $this->getReceivePhone(),
             "receive_mobile"    => $this->getReceiveMobile(),
             "_input_charset"    => $this->getInputCharset()
-        ];
+        );
 
         $data              = array_filter($data);
         $data['sign']      = $this->getParamsSignature($data);

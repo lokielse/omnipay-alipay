@@ -154,7 +154,7 @@ class SecuredGateway extends BaseAbstractGateway
     }
 
 
-    public function purchase(array $parameters = [])
+    public function purchase(array $parameters = array())
     {
         $this->setService($this->serviceName);
 
