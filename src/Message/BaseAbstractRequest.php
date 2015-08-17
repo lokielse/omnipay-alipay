@@ -22,7 +22,7 @@ abstract class BaseAbstractRequest extends AbstractRequest
 
     public function setSignType($value)
     {
-        if (in_array($value, ['md5', 'rsa'])) {
+        if (in_array($value, array('md5', 'rsa'))) {
             throw new Exception('sign_type should be upper case');
         }
         $this->setParameter('sign_type', $value);
