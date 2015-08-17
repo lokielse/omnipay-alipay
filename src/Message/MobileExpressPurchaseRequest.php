@@ -47,7 +47,7 @@ class MobileExpressPurchaseRequest extends BasePurchaseRequest
 
     private function getParamsToSign()
     {
-        return [
+        return array(
             'partner'        => $this->getPartner(),
             'seller_id'      => $this->getPartner(),
             'out_trade_no'   => $this->getOutTradeNo(),
@@ -59,7 +59,7 @@ class MobileExpressPurchaseRequest extends BasePurchaseRequest
             '_input_charset' => $this->getInputCharset(),
             'payment_type'   => $this->getPaymentType(),
             'it_b_pay'       => $this->getItBPay(),
-        ];
+        );
     }
 
 
