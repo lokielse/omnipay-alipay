@@ -157,24 +157,46 @@ class ExpressCompletePurchaseRequest extends BasePurchaseRequest
     }
 
 
-    public function sendData($data)
+    public function getCaCertPath()
     {
-        $notifyId = $this->getNotifyId();
-
-        if ($notifyId) {
-            $this->verifyResponse   = $this->getVerifyResponse($notifyId);
-            $data['verify_success'] = $this->isSignMatch() && $this->isResponseOk();
-        } else {
-            $data['verify_success'] = $this->isSignMatch();
-        }
-
-        return $this->response = new ExpressCompletePurchaseResponse($this, $data);
+        return $this->getParameter('ca_cert_path');
     }
 
 
     public function getNotifyId()
     {
         return $this->getRequestParam('notify_id');
+    }
+
+
+    public function getPartner()
+    {
+        return $this->getParameter('partner');
+    }
+
+
+    public function getTransport()
+    {
+        return $this->getParameter('transport');
+    }
+
+
+    public function sendData($data)
+    {
+        $notifyId = $this->getNotifyId();
+
+        if ($notifyId) {
+            $this->verifyResponse   = $this->getVerifyResponse($notifyId);
+            $data['verify_success'] = $this->isSignMatch();
+            $data['is_paid']        = $data['verify_success'] && $this->isNotifyVerifiedOK();
+        } else {
+            $status                 = $this->getTradeStatus();
+            $statusOk               = $status == 'TRADE_FINISHED' || $status == 'TRADE_SUCCESS';
+            $data['verify_success'] = $this->isSignMatch();
+            $data['is_paid']        = $data['verify_success'] && $statusOk;
+        }
+
+        return $this->response = new ExpressCompletePurchaseResponse($this, $data);
     }
 
 
@@ -191,25 +213,9 @@ class ExpressCompletePurchaseRequest extends BasePurchaseRequest
     }
 
 
-    public function getPartner()
+    public function getAlipayPublicKey()
     {
-        return $this->getParameter('partner');
-    }
-
-
-    public function getEndpoint()
-    {
-        if (strtolower($this->getTransport()) == 'http') {
-            return $this->endpoint;
-        } else {
-            return $this->endpointHttps;
-        }
-    }
-
-
-    public function getTransport()
-    {
-        return $this->getParameter('transport');
+        return $this->getParameter('alipay_public_key');
     }
 
 
@@ -228,12 +234,6 @@ class ExpressCompletePurchaseRequest extends BasePurchaseRequest
     }
 
 
-    public function getCaCertPath()
-    {
-        return $this->getParameter('ca_cert_path');
-    }
-
-
     protected function isSignMatch()
     {
         $requestSign = $this->getRequestParam('sign');
@@ -241,14 +241,13 @@ class ExpressCompletePurchaseRequest extends BasePurchaseRequest
         $queryString = http_build_query($this->getParamsToSign());
         $queryString = urldecode($queryString);
 
-        $signType = $this->getSignType();
+        $signType = strtoupper($this->getSignType());
 
         if ($signType == 'MD5') {
             return $requestSign === md5($queryString . $this->getKey());
         } elseif ($signType == 'RSA' || $signType == '0001') {
             $publicKey = $this->getAlipayPublicKey();
-
-            $result = $this->verifyWithRSA($queryString, trim($publicKey), $requestSign);
+            $result    = $this->verifyWithRSA($queryString, trim($publicKey), $requestSign);
 
             return $result;
         } else {
@@ -269,12 +268,6 @@ class ExpressCompletePurchaseRequest extends BasePurchaseRequest
     }
 
 
-    public function getAlipayPublicKey()
-    {
-        return $this->getParameter('alipay_public_key');
-    }
-
-
     protected function verifyWithRSA($data, $publicKey, $sign)
     {
         $publicKey = $this->prefixCertificateKeyPath($publicKey);
@@ -286,12 +279,22 @@ class ExpressCompletePurchaseRequest extends BasePurchaseRequest
     }
 
 
-    protected function isResponseOk()
+    protected function isNotifyVerifiedOK()
     {
         if (preg_match("/true$/i", $this->verifyResponse)) {
             return true;
         } else {
             return false;
+        }
+    }
+
+
+    public function getEndpoint()
+    {
+        if (strtolower($this->getTransport()) == 'http') {
+            return $this->endpoint;
+        } else {
+            return $this->endpointHttps;
         }
     }
 }

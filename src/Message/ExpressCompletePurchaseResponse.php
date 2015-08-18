@@ -13,14 +13,6 @@ class ExpressCompletePurchaseResponse extends AbstractResponse
     protected $request;
 
 
-    public function isTradeStatusOk()
-    {
-        $status = $this->request->getTradeStatus();
-
-        return ($status == 'TRADE_FINISHED' || $status == 'TRADE_SUCCESS');
-    }
-
-
     public function getTradeStatus()
     {
         return $this->request->getTradeStatus();
@@ -38,16 +30,29 @@ class ExpressCompletePurchaseResponse extends AbstractResponse
 
 
     /**
+     * @deprecated use isPaid() instead
+     *
+     * @return bool
+     */
+    public function isTradeStatusOk()
+    {
+        return $this->isPaid();
+    }
+
+
+    public function isPaid()
+    {
+        return $this->data['is_paid'];
+    }
+
+
+    /**
      * Is the response successful?
      *
      * @return boolean
      */
     public function isSuccessful()
     {
-        if ($this->data['verify_success']) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->data['verify_success'];
     }
 }
