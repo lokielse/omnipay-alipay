@@ -188,7 +188,9 @@ class ExpressCompletePurchaseRequest extends BasePurchaseRequest
         if ($notifyId) {
             $this->verifyResponse   = $this->getVerifyResponse($notifyId);
             $data['verify_success'] = $this->isSignMatch();
-            $data['is_paid']        = $data['verify_success'] && $this->isNotifyVerifiedOK();
+            $status                 = $this->getTradeStatus();
+            $statusOk               = $status == 'TRADE_FINISHED' || $status == 'TRADE_SUCCESS';
+            $data['is_paid']        = $data['verify_success'] && $this->isNotifyVerifiedOK() && $statusOk;
         } else {
             $status                 = $this->getTradeStatus();
             $statusOk               = $status == 'TRADE_FINISHED' || $status == 'TRADE_SUCCESS';
