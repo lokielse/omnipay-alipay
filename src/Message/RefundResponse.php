@@ -2,6 +2,8 @@
 
 namespace Omnipay\Alipay\Message;
 
+use Omnipay\Common\Message\AbstractResponse;
+
 class RefundResponse extends AbstractResponse{
 
 

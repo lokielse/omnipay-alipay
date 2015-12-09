@@ -2,7 +2,6 @@
 
 namespace Omnipay\Alipay\Message;
 
-
 class RefundRequest extends BasePurchaseRequest
 {
     protected $liveEndPoint = 'https://mapi.alipay.com/gateway.do';
@@ -46,16 +45,24 @@ class RefundRequest extends BasePurchaseRequest
         return $data;
     }
 
-    public function sendData(){
+    public function sendData($data){
 
-        $data = $this->getData();        
-        
-        return $this->response = new RefundResponse( $this, $this->getParameters() );
+        return $this->response = new RefundResponse( $this, $data );
     }
 
     public function getLiveEndPoint(){
 
         return $this->liveEndPoint;
+    }
+    
+    public function setInputCharset( $value ){
+
+        return $this->setParameter( '_input_charset', $value );
+    }
+
+    public function getInputCharset(){
+
+        return $this->getParameter( '_input_charset' );
     }
     
     public function setSellerUserId( $value ){
@@ -118,7 +125,7 @@ class RefundRequest extends BasePurchaseRequest
         }
         else{
             
-            return $this->setDetailData( array_merge( $detail_data, $new_details );
+            return $this->setDetailData( array_merge( $detail_data, $new_details ) );
         }
     }
     
@@ -130,11 +137,11 @@ class RefundRequest extends BasePurchaseRequest
 
         if ( empty( $detail_data ) ){
         
-            return $this->setDetailData( $new_detail );
+            return $this->setDetailData( array( $new_detail ) );
         }
         else{
            
-            return $this->setDetailData( array_merge( $detail_data, $new_detail );
+            return $this->setDetailData( array_push( $detail_data, $new_detail ) );
         }
     }
 

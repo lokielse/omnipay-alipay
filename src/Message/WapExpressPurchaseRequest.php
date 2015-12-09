@@ -13,7 +13,20 @@ class WapExpressPurchaseRequest extends BasePurchaseRequest
      */
     public function getData()
     {
-        $this->validateData();
+
+        $this->validate(
+            'service',
+            'partner',
+            'key',
+            'seller_email',
+            'seller_id',
+            'notify_url',
+            'out_trade_no',
+            'subject',
+            'input_charset',
+            'total_fee',
+            'payment_type'
+        );
 
         $data = array(
             "service"        => $this->getService(),

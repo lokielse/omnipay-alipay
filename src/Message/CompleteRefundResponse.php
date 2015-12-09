@@ -12,12 +12,6 @@ class CompleteRefundResponse extends AbstractResponse
      */
     protected $request;
 
-
-    public function getTradeStatus()
-    {
-        return $this->request->getTradeStatus();
-    }
-
     public function getResponseText()
     {
         if ($this->isSuccessful()) {
@@ -27,8 +21,9 @@ class CompleteRefundResponse extends AbstractResponse
         }
     }
 
-    public function isRefundStatusOk()
-    {
+    public function isResponseOk(){
+
+        return $this->data['is_response_ok'];
     }
 
     /**

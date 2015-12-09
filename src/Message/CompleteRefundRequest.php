@@ -156,11 +156,13 @@ class CompleteRefundRequest extends BaseAbstractRequest
         if ($notifyId) {
             $this->verifyResponse   = $this->getVerifyResponse($notifyId);
             $data['verify_success'] = $this->isSignMatch();
+            $data['is_response_ok'] = $this->verifyResponse;
         } else {
             $data['verify_success'] = $this->isSignMatch();
+            $data['is_response_ok'] = $data['verify_success'];
         }
 
-        return $this->response = new ExpressCompletePurchaseResponse($this, $data);
+        return $this->response = new CompleteRefundResponse($this, $data);
     }
 
     protected function getVerifyResponse($notifyId)
@@ -201,7 +203,7 @@ class CompleteRefundRequest extends BaseAbstractRequest
         $queryString = http_build_query($this->getParamsToSign());
         $queryString = urldecode($queryString);
 
-        $signType = strtoupper($this->getSignType());
+        $signType = strtoupper($this->getRequestParam('sign_type'));
 
         if ($signType == 'MD5') {
             return $requestSign === md5($queryString . $this->getKey());
