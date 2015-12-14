@@ -146,6 +146,15 @@ abstract class BasePurchaseRequest extends BaseAbstractRequest
         $this->setParameter('seller_email', $value);
     }
 
+    public function getSellerId()
+    {
+        return $this->getParameter('seller_id');
+    }
+
+    public function setSellerId($value)
+    {
+        $this->setParameter('seller_id', $value);
+    }
 
     public function getSubject()
     {

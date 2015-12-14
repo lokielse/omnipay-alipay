@@ -155,6 +155,15 @@ abstract class BaseAbstractGateway extends AbstractGateway
         return $this->setParameter('seller_email', $value);
     }
 
+    public function getSellerId()
+    {
+        return $this->getParameter('seller_id');
+    }
+
+    public function setSellerId($value)
+    {
+        return $this->setParameter('seller_id', $value);
+    }
 
     public function getService()
     {
@@ -273,9 +282,21 @@ abstract class BaseAbstractGateway extends AbstractGateway
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressPurchaseRequest', $parameters);
     }
 
-
     public function completePurchase(array $parameters = array())
     {
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressCompletePurchaseRequest', $parameters);
+    }
+
+
+    public function refund( array $parameters = array())
+    {
+        $this->setService( 'refund_fastpay_by_platform_pwd' );
+
+        return $this->createRequest( '\Omnipay\Alipay\Message\RefundRequest', $parameters );
+    }
+
+    public function CompleteRefund( array $parameters = array())
+    {
+        return $this->createRequest('Omnipay\Alipay\Message\CompleteRefundRequest', $parameters);
     }
 }
