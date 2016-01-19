@@ -2,7 +2,6 @@
 
 namespace Omnipay\Alipay\Message;
 
-use Omnipay\Common\Exception\InvalidRequestException;
 
 class SendGoodsRequest extends BasePurchaseRequest
 {
