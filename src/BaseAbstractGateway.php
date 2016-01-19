@@ -257,6 +257,25 @@ abstract class BaseAbstractGateway extends AbstractGateway
         return $this->getParameter('cancelUrl');
     }
 
+    public function setExtraCommonParam($value)
+    {
+        $this->setParameter('extra_common_param', $value);
+    }
+
+    public function getExtraCommonParam()
+    {
+        return $this->getParameter('extra_common_param');
+    }
+
+    public function setExtendParam($value)
+    {
+        $this->setParameter('extend_param', $value);
+    }
+
+    public function getExtendParam()
+    {
+        return $this->getParameter('extend_param');
+    }
 
     public function setCaCertPath($value)
     {
