@@ -297,4 +297,10 @@ abstract class BaseAbstractGateway extends AbstractGateway
     {
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressCompletePurchaseRequest', $parameters);
     }
+
+
+    public function sendGoods(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\Alipay\Message\SendGoodsRequest', $parameters);
+    }
 }
