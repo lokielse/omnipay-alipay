@@ -80,7 +80,7 @@ $gateway->setSellerEmail('merchant@example.com');
 //$gateway->setAlipayPublicKey('/such-as/alipay_public_key.pem');
 
 $options = [
-    'request_params'=> $_REQUEST,
+    'request_params'=> array_merge($_POST, $_GET), //Don't use $_REQUEST for may contain $_COOKIE
 ];
 
 $response = $gateway->completePurchase($options)->send();
