@@ -67,6 +67,11 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
     }
 
 
+    public function getItBPay()
+    {
+        return $this->getParameter('it_b_pay');
+    }
+
     public function setDefaultBank($value)
     {
         $this->setParameter('default_bank', $value);
@@ -88,5 +93,11 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
     public function setExterInvokeIp($value)
     {
         $this->setParameter('exter_invoke_ip', $value);
+    }
+    
+    
+    public function setItBPay($value)
+    {
+        $this->setParameter('it_b_pay', $value);
     }
 }
