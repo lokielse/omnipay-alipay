@@ -85,7 +85,7 @@ $options = [
 
 $response = $gateway->completePurchase($options)->send();
 
-if ($response->isSuccessful() && $response->isTradeStatusOk()) {
+if ($response->isPaid()) {
 
    // Paid success, your statements go here.
 
