@@ -3,6 +3,7 @@
 namespace Omnipay\Alipay;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Common\Exception\InvalidRequestException;
 
 /**
  * Alipay Base Gateway Class
