@@ -105,6 +105,7 @@ repository.
 ## Related
 
 - [Laravel-Omnipay](https://github.com/ignited/laravel-omnipay)
+- [Omnipay-UnionPay](https://github.com/lokielse/omnipay-wechatpay)
 - [Omnipay-UnionPay](https://github.com/lokielse/omnipay-unionpay)
 
 ## Support
