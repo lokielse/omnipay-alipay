@@ -9,6 +9,7 @@
 [Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements Alipay support for Omnipay.
 
+> This package does not support international Alipay service
 
 ## Installation
 
