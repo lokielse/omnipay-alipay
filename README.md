@@ -9,7 +9,7 @@
 [Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements Alipay support for Omnipay.
 
-> This package does not support international Alipay service
+> Cross-border Alipay payment please use [`lokielse/omnipay-global-alipay`](https://github.com/lokielse/omnipay-global-alipay)
 
 ## Installation
 
@@ -106,6 +106,7 @@ repository.
 ## Related
 
 - [Laravel-Omnipay](https://github.com/ignited/laravel-omnipay)
+- [Omnipay-GlobalAlipay](https://github.com/lokielse/omnipay-global-alipay)
 - [Omnipay-WechatPay](https://github.com/lokielse/omnipay-wechatpay)
 - [Omnipay-UnionPay](https://github.com/lokielse/omnipay-unionpay)
 
