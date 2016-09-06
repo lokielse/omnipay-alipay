@@ -39,7 +39,6 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
         );
 
         $data              = array_filter($data, 'strlen');
-
         $data['sign']      = $this->getParamsSignature($data);
         $data['sign_type'] = $this->getSignType();
 
