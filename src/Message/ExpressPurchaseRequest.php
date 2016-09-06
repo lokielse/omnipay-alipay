@@ -37,22 +37,15 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
             "it_b_pay"           => $this->getItBPay(),
             "qr_pay_mode"        => $this->getQrPayMode(),
         );
-        
-        // removes all NULL, FALSE and Empty Strings but leaves 0 (zero) values
-        $data              = array_filter($data,'strlen');
+
+        $data              = array_filter($data, 'strlen');
+
         $data['sign']      = $this->getParamsSignature($data);
         $data['sign_type'] = $this->getSignType();
 
         return $data;
     }
 
-    public function setQrPayMode($value){
-        $this->setParameter('qr_pay_mode', $value);
-    }
-
-    public function getQrPayMode(){
-        return $this->getParameter('qr_pay_mode');
-    }
 
     public function getAntiPhishingKey()
     {
@@ -75,6 +68,11 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
     public function getDefaultBank()
     {
         return $this->getParameter('default_bank');
+    }
+
+    public function getQrPayMode()
+    {
+        return $this->getParameter('qr_pay_mode');
     }
 
 
@@ -110,5 +108,11 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
     public function setItBPay($value)
     {
         $this->setParameter('it_b_pay', $value);
+    }
+
+
+    public function setQrPayMode($value)
+    {
+        $this->setParameter('qr_pay_mode', $value);
     }
 }

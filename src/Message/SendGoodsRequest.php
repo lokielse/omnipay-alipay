@@ -26,7 +26,7 @@ class SendGoodsRequest extends BasePurchaseRequest
             "_input_charset"    => $this->getInputCharset()
         );
 
-        $data              = array_filter($data);
+        $data              = array_filter($data, 'strlen');
         $data['sign']      = $this->getParamsSignature($data);
         $data['sign_type'] = $this->getSignType();
 

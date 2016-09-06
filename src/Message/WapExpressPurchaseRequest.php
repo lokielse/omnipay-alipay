@@ -36,7 +36,7 @@ class WapExpressPurchaseRequest extends BasePurchaseRequest
             $data['app_pay'] = $this->getAppPay();
         }
 
-        $data              = array_filter($data);
+        $data              = array_filter($data, 'strlen');
         $data['sign']      = $this->getParamsSignature($data);
         $data['sign_type'] = $this->getSignType();
 
