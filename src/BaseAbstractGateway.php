@@ -13,7 +13,7 @@ abstract class BaseAbstractGateway extends AbstractGateway
 
     public function getDefaultParameters()
     {
-        return array(
+        return array (
             'partner'      => '',
             'key'          => '',
             'signType'     => 'MD5',
@@ -258,25 +258,30 @@ abstract class BaseAbstractGateway extends AbstractGateway
         return $this->getParameter('cancelUrl');
     }
 
+
     public function setExtraCommonParam($value)
     {
         $this->setParameter('extra_common_param', $value);
     }
+
 
     public function getExtraCommonParam()
     {
         return $this->getParameter('extra_common_param');
     }
 
+
     public function setExtendParam($value)
     {
         $this->setParameter('extend_param', $value);
     }
 
+
     public function getExtendParam()
     {
         return $this->getParameter('extend_param');
     }
+
 
     public function setCaCertPath($value)
     {
@@ -288,20 +293,32 @@ abstract class BaseAbstractGateway extends AbstractGateway
     }
 
 
-    public function purchase(array $parameters = array())
+    public function purchase(array $parameters = array ())
     {
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressPurchaseRequest', $parameters);
     }
 
 
-    public function completePurchase(array $parameters = array())
+    public function completePurchase(array $parameters = array ())
     {
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressCompletePurchaseRequest', $parameters);
     }
 
 
-    public function sendGoods(array $parameters = array())
+    public function sendGoods(array $parameters = array ())
     {
         return $this->createRequest('\Omnipay\Alipay\Message\SendGoodsRequest', $parameters);
+    }
+
+
+    public function refund(array $parameters = array ())
+    {
+        return $this->createRequest('\Omnipay\Alipay\Message\RefundRequest', $parameters);
+    }
+
+
+    public function completeRefund(array $parameters = array ())
+    {
+        return $this->createRequest('\Omnipay\Alipay\Message\RefundNotifyRequest', $parameters);
     }
 }

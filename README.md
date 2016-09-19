@@ -70,7 +70,7 @@ $response->getRedirectData();
 $response->getOrderString();
 ```
 
-### Return/Notify
+### Return/Notify [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.m5IwYI&treeId=62&articleId=104743&docType=1#s2)
 ```php
 $gateway = Omnipay::create('Alipay_Express');
 $gateway->setPartner('8888666622221111');
@@ -96,6 +96,69 @@ if ($response->isPaid()) {
 
    //For notify, response 'fail' only please.
    //die('fail');
+}
+```
+
+### Refund [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.hXJTAR&treeId=66&articleId=103600&docType=1)
+```php
+$gateway = Omnipay::create('Alipay_Express');
+$gateway->setPartner('8888666622221111');
+$gateway->setKey('your**key**here');
+$gateway->setSellerEmail('merchant@example.com');
+$gateway->setNotifyUrl('http://www.example.com/notify');
+
+//For 'RSA' sign method
+//$gateway->setPrivateKey('/such-as/private_key.pem');
+
+$response = $gateway->refund([
+    'refund_items' => [
+        [
+            'out_trade_no'=> '2016091921001004060289492441'
+            'amount'      => '298.05'
+            'reason'     => 'test1'
+        ],
+        [
+            'out_trade_no'=> '2016091921001004060289492442'
+            'amount'      => '298.00'
+            'reason'     => 'test2'
+        ]
+    ],
+    'refund_date'  => date('Y-m-d H:i:s'), //Optional
+    'batch_no'     => date('Ymd').mt_rand(1000,9999), //Optional
+])->send();
+
+$response->getRedirectUrl();
+$response->getRedirectData();
+```
+
+
+### Refund Notify [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.zqHx6T&treeId=66&articleId=103601&docType=1)
+```php
+$gateway = Omnipay::create('Alipay_Express');
+$gateway->setPartner('8888666622221111');
+$gateway->setKey('your**key**here');
+$gateway->setSellerEmail('merchant@example.com');
+
+//For 'RSA' sign method
+//$gateway->setAlipayPublicKey('/such-as/alipay_public_key.pem');
+
+$options = [
+    'request_params'=> $_POST
+];
+
+$response = $gateway->completeRefund($options)->send();
+
+if ($response->isVerifySuccess()) {
+
+   // request verified success, your statements go here.
+   //use `batch_no`, `success_num`, `result_details`... in $_POST;
+
+   //For notify, response 'success' only please.
+   die('success');
+} else {
+
+   //For notify, response 'fail' only please.
+   die('fail');
 }
 ```
 
