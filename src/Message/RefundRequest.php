@@ -80,7 +80,7 @@ class RefundRequest extends BasePurchaseRequest
 
     protected function getDetailData()
     {
-        $strings = [];
+        $strings = array();
 
         foreach ($this->getRefundItems() as $item) {
             $item = (array) $item;
