@@ -42,7 +42,7 @@ The following gateways are provided by this package:
 
 ## Usage
 
-### Purchase
+### Purchase (支付)
 ```php
 $gateway = Omnipay::create('Alipay_Express');
 $gateway->setPartner('8888666622221111');
@@ -70,7 +70,7 @@ $response->getRedirectData();
 $response->getOrderString();
 ```
 
-### Return/Notify [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.m5IwYI&treeId=62&articleId=104743&docType=1#s2)
+### Return/Notify (支付通知) [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.m5IwYI&treeId=62&articleId=104743&docType=1#s2)
 ```php
 $gateway = Omnipay::create('Alipay_Express');
 $gateway->setPartner('8888666622221111');
@@ -99,7 +99,7 @@ if ($response->isPaid()) {
 }
 ```
 
-### Refund [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.hXJTAR&treeId=66&articleId=103600&docType=1)
+### Refund (退款) [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.hXJTAR&treeId=66&articleId=103600&docType=1)
 ```php
 $gateway = Omnipay::create('Alipay_Express');
 $gateway->setPartner('8888666622221111');
@@ -132,7 +132,7 @@ $response->getRedirectData();
 ```
 
 
-### Refund Notify [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.zqHx6T&treeId=66&articleId=103601&docType=1)
+### Refund Notify (退款异步通知) [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.zqHx6T&treeId=66&articleId=103601&docType=1)
 ```php
 $gateway = Omnipay::create('Alipay_Express');
 $gateway->setPartner('8888666622221111');
@@ -160,6 +160,21 @@ if ($response->isVerifySuccess()) {
    //For notify, response 'fail' only please.
    die('fail');
 }
+```
+
+### Query Order Status (订单状态查询 - 需签约)
+```php
+$gateway = Omnipay::create('Alipay_Express');
+$gateway->setPartner('8888666622221111');
+$gateway->setKey('your**key**here');
+$gateway->setSellerEmail('merchant@example.com');
+
+$response = $gateway->queryOrderStatus([
+    'out_trade_no' => '2016091921001004060289492441' //Optional
+    'trade_no' => '1443287238372498477413' //Optional
+])->send();
+
+$response->isSuccessful();
 ```
 
 
