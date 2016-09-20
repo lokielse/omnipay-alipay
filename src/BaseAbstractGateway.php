@@ -321,4 +321,9 @@ abstract class BaseAbstractGateway extends AbstractGateway
     {
         return $this->createRequest('\Omnipay\Alipay\Message\RefundNotifyRequest', $parameters);
     }
+
+    public function queryOrderStatus(array $parameters = array ())
+    {
+        return $this->createRequest('\Omnipay\Alipay\Message\QueryOrderStatusRequest', $parameters);
+    }
 }

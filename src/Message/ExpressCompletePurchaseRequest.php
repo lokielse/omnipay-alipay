@@ -228,7 +228,7 @@ class ExpressCompletePurchaseRequest extends BasePurchaseRequest
 
         $url = "{$endpoint}partner={$partner}&notify_id={$notifyId}";
 
-        $responseTxt = $this->getHttpResponseGET($url, $this->getCacertPath());
+        $responseTxt = $this->getHttpResponseGET($url, $this->getCaCertPath());
 
         return $responseTxt;
     }
