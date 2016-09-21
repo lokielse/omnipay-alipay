@@ -9,13 +9,14 @@ use Omnipay\Common\Message\ResponseInterface;
 abstract class BasePurchaseRequest extends BaseAbstractRequest
 {
 
-    protected $liveEndpoint = 'https://mapi.alipay.com/gateway.do';
+    protected $endpoint = 'http://mapi.alipay.com/gateway.do';
+
+    protected $endpointHttps = 'https://mapi.alipay.com/gateway.do';
 
 
     protected function validateData()
     {
         $this->validate(
-            'service',
             'partner',
             'key',
             'seller_email',
@@ -31,13 +32,13 @@ abstract class BasePurchaseRequest extends BaseAbstractRequest
 
     public function getService()
     {
-        return $this->getParameter('service');
+        return $this->service;
     }
 
 
     public function setService($value)
     {
-        $this->setParameter('service', $value);
+        $this->service = $value;
     }
 
 
@@ -196,29 +197,38 @@ abstract class BasePurchaseRequest extends BaseAbstractRequest
         $this->setParameter('total_fee', $value);
     }
 
+
     public function setExtraCommonParam($value)
     {
         $this->setParameter('extra_common_param', $value);
     }
+
 
     public function getExtraCommonParam()
     {
         return $this->getParameter('extra_common_param');
     }
 
+
     public function setExtendParam($value)
     {
         $this->setParameter('extend_param', $value);
     }
+
 
     public function getExtendParam()
     {
         return $this->getParameter('extend_param');
     }
 
+
     public function getEndpoint()
     {
-        return $this->liveEndpoint;
+        if (strtolower($this->getTransport()) == 'http') {
+            return $this->endpoint;
+        } else {
+            return $this->endpointHttps;
+        }
     }
 
 

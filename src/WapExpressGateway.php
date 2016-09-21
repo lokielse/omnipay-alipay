@@ -10,9 +10,6 @@ namespace Omnipay\Alipay;
 class WapExpressGateway extends BaseAbstractGateway
 {
 
-    protected $service = 'alipay.wap.create.direct.pay.by.user';
-
-
     public function getDefaultParameters()
     {
         $params = parent::getDefaultParameters();
@@ -48,8 +45,6 @@ class WapExpressGateway extends BaseAbstractGateway
 
     public function purchase(array $parameters = array())
     {
-        $this->setService($this->service);
-
         return $this->createRequest('\Omnipay\Alipay\Message\WapExpressPurchaseRequest', $parameters);
     }
 }

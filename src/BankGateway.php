@@ -12,9 +12,6 @@ use Omnipay\Common\Exception\InvalidRequestException;
 class BankGateway extends ExpressGateway
 {
 
-    protected $service = 'create_direct_pay_by_user';
-
-
     /**
      * Get gateway display name
      *
@@ -26,9 +23,8 @@ class BankGateway extends ExpressGateway
     }
 
 
-    public function purchase(array $parameters = array())
+    public function purchase(array $parameters = array ())
     {
-        $this->setService($this->service);
         $this->setParameter('paymethod', 'bankPay');
 
         if ($this->getParameter('default_bank') === null) {

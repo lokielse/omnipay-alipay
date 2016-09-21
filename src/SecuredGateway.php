@@ -156,15 +156,11 @@ class SecuredGateway extends BaseAbstractGateway
 
     public function purchase(array $parameters = array())
     {
-        $this->setService($this->serviceName);
-
         return $this->createRequest('\Omnipay\Alipay\Message\SecuredPurchaseRequest', $parameters);
     }
 
     public function sendGoods(array $parameters = array())
     {
-        $this->setService('send_goods_confirm_by_platform');
-
         return $this->createRequest('\Omnipay\Alipay\Message\SendGoodsRequest', $parameters);
     }
 }

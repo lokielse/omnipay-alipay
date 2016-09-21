@@ -10,9 +10,6 @@ namespace Omnipay\Alipay;
 class ExpressGateway extends BaseAbstractGateway
 {
 
-    protected $service = 'create_direct_pay_by_user';
-
-
     /**
      * Get gateway display name
      *
@@ -26,8 +23,6 @@ class ExpressGateway extends BaseAbstractGateway
 
     public function purchase(array $parameters = array())
     {
-        $this->setService($this->service);
-
         return $this->createRequest('\Omnipay\Alipay\Message\ExpressPurchaseRequest', $parameters);
     }
 }
