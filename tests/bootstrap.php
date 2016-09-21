@@ -16,6 +16,8 @@ if (file_exists($configFile)) {
     define('ALIPAY_PARTNER', '2088011436420182');
     define('ALIPAY_KEY', '18x8lAi0a1520st1hvxcnt7m4w1whkbs');
     define('ALIPAY_SELLER_ID', '2088011436420182');
+    define('ALIPAY_PUBLIC_KEY', __DIR__ . '/tests/Assets/alipay_public_key.pem');
+
     define('ALIPAY_APP_ID', '2088011436421111');
     define('ALIPAY_APP_PRIVATE_KEY', __DIR__ . '/tests/Assets/dist/aop/rsa_private_key.pem');
     define('ALIPAY_APP_ENCRYPT_KEY', '111111');
