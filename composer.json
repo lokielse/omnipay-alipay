@@ -21,7 +21,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "Omnipay\\Alipay\\": "src/"
+      "Omnipay\\Alipay\\": "src/",
+      "Omnipay\\Alipay\\Tests\\": "tests/"
     }
   },
   "require": {
