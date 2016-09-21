@@ -3,6 +3,7 @@
 namespace Omnipay\Alipay\Requests;
 
 use Guzzle\Http\Client as HttpClient;
+use Omnipay\Alipay\Common\Signer;
 use Omnipay\Alipay\Responses\NotifyResponse;
 use Omnipay\Alipay\Responses\NotifyVerifyResponse;
 use Omnipay\Common\Exception\InvalidRequestException;
@@ -107,11 +108,13 @@ class NotifyRequest extends Request
 
     protected function verifySignature()
     {
-        $signature = $this->sign($this->requestParams->all(), $this->requestParams->get('sign_type'));
+        $signer  = new Signer($this->requestParams->all());
+        $content = $signer->getContentToSign();
+        $sign    = $this->requestParams->get('sign');
 
-        $sign = $this->requestParams->get('sign');
+        $match = $signer->verifyWithRSA($content, $sign, $this->getAlipayPublicKey());
 
-        if (empty($sign) || $sign != $signature) {
+        if (! $match) {
             throw new InvalidRequestException('The sign is not matched');
         }
     }
