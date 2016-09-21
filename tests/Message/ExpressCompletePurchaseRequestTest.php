@@ -4,8 +4,9 @@
  * CreateTime: 14-1-3 上午12:52
  *
  */
-namespace Omnipay\Alipay\Message;
+namespace Omnipay\Alipay\Tests\Message;
 
+use Omnipay\Alipay\Message\ExpressCompletePurchaseRequest;
 use Omnipay\Tests\TestCase;
 
 class ExpressCompletePurchaseRequestTest extends TestCase

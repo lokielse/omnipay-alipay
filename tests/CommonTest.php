@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by sqiu.
- * CreateTime: 14-3-6 下午12:40
- *
- */
-namespace Omnipay\Alipay;
+
+namespace Omnipay\Alipay\Tests;
 
 use Omnipay\Omnipay;
-use Omnipay\Tests\GatewayTestCase;
 
-class CommonTest extends GatewayTestCase
+class CommonTest extends AbstractGatewayTestCase
 {
 
     public function setUp()
@@ -21,7 +16,7 @@ class CommonTest extends GatewayTestCase
         $this->gateway->setSellerEmail('aaa@bbb.com');
         $this->gateway->setNotifyUrl('https://www.example.com/notify');
         $this->gateway->setReturnUrl('https://www.example.com/return');
-        $this->options = array(
+        $this->options = array (
             'out_trade_no' => '2014010122390001',
             'subject'      => 'test',
             'total_fee'    => '0.01',

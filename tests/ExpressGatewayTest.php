@@ -1,11 +1,11 @@
 <?php
 
-namespace Omnipay\Alipay;
+namespace Omnipay\Alipay\Tests;
 
+use Omnipay\Alipay\ExpressGateway;
 use Omnipay\Alipay\Message\PurchaseResponse;
-use Omnipay\Tests\GatewayTestCase;
 
-class ExpressGatewayTest extends GatewayTestCase
+class ExpressGatewayTest extends AbstractGatewayTestCase
 {
 
     /**
@@ -20,12 +20,12 @@ class ExpressGatewayTest extends GatewayTestCase
     {
         parent::setUp();
         $this->gateway = new ExpressGateway($this->getHttpClient(), $this->getHttpRequest());
-        $this->gateway->setPartner('20880127040');
-        $this->gateway->setKey('sc1n78r0faswga7jjrpf6o');
+        $this->gateway->setPartner($this->partner);
+        $this->gateway->setKey($this->key);
         $this->gateway->setSellerEmail('example@qq.com');
         $this->gateway->setNotifyUrl('https://www.example.com/notify');
         $this->gateway->setReturnUrl('https://www.example.com/return');
-        $this->options = array(
+        $this->options = array (
             'out_trade_no' => '2014010122390001',
             'subject'      => 'test',
             'total_fee'    => '0.01',
