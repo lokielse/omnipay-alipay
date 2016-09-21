@@ -2,10 +2,9 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Guzzle\Http\ClientInterface;
+use Omnipay\Alipay\Common\Signer;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
-use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 abstract class Request extends AbstractRequest
 {
@@ -164,63 +163,21 @@ abstract class Request extends AbstractRequest
     }
 
 
-    protected function sign($data, $signType)
+    protected function sign($params, $signType)
     {
-        unset($data['sign']);
-        unset($data['sign_type']);
-
-        ksort($data);
-        reset($data);
-
-        $query = http_build_query($data);
-        $query = urldecode($query);
+        $signer = new Signer($params);
 
         $signType = strtoupper($signType);
 
         if ($signType == 'MD5') {
-            $sign = $this->signWithMD5($query);
+            $sign = $signer->signWithMD5($this->getKey());
         } elseif ($signType == 'RSA') {
-            $sign = $this->signWithRSA($query, $this->getPrivateKey());
+            $sign = $signer->signWithRSA($this->getPrivateKey());
         } else {
             throw new InvalidRequestException('The signType is not allowed');
         }
 
         return $sign;
-    }
-
-
-    protected function signWithMD5($query)
-    {
-        return md5($query . $this->getKey());
-    }
-
-
-    private function signWithRSA($data, $privateKey)
-    {
-        $privateKey = $this->prefixCertificateKeyPath($privateKey);
-        $res        = openssl_pkey_get_private($privateKey);
-        openssl_sign($data, $sign, $res);
-        openssl_free_key($res);
-        $sign = base64_encode($sign);
-
-        return $sign;
-    }
-
-
-    /**
-     * Prefix the key path with 'file://'
-     *
-     * @param $key
-     *
-     * @return string
-     */
-    private function prefixCertificateKeyPath($key)
-    {
-        if (strtoupper(substr(PHP_OS, 0, 3)) != 'WIN' && is_file($key) && substr($key, 0, 7) != 'file://') {
-            $key = 'file://' . $key;
-        }
-
-        return $key;
     }
 
 

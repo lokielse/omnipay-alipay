@@ -2,6 +2,7 @@
 
 namespace Omnipay\Alipay\Requests;
 
+use Omnipay\Alipay\Common\Signer;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 
@@ -229,54 +230,21 @@ abstract class AopRequest extends AbstractRequest
     }
 
 
-    protected function sign($data, $signType)
+    protected function sign($params, $signType)
     {
-        unset($data['sign']);
-
-        ksort($data);
-
-        $query = http_build_query($data);
-        $query = urldecode($query);
+        $signer = new Signer($params);
+        $signer->setIgnores(array ('sign'));
 
         $signType = strtoupper($signType);
 
         if ($signType == 'RSA') {
-            $sign = $this->signWithRSA($query, $this->getPrivateKey());
+            $sign = $signer->signWithRSA($this->getPrivateKey());
         } elseif ($signType == 'RSA2') {
-            $sign = $this->signWithRSA($query, $this->getPrivateKey(), OPENSSL_ALGO_SHA256);
+            $sign = $signer->signWithRSA($this->getPrivateKey(), OPENSSL_ALGO_SHA256);
         } else {
             throw new InvalidRequestException('The signType is not allowed');
         }
 
         return $sign;
-    }
-
-
-    private function signWithRSA($data, $privateKey, $alg = OPENSSL_ALGO_SHA1)
-    {
-        $privateKey = $this->prefixCertificateKeyPath($privateKey);
-        $res        = openssl_pkey_get_private($privateKey);
-        openssl_sign($data, $sign, $res, $alg);
-        openssl_free_key($res);
-        $sign = base64_encode($sign);
-
-        return $sign;
-    }
-
-
-    /**
-     * Prefix the key path with 'file://'
-     *
-     * @param $key
-     *
-     * @return string
-     */
-    private function prefixCertificateKeyPath($key)
-    {
-        if (strtoupper(substr(PHP_OS, 0, 3)) != 'WIN' && is_file($key) && substr($key, 0, 7) != 'file://') {
-            $key = 'file://' . $key;
-        }
-
-        return $key;
     }
 }

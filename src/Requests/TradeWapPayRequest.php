@@ -3,6 +3,7 @@
 namespace Omnipay\Alipay\Requests;
 
 use Omnipay\Alipay\Responses\TradeWapPayResponse;
+use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
 
 class TradeWapPayRequest extends AopRequest
@@ -44,6 +45,7 @@ class TradeWapPayRequest extends AopRequest
      * @param  mixed $data The data to send
      *
      * @return ResponseInterface
+     * @throws InvalidRequestException
      */
     public function sendData($data)
     {
@@ -53,14 +55,20 @@ class TradeWapPayRequest extends AopRequest
 
         $url = sprintf('%s?%s', $this->getEndpoint(), http_build_query($queryParams));
 
-        $params = [
+        $params = array (
             'biz_content' => json_encode($this->getBizContent())
-        ];
+        );
 
         $html = $this->httpClient->post($url)->setBody(
             http_build_query($params),
             'application/x-www-form-urlencoded'
         )->send()->getBody();
+
+        if (strpos($html, 'invalid-signature') !== false) {
+            throw new InvalidRequestException('The signature is invalid, check your private key');
+        } elseif (strpos($html, 'insufficient-isv-permissions') !== false) {
+            throw new InvalidRequestException('insufficient-isv-permissions');
+        }
 
         $data = array (
             'html' => $html
