@@ -18,7 +18,7 @@ class Signer
     protected $ignores = array ('sign', 'sign_type');
 
 
-    public function __construct(array $params)
+    public function __construct(array $params = array ())
     {
         $this->params = $params;
     }
@@ -36,7 +36,33 @@ class Signer
     {
         $content = $this->getContentToSign();
 
-        $privateKey = $this->prefixCertificateKeyPath($privateKey);
+        $sign = $this->signContentWithRSA($content, $privateKey, $alg);
+
+        return $sign;
+    }
+
+
+    public function verifyWithRSA($content, $sign, $publicKey, $alg = OPENSSL_ALGO_SHA1)
+    {
+        $publicKey = $this->prefix($publicKey);
+
+        $res = openssl_pkey_get_public($publicKey);
+
+        if (! $res) {
+            throw new \Exception('The publicKey is invalid');
+        }
+
+        $result = (bool) openssl_verify($content, base64_decode($sign), $res, $alg);
+
+        openssl_free_key($res);
+
+        return $result;
+    }
+
+
+    public function signContentWithRSA($content, $privateKey, $alg = OPENSSL_ALGO_SHA1)
+    {
+        $privateKey = $this->prefix($privateKey);
         $res        = openssl_pkey_get_private($privateKey);
         openssl_sign($content, $sign, $res, $alg);
         openssl_free_key($res);
@@ -77,7 +103,7 @@ class Signer
      *
      * @return string
      */
-    private function prefixCertificateKeyPath($key)
+    private function prefix($key)
     {
         if (strtoupper(substr(PHP_OS, 0, 3)) != 'WIN' && is_file($key) && substr($key, 0, 7) != 'file://') {
             $key = 'file://' . $key;
