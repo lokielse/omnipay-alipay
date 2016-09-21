@@ -19,6 +19,8 @@ abstract class Request extends AbstractRequest
 
     protected $privateKey;
 
+    protected $alipayPublicKey;
+
 
     /**
      * @return string
@@ -131,6 +133,28 @@ abstract class Request extends AbstractRequest
     public function setKey($value)
     {
         $this->key = $value;
+
+        return $this;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getAlipayPublicKey()
+    {
+        return $this->alipayPublicKey;
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setAlipayPublicKey($value)
+    {
+        $this->alipayPublicKey = $value;
 
         return $this;
     }
