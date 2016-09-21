@@ -15,7 +15,7 @@ abstract class AopRequest extends AbstractRequest
 
     protected $encryptKey;
 
-    protected $endpoint;
+    protected $endpoint = 'https://openapi.alipay.com/gateway.do';
 
 
     /**

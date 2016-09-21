@@ -27,7 +27,6 @@ class AopWapGateway extends AbstractGateway
             'sign_type' => 'RSA',
             'version'   => '1.0',
             'timestamp' => date('Y-m-d H:i:s'),
-            'endpoint'  => 'https://openapi.alipay.com/gateway.do',
         );
     }
 
