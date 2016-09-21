@@ -7,6 +7,8 @@ class SendGoodsRequest extends BasePurchaseRequest
 {
     public $sendGoodsResponse;
 
+    protected $service = 'send_goods_confirm_by_platform';
+
     /**
      * Get the raw data array for this message. The format of this varies from gateway to
      * gateway, but will usually be either an associative array, or a SimpleXMLElement.
@@ -18,7 +20,7 @@ class SendGoodsRequest extends BasePurchaseRequest
         $this->validateData();
 
         $data = array(
-            "service"           => $this->getService(),
+            "service"           => $this->service,
             "partner"           => $this->getPartner(),
             "trade_no"          => $this->getTradeNo(),
             "logistics_name"    => $this->getLogisticsName(),

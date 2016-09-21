@@ -5,6 +5,9 @@ namespace Omnipay\Alipay\Message;
 class SecuredPurchaseRequest extends BasePurchaseRequest
 {
 
+    protected $service = 'trade_create_by_buyer';
+
+
     /**
      * Get the raw data array for this message. The format of this varies from gateway to
      * gateway, but will usually be either an associative array, or a SimpleXMLElement.
@@ -15,8 +18,8 @@ class SecuredPurchaseRequest extends BasePurchaseRequest
     {
         $this->validateData();
 
-        $data = array(
-            "service"           => $this->getService(),
+        $data = array (
+            "service"           => $this->service,
             "partner"           => $this->getPartner(),
             "payment_type"      => 1,
             "notify_url"        => $this->getNotifyUrl(),
@@ -50,7 +53,6 @@ class SecuredPurchaseRequest extends BasePurchaseRequest
     protected function validateData()
     {
         $this->validate(
-            'service',
             'partner',
             'key',
             'seller_email',

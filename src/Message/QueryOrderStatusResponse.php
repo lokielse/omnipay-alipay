@@ -9,15 +9,10 @@ use Omnipay\Common\Message\AbstractResponse;
  */
 class QueryOrderStatusResponse extends AbstractResponse
 {
-
     public function isSuccessful()
     {
-        return $this->getData()['is_success'] == 'T';
-    }
+        $data = $this->getData();
 
-
-    public function isRedirect()
-    {
-        return false;
+        return isset($data['is_success']) && $data['is_success'] == 'T';
     }
 }

@@ -5,6 +5,9 @@ namespace Omnipay\Alipay\Message;
 class ExpressPurchaseRequest extends BasePurchaseRequest
 {
 
+    protected $service = 'create_direct_pay_by_user';
+
+
     /**
      * Get the raw data array for this message. The format of this varies from gateway to
      * gateway, but will usually be either an associative array, or a SimpleXMLElement.
@@ -14,8 +17,8 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
     public function getData()
     {
         $this->validateData();
-        $data              = array(
-            "service"            => $this->getService(),
+        $data = array (
+            "service"            => $this->service,
             "partner"            => $this->getPartner(),
             "payment_type"       => $this->getPaymentType(),
             "notify_url"         => $this->getNotifyUrl(),
@@ -69,6 +72,7 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
         return $this->getParameter('default_bank');
     }
 
+
     public function getQrPayMode()
     {
         return $this->getParameter('qr_pay_mode');
@@ -79,6 +83,7 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
     {
         return $this->getParameter('it_b_pay');
     }
+
 
     public function setDefaultBank($value)
     {
@@ -102,8 +107,8 @@ class ExpressPurchaseRequest extends BasePurchaseRequest
     {
         $this->setParameter('exter_invoke_ip', $value);
     }
-    
-    
+
+
     public function setItBPay($value)
     {
         $this->setParameter('it_b_pay', $value);

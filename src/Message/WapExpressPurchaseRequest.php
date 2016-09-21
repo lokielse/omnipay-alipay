@@ -5,6 +5,8 @@ namespace Omnipay\Alipay\Message;
 class WapExpressPurchaseRequest extends BasePurchaseRequest
 {
 
+    protected $service = 'alipay.wap.create.direct.pay.by.user';
+
     /**
      * Get the raw data array for this message. The format of this varies from gateway to
      * gateway, but will usually be either an associative array, or a SimpleXMLElement.
@@ -16,7 +18,7 @@ class WapExpressPurchaseRequest extends BasePurchaseRequest
         $this->validateData();
 
         $data = array(
-            "service"        => $this->getService(),
+            "service"        => $this->service,
             "partner"        => $this->getPartner(),
             "seller_id"      => $this->getPartner(),
             "payment_type"   => $this->getPaymentType(),

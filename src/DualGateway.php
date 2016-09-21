@@ -10,9 +10,6 @@ namespace Omnipay\Alipay;
 class DualGateway extends SecuredGateway
 {
 
-    protected $serviceName = 'trade_create_by_buyer';
-
-
     /**
      * Get gateway display name
      *
@@ -24,10 +21,8 @@ class DualGateway extends SecuredGateway
     }
 
 
-    public function purchase(array $parameters = array())
+    public function purchase(array $parameters = array ())
     {
-        $this->setService($this->serviceName);
-
         return $this->createRequest('\Omnipay\Alipay\Message\SecuredPurchaseRequest', $parameters);
     }
 }
