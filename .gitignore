@@ -1,6 +1,9 @@
 /vendor
 /public
 /.idea
+/.tmp
 composer.lock
 composer.phar
-phpunit.xml
+config.php
+/tests/Assets/production
+/tests/Assets/sandbox
