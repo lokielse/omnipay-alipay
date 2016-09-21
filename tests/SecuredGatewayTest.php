@@ -1,11 +1,12 @@
 <?php
 
-namespace Omnipay\Alipay;
+namespace Omnipay\Alipay\Tests;
 
 use Omnipay\Alipay\Message\PurchaseResponse;
+use Omnipay\Alipay\SecuredGateway;
 use Omnipay\Tests\GatewayTestCase;
 
-class SecuredGatewayTest extends GatewayTestCase
+class SecuredGatewayTest extends AbstractGatewayTestCase
 {
 
     /**
