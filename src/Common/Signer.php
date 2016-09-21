@@ -46,7 +46,7 @@ class Signer
     }
 
 
-    private function getContentToSign()
+    public function getContentToSign()
     {
         $params = $this->getParamsToSign();
 
@@ -57,12 +57,13 @@ class Signer
     /**
      * @return mixed
      */
-    protected function getParamsToSign()
+    public function getParamsToSign()
     {
         $params = $this->params;
 
         $this->unsetKeys($params);
 
+        $params = $this->filter($params);
         $this->sort($params);
 
         return $params;
@@ -125,5 +126,11 @@ class Signer
         foreach ($this->getIgnores() as $key) {
             unset($params[$key]);
         }
+    }
+
+
+    private function filter($params)
+    {
+        return array_filter($params, 'strlen');
     }
 }
