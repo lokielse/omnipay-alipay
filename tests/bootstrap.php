@@ -20,3 +20,5 @@ if (file_exists($configFile)) {
     define('ALIPAY_APP_PRIVATE_KEY', __DIR__ . '/tests/Assets/dist/aop/rsa_private_key.pem');
     define('ALIPAY_APP_ENCRYPT_KEY', '111111');
 }
+
+define('ALIPAY_ASSET_DIR', realpath(__DIR__.'/Assets'));

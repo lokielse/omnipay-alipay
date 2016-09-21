@@ -2,10 +2,7 @@
 
 namespace Omnipay\Alipay\Tests;
 
-use Omnipay\Alipay\AopAppGateway;
 use Omnipay\Alipay\AopWapGateway;
-use Omnipay\Alipay\Responses\CreateOrderResponse;
-use Omnipay\Alipay\Responses\TradeAppPayResponse;
 use Omnipay\Alipay\Responses\TradeWapPayResponse;
 
 class NewWapGatewayTest extends AbstractGatewayTestCase
