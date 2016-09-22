@@ -32,4 +32,15 @@ class RefundNotifyResponse extends AbstractResponse
     {
         return $this->data['verify_success'];
     }
+    
+    
+    /**
+     * Is the response successful?
+     *
+     * @return boolean
+     */
+    public function isSuccessful()
+    {
+        return $this->isVerifySuccess();
+    }
 }
