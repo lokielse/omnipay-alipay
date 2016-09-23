@@ -2,10 +2,11 @@
 
 namespace Omnipay\Alipay;
 
+use Omnipay\Alipay\Requests\AopNotifyRequest;
 use Omnipay\Alipay\Requests\TradeAppPayRequest;
-use Omnipay\Common\AbstractGateway;
+use Omnipay\Alipay\Requests\VerifyAppPayReturnRequest;
 
-class AopAppGateway extends AbstractGateway
+class AopAppGateway extends AbstractAopGateway
 {
 
     /**
@@ -19,200 +20,29 @@ class AopAppGateway extends AbstractGateway
     }
 
 
-    public function getDefaultParameters()
-    {
-        return array (
-            'format'    => 'JSON',
-            'charset'   => 'utf-8',
-            'sign_type' => 'RSA',
-            'version'   => '1.0',
-            'timestamp' => date('Y-m-d H:i:s'),
-        );
-    }
-
-
     /**
-     * @return mixed
-     */
-    public function getAppId()
-    {
-        return $this->getParameter('app_id');
-    }
-
-
-    /**
-     * @param $value
+     * @param array $parameters
      *
-     * @return $this
+     * @return TradeAppPayRequest
      */
-    public function setAppId($value)
-    {
-        return $this->setParameter('app_id', $value);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getFormat()
-    {
-        return $this->getParameter('format');
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setFormat($value)
-    {
-        return $this->setParameter('format', $value);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getCharset()
-    {
-        return $this->getParameter('charset');
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setCharset($value)
-    {
-        return $this->setParameter('charset', $value);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getSignType()
-    {
-        return $this->getParameter('sign_type');
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setSignType($value)
-    {
-        return $this->setParameter('sign_type', $value);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getVersion()
-    {
-        return $this->getParameter('version');
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setVersion($value)
-    {
-        return $this->setParameter('version', $value);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getPrivateKey()
-    {
-        return $this->getParameter('private_key');
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setPrivateKey($value)
-    {
-        return $this->setParameter('private_key', $value);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getEncryptKey()
-    {
-        return $this->getParameter('encrypt_key');
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setEncryptKey($value)
-    {
-        return $this->setParameter('encrypt_key', $value);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getNotifyUrl()
-    {
-        return $this->getParameter('notify_url');
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setNotifyUrl($value)
-    {
-        return $this->setParameter('notify_url', $value);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getTimestamp()
-    {
-        return $this->getParameter('timestamp');
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setTimestamp($value)
-    {
-        return $this->setParameter('timestamp', $value);
-    }
-
-
-    public function purchase(array $parameters = array ())
+    public function purchase(array $parameters = [])
     {
         return $this->createRequest(TradeAppPayRequest::class, $parameters);
+    }
+
+
+    /**
+     * @param array $parameters
+     * @param bool  $isReturn
+     *
+     * @return TradeAppPayRequest|AopNotifyRequest
+     */
+    public function completePurchase(array $parameters = [], $isReturn = false)
+    {
+        if ($isReturn) {
+            return $this->createRequest(VerifyAppPayReturnRequest::class, $parameters);
+        } else {
+            return $this->createRequest(AopNotifyRequest::class, $parameters);
+        }
     }
 }
