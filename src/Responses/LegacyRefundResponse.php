@@ -2,11 +2,11 @@
 
 namespace Omnipay\Alipay\Responses;
 
-use Omnipay\Alipay\Requests\CreateOrderRequest;
+use Omnipay\Alipay\Requests\LegacyExpressPurchaseRequest;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
-class CreateOrderResponse extends AbstractResponse implements RedirectResponseInterface
+class LegacyRefundResponse extends AbstractResponse implements RedirectResponseInterface
 {
 
     /**
@@ -29,7 +29,7 @@ class CreateOrderResponse extends AbstractResponse implements RedirectResponseIn
     public function getRedirectUrl()
     {
         /**
-         * @var CreateOrderRequest $request
+         * @var LegacyExpressPurchaseRequest $request
          */
         $request = $this->getRequest();
 

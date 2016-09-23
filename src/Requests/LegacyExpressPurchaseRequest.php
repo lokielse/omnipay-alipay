@@ -2,12 +2,16 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Omnipay\Alipay\Responses\CreateOrderResponse;
+use Omnipay\Alipay\Responses\LegacyExpressPurchaseResponse;
 use Omnipay\Common\Message\ResponseInterface;
 
-class CreateOrderRequest extends Request
+/**
+ * Class LegacyExpressPurchaseRequest
+ * @package Omnipay\Alipay\Requests
+ * @link    https://doc.open.alipay.com/docs/doc.htm?treeId=108&articleId=104743&docType=1
+ */
+class LegacyExpressPurchaseRequest extends AbstractLegacyRequest
 {
-
     protected $service = 'create_direct_pay_by_user';
 
 
@@ -18,6 +22,20 @@ class CreateOrderRequest extends Request
      * @return mixed
      */
     public function getData()
+    {
+        $this->validateParams();
+
+        $data = $this->filter($this->parameters->all());
+
+        $data['service']   = $this->service;
+        $data['sign']      = $this->sign($data, $this->getSignType());
+        $data['sign_type'] = $this->getSignType();
+
+        return $data;
+    }
+
+
+    protected function validateParams()
     {
         $this->validate(
             '_input_charset',
@@ -32,14 +50,6 @@ class CreateOrderRequest extends Request
             'seller_email',
             'seller_account_name'
         );
-
-        $data = $this->filter($this->parameters->all());
-
-        $data['service']   = $this->service;
-        $data['sign']      = $this->sign($data, $this->getSignType());
-        $data['sign_type'] = $this->getSignType();
-
-        return $data;
     }
 
 
@@ -52,7 +62,7 @@ class CreateOrderRequest extends Request
      */
     public function sendData($data)
     {
-        return $this->response = new CreateOrderResponse($this, $data);
+        return $this->response = new LegacyExpressPurchaseResponse($this, $data);
     }
 
 

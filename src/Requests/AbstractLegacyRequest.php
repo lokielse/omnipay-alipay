@@ -6,7 +6,7 @@ use Omnipay\Alipay\Common\Signer;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
 
-abstract class Request extends AbstractRequest
+abstract class AbstractLegacyRequest extends AbstractRequest
 {
 
     protected $endpoint = 'https://mapi.alipay.com/gateway.do';
@@ -74,6 +74,26 @@ abstract class Request extends AbstractRequest
     /**
      * @return mixed
      */
+    public function getAlipaySdk()
+    {
+        return $this->getParameter('alipay_sdk');
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setAlipaySdk($value)
+    {
+        return $this->setParameter('alipay_sdk', $value);
+    }
+
+
+    /**
+     * @return mixed
+     */
     public function getSignType()
     {
         return $this->signType;
@@ -89,50 +109,6 @@ abstract class Request extends AbstractRequest
     public function setSignType($value)
     {
         $this->signType = $value;
-
-        return $this;
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getPrivateKey()
-    {
-        return $this->privateKey;
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setPrivateKey($value)
-    {
-        $this->privateKey = $value;
-
-        return $this;
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getKey()
-    {
-        return $this->key;
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setKey($value)
-    {
-        $this->key = $value;
 
         return $this;
     }
@@ -163,10 +139,6 @@ abstract class Request extends AbstractRequest
     protected function validateOne()
     {
         $keys = func_get_args();
-
-        if ($keys && is_array($keys[0])) {
-            $keys = $keys[0];
-        }
 
         $allEmpty = true;
 
@@ -202,6 +174,50 @@ abstract class Request extends AbstractRequest
         }
 
         return $sign;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setKey($value)
+    {
+        $this->key = $value;
+
+        return $this;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getPrivateKey()
+    {
+        return $this->privateKey;
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setPrivateKey($value)
+    {
+        $this->privateKey = $value;
+
+        return $this;
     }
 
 

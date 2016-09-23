@@ -4,7 +4,7 @@ namespace Omnipay\Alipay\Responses;
 
 use Omnipay\Common\Message\AbstractResponse;
 
-class QueryOrderStatusResponse extends AbstractResponse
+class LegacyQueryResponse extends AbstractResponse
 {
 
     /**
@@ -14,6 +14,6 @@ class QueryOrderStatusResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
-        return $this->data['result'] === 'true';
+        return $this->data['is_success'] === 'T';
     }
 }
