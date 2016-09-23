@@ -23,7 +23,10 @@
     "psr-4": {
       "Omnipay\\Alipay\\": "src/",
       "Omnipay\\Alipay\\Tests\\": "tests/"
-    }
+    },
+    "files": [
+      "src/Common/helpers.php"
+    ]
   },
   "require": {
     "omnipay/common": "~2.0"
