@@ -5,37 +5,14 @@ namespace Omnipay\Alipay\Requests;
 use Omnipay\Alipay\Responses\TradeAppPayResponse;
 use Omnipay\Common\Message\ResponseInterface;
 
-class TradeAppPayRequest extends AopRequest
+/**
+ * Class TradeAppPayRequest
+ * @package Omnipay\Alipay\Requests
+ * @link    https://doc.open.alipay.com/docs/doc.htm?treeId=204&articleId=105465&docType=1
+ */
+class TradeAppPayRequest extends AbstractAopRequest
 {
-
     protected $method = 'alipay.trade.app.pay';
-
-
-    /**
-     * Get the raw data array for this message. The format of this varies from gateway to
-     * gateway, but will usually be either an associative array, or a SimpleXMLElement.
-     *
-     * @return mixed
-     */
-    public function getData()
-    {
-        if (! $this->getTimestamp()) {
-            $this->setTimestamp(date('Y-m-d H:i:s'));
-        }
-
-        $data           = $this->parameters->all();
-        $data['method'] = $this->method;
-
-        if (is_array($data['biz_content'])) {
-            $data['biz_content'] = json_encode($data['biz_content']);
-        }
-
-        $data = $this->filter($data);
-        ksort($data);
-        $data['sign'] = $this->sign($data, $this->getSignType());
-
-        return $data;
-    }
 
 
     /**
@@ -71,5 +48,4 @@ class TradeAppPayRequest extends AopRequest
     {
         return $this->setParameter('notify_url', $value);
     }
-
 }
