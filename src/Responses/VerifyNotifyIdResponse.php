@@ -4,7 +4,7 @@ namespace Omnipay\Alipay\Responses;
 
 use Omnipay\Common\Message\AbstractResponse;
 
-class NotifyVerifyResponse extends AbstractResponse
+class VerifyNotifyIdResponse extends AbstractResponse
 {
 
     /**

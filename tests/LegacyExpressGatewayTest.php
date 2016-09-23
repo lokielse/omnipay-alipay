@@ -2,16 +2,16 @@
 
 namespace Omnipay\Alipay\Tests;
 
-use Omnipay\Alipay\Message\QueryOrderStatusResponse;
-use Omnipay\Alipay\NewExpressGateway;
-use Omnipay\Alipay\Responses\CreateOrderResponse;
-use Omnipay\Alipay\Responses\RefundResponse;
+use Omnipay\Alipay\LegacyExpressGateway;
+use Omnipay\Alipay\Responses\LegacyExpressPurchaseResponse;
+use Omnipay\Alipay\Responses\LegacyQueryResponse;
+use Omnipay\Alipay\Responses\LegacyRefundResponse;
 
-class NewExpressGatewayTest extends AbstractGatewayTestCase
+class LegacyExpressGatewayTest extends AbstractGatewayTestCase
 {
 
     /**
-     * @var NewExpressGateway $gateway
+     * @var LegacyExpressGateway $gateway
      */
     protected $gateway;
 
@@ -21,70 +21,66 @@ class NewExpressGatewayTest extends AbstractGatewayTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->gateway = new NewExpressGateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway = new LegacyExpressGateway($this->getHttpClient(), $this->getHttpRequest());
         $this->gateway->setPartner($this->partner);
         $this->gateway->setKey($this->key);
         $this->gateway->setSellerId($this->sellerId);
         $this->gateway->setNotifyUrl('https://www.example.com/notify');
         $this->gateway->setReturnUrl('https://www.example.com/return');
-        $this->options = array (
+        $this->options = [
             'out_trade_no' => '2014010122390001',
             'subject'      => 'test',
             'total_fee'    => '0.01',
-        );
+        ];
     }
 
 
     public function testPurchase()
     {
         /**
-         * @var CreateOrderResponse $response
+         * @var LegacyExpressPurchaseResponse $response
          */
         $response = $this->gateway->purchase($this->options)->send();
         $this->assertTrue($response->isSuccessful());
         $this->assertTrue($response->isRedirect());
         $this->assertNotEmpty($response->getRedirectUrl());
-        die($response->getRedirectUrl());
-        $redirectData = $response->getRedirectData();
-        $this->assertSame('https://www.example.com/return', $redirectData['return_url']);
     }
 
 
     public function testRefund()
     {
         /**
-         * @var RefundResponse $response
+         * @var LegacyRefundResponse $response
          */
         $response = $this->gateway->refund(
-            array (
-                'refund_items' => array(
-                    array (
+            [
+                'refund_items' => [
+                    [
                         'out_trade_no' => '2016092021001003280286716852',
                         'amount'       => '1',
                         'reason'       => 'test',
-                    )
-                )
-            )
+                    ]
+                ]
+            ]
         )->send();
+
         $this->assertTrue($response->isSuccessful());
         $this->assertTrue($response->isRedirect());
         $this->assertNotEmpty($response->getRedirectUrl());
-        die($response->getRedirectUrl());
-        $redirectData = $response->getRedirectData();
-        $this->assertSame('https://www.example.com/return', $redirectData['return_url']);
     }
 
-    public function testQueryOrderStatus()
+
+    public function testQuery()
     {
         /**
-         * @var QueryOrderStatusResponse $response
+         * @var LegacyQueryResponse $response
          */
-        $response = $this->gateway->queryOrderStatus(
-            array (
-                'out_trade_no'=>'2016092021001003280286716852'
-            )
+        $response = $this->gateway->query(
+            [
+                'out_trade_no' => '2016092021001003280286716850'
+            ]
         )->send();
+
         $this->assertFalse($response->isSuccessful());
-        $this->assertFalse($response->isRedirect());
     }
 }

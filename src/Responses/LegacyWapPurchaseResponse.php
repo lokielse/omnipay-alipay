@@ -2,12 +2,18 @@
 
 namespace Omnipay\Alipay\Responses;
 
-use Omnipay\Alipay\Requests\CreateOrderRequest;
+use Omnipay\Alipay\Requests\LegacyWapPurchaseRequest;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
-class RefundResponse extends AbstractResponse implements RedirectResponseInterface
+class LegacyWapPurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
+
+    /**
+     * @var LegacyWapPurchaseRequest
+     */
+    protected $request;
+
 
     /**
      * Is the response successful?
@@ -28,12 +34,7 @@ class RefundResponse extends AbstractResponse implements RedirectResponseInterfa
 
     public function getRedirectUrl()
     {
-        /**
-         * @var CreateOrderRequest $request
-         */
-        $request = $this->getRequest();
-
-        return $request->getEndpoint() . '?' . http_build_query($this->getRedirectData());
+        return $this->request->getEndpoint() . '?' . http_build_query($this->getRedirectData());
     }
 
 
