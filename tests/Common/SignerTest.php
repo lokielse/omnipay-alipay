@@ -6,32 +6,11 @@ use Omnipay\Alipay\Common\Signer;
 
 class SignerTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $params;
 
     protected $key;
 
     protected $privateKey;
-
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->params = array (
-            'aaa' => '111',
-            'bbb' => '2222',
-            'ccc' => '3333',
-            'dd'  => '',
-            'eee' => null,
-            'fff' => false,
-            'ggg' => true,
-        );
-
-        $this->key = 'hello';
-
-        $this->privateKey = ALIPAY_ASSET_DIR . '/dist/aop/rsa_private_key.pem';
-    }
 
 
     public function testSignWithMD5()
@@ -57,17 +36,17 @@ class SignerTest extends \PHPUnit_Framework_TestCase
 
     public function testSort()
     {
-        $params1 = array (
+        $params1 = [
             'aaa' => '111',
             'bbb' => '2222',
             'ccc' => '3333',
-        );
+        ];
 
-        $params2 = array (
+        $params2 = [
             'bbb' => '2222',
             'ccc' => '3333',
             'aaa' => '111',
-        );
+        ];
 
         $signer = new Signer($params1);
         $sign1  = $signer->signWithMD5($this->key);
@@ -81,55 +60,57 @@ class SignerTest extends \PHPUnit_Framework_TestCase
 
     public function testIgnore()
     {
-        $params1 = array (
+        $this->assertSame(['sign', 'sign_type'], (new Signer())->getIgnores());
+
+        $params1 = [
             'aaa'   => '111',
             'bbb'   => '2222',
             'ccc'   => '3333',
             'apple' => 'jobs',
-        );
+        ];
 
-        $params2 = array (
+        $params2 = [
             'bbb' => '2222',
             'ccc' => '3333',
             'aaa' => '111',
-        );
+        ];
 
         $signer = new Signer($params1);
-        $signer->setIgnores(array ('apple'));
+        $signer->setIgnores(['apple']);
         $sign1 = $signer->signWithMD5($this->key);
 
         $signer = new Signer($params2);
-        $signer->setIgnores(array ('apple'));
+        $signer->setIgnores(['apple']);
         $sign2 = $signer->signWithMD5($this->key);
+        $this->assertEquals($sign1, $sign2);
 
         $signer = new Signer($params1);
-        $signer->setIgnores(array ());
+        $signer->setIgnores([]);
         $sign3 = $signer->signWithMD5($this->key);
 
-        $this->assertEquals($sign1, $sign2);
         $this->assertNotEquals($sign1, $sign3);
     }
 
 
     public function testGetParamsToSign()
     {
-        $params1 = array (
+        $params1 = [
             'bbb'   => '2222',
             'ccc'   => '3333',
             'aaa'   => '111',
             'apple' => 'jobs',
-        );
+        ];
 
         $signer = new Signer($params1);
-        $signer->setIgnores(array ('apple'));
+        $signer->setIgnores(['apple']);
         $params = $signer->getParamsToSign();
 
         $this->assertSame(
-            array (
+            [
                 'aaa' => '111',
                 'bbb' => '2222',
                 'ccc' => '3333',
-            ),
+            ],
             $params
         );
     }
@@ -137,20 +118,39 @@ class SignerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetContentToSign()
     {
-        $params1 = array (
+        $params1 = [
             'bbb'   => '2222',
             'ccc'   => '3333',
             'aaa'   => '111',
             's'     => '"."',
             'e'     => '',
             'apple' => 'jobs',
-        );
+        ];
 
         $signer = new Signer($params1);
-        $signer->setIgnores(array ('apple'));
+        $signer->setIgnores(['apple']);
         $content = $signer->getContentToSign();
 
         $this->assertEquals('aaa=111&bbb=2222&ccc=3333&s="."', $content);
     }
 
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->params = [
+            'aaa' => '111',
+            'bbb' => '2222',
+            'ccc' => '3333',
+            'dd'  => '',
+            'eee' => null,
+            'fff' => false,
+            'ggg' => true,
+        ];
+
+        $this->key = 'hello';
+
+        $this->privateKey = ALIPAY_ASSET_DIR . '/dist/aop/rsa_private_key.pem';
+    }
 }
