@@ -94,6 +94,26 @@ abstract class AbstractLegacyRequest extends AbstractRequest
     /**
      * @return mixed
      */
+    public function getPaymentType()
+    {
+        return $this->getParameter('payment_type');
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setPaymentType($value)
+    {
+        return $this->setParameter('payment_type', $value);
+    }
+
+
+    /**
+     * @return mixed
+     */
     public function getSignType()
     {
         return $this->signType;
@@ -166,8 +186,18 @@ abstract class AbstractLegacyRequest extends AbstractRequest
         $signType = strtoupper($signType);
 
         if ($signType == 'MD5') {
+            if (! $this->getKey()) {
+                throw new InvalidRequestException('The `key` is required for `MD5` sign_type');
+            }
+
             $sign = $signer->signWithMD5($this->getKey());
+
         } elseif ($signType == 'RSA') {
+
+            if (! $this->getPrivateKey()) {
+                throw new InvalidRequestException('The `private_key` is required for `RSA` sign_type');
+            }
+
             $sign = $signer->signWithRSA($this->getPrivateKey());
         } else {
             throw new InvalidRequestException('The signType is not allowed');
