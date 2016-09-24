@@ -42,10 +42,10 @@ The following gateways are provided by this package:
 |:---------------	    	|:---------------------------     |:---------         |:----------:|
 | Alipay_AopApp 	    		| Alipay APP Gateway              |APP支付 - new    | [Usage][link-wiki-aop-app]       |
 | Alipay_AopF2F 	    		| Alipay Face To Face Gateway     |当面付 - new         | [Usage][link-wiki-aop-f2f]       |
-| Alipay_AopWap 	    		| Alipay WAP Gateway              |WAP网页支付 - new     | [Usage][link-wiki-aop-wap]       |
+| Alipay_AopWap 	    		| Alipay WAP Gateway              |手机网站支付 - new     | [Usage][link-wiki-aop-wap]       |
 | Alipay_LegacyApp 	    	| Alipay Legacy APP Gateway       |APP支付      | [Usage][link-wiki-legacy-app]       |
-| Alipay_LegacyExpress 		| Alipay Legacy Express Gateway   |PC端即时到账    | [Usage][link-wiki-legacy-express]      |
-| Alipay_LegacyWap      	| Alipay Legacy Express Gateway   |WAP网页支付     | [Usage][link-wiki-legacy-wap]       |
+| Alipay_LegacyExpress 		| Alipay Legacy Express Gateway   |即时到账    | [Usage][link-wiki-legacy-express]      |
+| Alipay_LegacyWap      	| Alipay Legacy Express Gateway   |手机网站支付     | [Usage][link-wiki-legacy-wap]       |
 
 ## Usage
 
