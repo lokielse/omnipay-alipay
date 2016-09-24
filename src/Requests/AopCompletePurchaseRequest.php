@@ -3,7 +3,7 @@
 namespace Omnipay\Alipay\Requests;
 
 use Omnipay\Alipay\Responses\AopCompletePurchaseResponse;
-use Omnipay\Alipay\Responses\TradeQueryResponse;
+use Omnipay\Alipay\Responses\AopTradeQueryResponse;
 use function Omnipay\Alipay\Common\array_get;
 
 class AopCompletePurchaseRequest extends AbstractAopRequest
@@ -64,14 +64,14 @@ class AopCompletePurchaseRequest extends AbstractAopRequest
             if (! array_get($data, 'trade_status')) {
                 $tn = array_get($data, 'trade_no');
 
-                $request = new TradeQueryRequest($this->httpClient, $this->httpRequest);
+                $request = new AopTradeQueryRequest($this->httpClient, $this->httpRequest);
                 $request->initialize($this->getParameters());
                 $request->setEndpoint($this->getEndpoint());
                 $request->setBizContent(['trade_no' => $tn]);
                 $request->setPrivateKey($this->getPrivateKey());
 
                 /**
-                 * @var TradeQueryResponse $response
+                 * @var AopTradeQueryResponse $response
                  */
                 $response = $request->send();
 

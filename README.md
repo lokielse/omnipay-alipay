@@ -1,15 +1,21 @@
 # Omnipay: Alipay
 
-**Alipay driver for the Omnipay PHP payment processing library**
+[![travis][ico-travis]][link-travis]
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Total Downloads][ico-downloads]][link-downloads]
+[![Software License][ico-license]](LICENSE.md)
 
-[![Build Status](https://travis-ci.org/lokielse/omnipay-alipay.png?branch=master)](https://travis-ci.org/lokielse/omnipay-alipay)
-[![Latest Stable Version](https://poser.pugx.org/lokielse/omnipay-alipay/version.png)](https://packagist.org/packages/lokielse/omnipay-alipay)
-[![Total Downloads](https://poser.pugx.org/lokielse/omnipay-alipay/d/total.png)](https://packagist.org/packages/lokielse/omnipay-alipay)
+
+
+
+**Alipay driver for the Omnipay PHP payment processing library**
 
 [Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements Alipay support for Omnipay.
 
 > Cross-border Alipay payment please use [`lokielse/omnipay-global-alipay`](https://github.com/lokielse/omnipay-global-alipay)
+ 
+> Legacy Version please use [`"lokielse/omnipay-alipay": "legacy"`](https://github.com/lokielse/omnipay-alipay/tree/legacy)
 
 ## Installation
 
@@ -32,151 +38,41 @@ And run composer to update your dependencies:
 
 The following gateways are provided by this package:
 
-
-* Alipay_Express (Alipay Express Checkout) 支付宝即时到账接口
-* Alipay_Secured (Alipay Secured Checkout) 支付宝担保交易接口
-* Alipay_Dual (Alipay Dual Function Checkout) 支付宝双功能交易接口
-* Alipay_WapExpress (Alipay Wap Express Checkout) 支付宝WAP客户端接口
-* Alipay_MobileExpress (Alipay Mobile Express Checkout) 支付宝无线支付接口
-* Alipay_Bank (Alipay Bank Checkout) 支付宝网银快捷接口
+| Gateway       	    		|         Description             |说明                 | Demo|
+|:---------------	    	|:---------------------------     |:---------         |:----------:|
+| Alipay_AopApp 	    		| Alipay APP Gateway              |APP支付 - new    | [Usage][link-wiki-aop-app]       |
+| Alipay_AopF2F 	    		| Alipay Face To Face Gateway     |当面付 - new         | [Usage][link-wiki-aop-f2f]       |
+| Alipay_AopWap 	    		| Alipay WAP Gateway              |WAP网页支付 - new     | [Usage][link-wiki-aop-wap]       |
+| Alipay_LegacyApp 	    	| Alipay Legacy APP Gateway       |APP支付      | [Usage][link-wiki-legacy-app]       |
+| Alipay_LegacyExpress 		| Alipay Legacy Express Gateway   |PC端即时到账    | [Usage][link-wiki-legacy-express]      |
+| Alipay_LegacyWap      	| Alipay Legacy Express Gateway   |WAP网页支付     | [Usage][link-wiki-legacy-wap]       |
 
 ## Usage
 
-### Purchase (支付)
+### Purchase (购买)
+
 ```php
-$gateway = Omnipay::create('Alipay_Express');
-$gateway->setPartner('8888666622221111');
-$gateway->setKey('your**key**here');
-$gateway->setSellerEmail('merchant@example.com');
-$gateway->setReturnUrl('http://www.example.com/return');
-$gateway->setNotifyUrl('http://www.example.com/notify');
+/**
+ * @var AopAppGateway $gateway
+ */
+$gateway = Omnipay::create('Alipay_AopApp');
+$gateway->setAppId('the_app_id');
+$gateway->setPrivateKey('the_app_private_key');
+$gateway->setNotifyUrl('https://www.example.com/notify');
 
-//For 'Alipay_MobileExpress', 'Alipay_WapExpress'
-//$gateway->setPrivateKey('/such-as/private_key.pem');
+$request = $this->gateway->purchase();
+$request->setBizContent([
+    'subject'      => 'test',
+    'out_trade_no' => date('YmdHis') . mt_rand(1000, 9999),
+    'total_amount' => '0.01',
+    'product_code' => 'QUICK_MSECURITY_PAY',
+]);
 
-$options = [
-    'out_trade_no' => date('YmdHis') . mt_rand(1000,9999), //your site trade no, unique
-    'subject'      => 'test', //order title
-    'total_fee'    => '0.01', //order total fee
-];
-
-$response = $gateway->purchase($options)->send();
-
-$response->getRedirectUrl();
-$response->getRedirectData();
-
-//For 'Alipay_MobileExpress'
-//Use the order string with iOS or Android SDK
-$response->getOrderString();
+/**
+ * @var AopTradeAppPayResponse $response
+ */
+$response = $request->send();
 ```
-
-### Return/Notify (支付通知) [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.m5IwYI&treeId=62&articleId=104743&docType=1#s2)
-```php
-$gateway = Omnipay::create('Alipay_Express');
-$gateway->setPartner('8888666622221111');
-$gateway->setKey('your**key**here');
-$gateway->setSellerEmail('merchant@example.com');
-
-//For 'Alipay_MobileExpress', 'Alipay_WapExpress'
-//$gateway->setAlipayPublicKey('/such-as/alipay_public_key.pem');
-
-$options = [
-    'request_params'=> array_merge($_POST, $_GET), //Don't use $_REQUEST for may contain $_COOKIE
-];
-
-$response = $gateway->completePurchase($options)->send();
-
-if ($response->isPaid()) {
-
-   // Paid success, your statements go here.
-
-   //For notify, response 'success' only please.
-   //die('success');
-} else {
-
-   //For notify, response 'fail' only please.
-   //die('fail');
-}
-```
-
-### Refund (退款) [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.hXJTAR&treeId=66&articleId=103600&docType=1)
-```php
-$gateway = Omnipay::create('Alipay_Express');
-$gateway->setPartner('8888666622221111');
-$gateway->setKey('your**key**here');
-$gateway->setSellerEmail('merchant@example.com');
-$gateway->setNotifyUrl('http://www.example.com/notify');
-
-//For 'RSA' sign method
-//$gateway->setPrivateKey('/such-as/private_key.pem');
-
-$response = $gateway->refund([
-    'refund_items' => [
-        [
-            'out_trade_no'=> '2016091921001004060289492441'
-            'amount'      => '298.05'
-            'reason'     => 'test1'
-        ],
-        [
-            'out_trade_no'=> '2016091921001004060289492442'
-            'amount'      => '298.00'
-            'reason'     => 'test2'
-        ]
-    ],
-    'refund_date'  => date('Y-m-d H:i:s'), //Optional
-    'batch_no'     => date('Ymd').mt_rand(1000,9999), //Optional
-])->send();
-
-$response->getRedirectUrl();
-$response->getRedirectData();
-```
-
-
-### Refund Notify (退款异步通知) [Doc](https://doc.open.alipay.com/docs/doc.htm?spm=a219a.7629140.0.0.zqHx6T&treeId=66&articleId=103601&docType=1)
-```php
-$gateway = Omnipay::create('Alipay_Express');
-$gateway->setPartner('8888666622221111');
-$gateway->setKey('your**key**here');
-$gateway->setSellerEmail('merchant@example.com');
-
-//For 'RSA' sign method
-//$gateway->setAlipayPublicKey('/such-as/alipay_public_key.pem');
-
-$options = [
-    'request_params'=> $_POST
-];
-
-$response = $gateway->completeRefund($options)->send();
-
-if ($response->isVerifySuccess()) {
-
-   // request verified success, your statements go here.
-   //use `batch_no`, `success_num`, `result_details`... in $_POST;
-
-   //For notify, response 'success' only please.
-   die('success');
-} else {
-
-   //For notify, response 'fail' only please.
-   die('fail');
-}
-```
-
-### Query Order Status (订单状态查询 - 需签约)
-```php
-$gateway = Omnipay::create('Alipay_Express');
-$gateway->setPartner('8888666622221111');
-$gateway->setKey('your**key**here');
-$gateway->setSellerEmail('merchant@example.com');
-
-$response = $gateway->queryOrderStatus([
-    'out_trade_no' => '2016091921001004060289492441' //Optional
-    'trade_no' => '1443287238372498477413' //Optional
-])->send();
-
-$response->isSuccessful();
-```
-
 
 For general usage instructions, please see the main [Omnipay](https://github.com/omnipay/omnipay)
 repository.
@@ -200,3 +96,27 @@ you can subscribe to.
 
 If you believe you have found a bug, please report it using the [GitHub issue tracker](https://github.com/lokielse/omnipay-alipay/issues),
 or better yet, fork the library and submit a pull request.
+
+[ico-version]: https://img.shields.io/packagist/v/lokielse/omnipay-alipay.svg
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
+[ico-travis]: https://img.shields.io/travis/lokielse/omnipay-alipay/master.svg
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/lokielse/omnipay-alipay.svg
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/lokielse/omnipay-alipay.svg
+[ico-downloads]: https://img.shields.io/packagist/dt/lokielse/omnipay-alipay.svg
+[ico-donate]: https://img.shields.io/badge/%F0%9F%8D%BC-donate-ff69b4.svg
+
+[link-packagist]: https://packagist.org/packages/lokielse/omnipay-alipay
+[link-travis]: https://travis-ci.org/lokielse/omnipay-alipay
+[link-scrutinizer]: https://scrutinizer-ci.com/g/lokielse/omnipay-alipay/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/lokielse/omnipay-alipay
+[link-downloads]: https://packagist.org/packages/lokielse/omnipay-alipay
+[link-author]: https://github.com/lokielse
+[link-contributors]: ../../contributors
+
+
+[link-wiki-aop-app]: https://github.com/lokielse/omnipay-alipay/wiki/Aop-APP-Gateway
+[link-wiki-aop-f2f]: https://github.com/lokielse/omnipay-alipay/wiki/Aop-Face-To-Face-Gateway
+[link-wiki-aop-wap]: https://github.com/lokielse/omnipay-alipay/wiki/Aop-WAP-Gateway
+[link-wiki-legacy-app]: https://github.com/lokielse/omnipay-alipay/wiki/Legacy-APP-Gateway
+[link-wiki-legacy-express]: https://github.com/lokielse/omnipay-alipay/wiki/Legacy-Express-Gateway
+[link-wiki-legacy-wap]: https://github.com/lokielse/omnipay-alipay/wiki/Legacy-WAP-Gateway

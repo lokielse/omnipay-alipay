@@ -2,15 +2,15 @@
 
 namespace Omnipay\Alipay\Responses;
 
-use Omnipay\Alipay\Requests\TradePreCreateRequest;
+use Omnipay\Alipay\Requests\AopTradePreCreateRequest;
 
-class TradePreCreateResponse extends AbstractAopResponse
+class AopTradePreCreateResponse extends AbstractAopResponse
 {
 
     protected $key = 'alipay_trade_precreate_response';
 
     /**
-     * @var TradePreCreateRequest
+     * @var AopTradePreCreateRequest
      */
     protected $request;
 

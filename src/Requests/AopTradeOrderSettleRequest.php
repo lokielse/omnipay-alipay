@@ -2,19 +2,19 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Omnipay\Alipay\Responses\TradePreCreateResponse;
+use Omnipay\Alipay\Responses\AopTradeOrderSettleResponse;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
- * Class TradePreCreateRequest
+ * Class AopTradeOrderSettleRequest
  * @package Omnipay\Alipay\Requests
- * @link    https://doc.open.alipay.com/docs/api.htm?docType=4&apiId=862
+ * @link    https://doc.open.alipay.com/docs/api.htm?docType=4&apiId=1147
  */
-class TradePreCreateRequest extends AbstractAopRequest
+class AopTradeOrderSettleRequest extends AbstractAopRequest
 {
 
-    protected $method = 'alipay.trade.precreate';
+    protected $method = 'alipay.trade.order.settle';
 
 
     /**
@@ -29,7 +29,7 @@ class TradePreCreateRequest extends AbstractAopRequest
     {
         $data = parent::sendData($data);
 
-        return $this->response = new TradePreCreateResponse($this, $data);
+        return $this->response = new AopTradeOrderSettleResponse($this, $data);
     }
 
 
@@ -38,9 +38,13 @@ class TradePreCreateRequest extends AbstractAopRequest
         parent::validateParams();
 
         $this->validateBizContent(
+            'out_request_no',
+            'trade_no',
+            'royalty_parameters'
+        );
+        $this->validateBizContentOne(
             'out_trade_no',
-            'total_amount',
-            'subject'
+            'trade_no'
         );
     }
 }

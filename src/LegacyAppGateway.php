@@ -19,7 +19,7 @@ class LegacyAppGateway extends AbstractLegacyGateway
      */
     public function getName()
     {
-        return 'Alipay Legacy App Gateway';
+        return 'Alipay Legacy APP Gateway';
     }
 
 

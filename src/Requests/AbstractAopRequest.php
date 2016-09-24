@@ -269,7 +269,11 @@ abstract class AbstractAopRequest extends AbstractRequest
      */
     public function getBizData($key = null, $default = null)
     {
-        $data = json_decode($this->getBizContent(), true);
+        if (is_string($this->getBizContent())) {
+            $data = json_decode($this->getBizContent(), true);
+        } else {
+            $data = $this->getBizContent();
+        }
 
         if (is_null($key)) {
             return $data;

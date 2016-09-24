@@ -5,7 +5,7 @@ namespace Omnipay\Alipay\Tests;
 use Omnipay\Alipay\AopAppGateway;
 use Omnipay\Alipay\Common\Signer;
 use Omnipay\Alipay\Responses\AopCompletePurchaseResponse;
-use Omnipay\Alipay\Responses\TradeAppPayResponse;
+use Omnipay\Alipay\Responses\AopTradeAppPayResponse;
 
 class AopAppGatewayTest extends AbstractGatewayTestCase
 {
@@ -32,7 +32,7 @@ class AopAppGatewayTest extends AbstractGatewayTestCase
     public function testPurchase()
     {
         /**
-         * @var TradeAppPayResponse $response
+         * @var AopTradeAppPayResponse $response
          */
         $response = $this->gateway->purchase(
             [

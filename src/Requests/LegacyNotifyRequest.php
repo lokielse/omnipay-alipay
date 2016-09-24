@@ -148,7 +148,7 @@ class LegacyNotifyRequest extends AbstractLegacyRequest
 
     protected function verifyNotifyId()
     {
-        $request = new VerifyNotifyIdRequest($this->httpClient, $this->httpRequest);
+        $request = new LegacyVerifyNotifyIdRequest($this->httpClient, $this->httpRequest);
         $request->initialize($this->parameters->all());
         $request->setPartner($this->getPartner());
         $request->setNotifyId($this->params->get('notify_id'));

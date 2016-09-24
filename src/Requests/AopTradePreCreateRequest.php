@@ -2,19 +2,19 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Omnipay\Alipay\Responses\TradeCancelResponse;
+use Omnipay\Alipay\Responses\AopTradePreCreateResponse;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
- * Class TradeCancelRequest
+ * Class AopTradePreCreateRequest
  * @package Omnipay\Alipay\Requests
- * @link    https://doc.open.alipay.com/doc2/apiDetail.htm?apiId=866&docType=4
+ * @link    https://doc.open.alipay.com/docs/api.htm?docType=4&apiId=862
  */
-class TradeCancelRequest extends AbstractAopRequest
+class AopTradePreCreateRequest extends AbstractAopRequest
 {
 
-    protected $method = 'alipay.trade.cancel';
+    protected $method = 'alipay.trade.precreate';
 
 
     /**
@@ -29,7 +29,7 @@ class TradeCancelRequest extends AbstractAopRequest
     {
         $data = parent::sendData($data);
 
-        return $this->response = new TradeCancelResponse($this, $data);
+        return $this->response = new AopTradePreCreateResponse($this, $data);
     }
 
 
@@ -37,9 +37,10 @@ class TradeCancelRequest extends AbstractAopRequest
     {
         parent::validateParams();
 
-        $this->validateBizContentOne(
+        $this->validateBizContent(
             'out_trade_no',
-            'trade_no'
+            'total_amount',
+            'subject'
         );
     }
 }

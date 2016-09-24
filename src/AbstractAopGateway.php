@@ -4,11 +4,11 @@ namespace Omnipay\Alipay;
 
 use Omnipay\Alipay\Requests\AopCompletePurchaseRequest;
 use Omnipay\Alipay\Requests\DataServiceBillDownloadUrlQueryRequest;
-use Omnipay\Alipay\Requests\TradeCancelRequest;
-use Omnipay\Alipay\Requests\TradeOrderSettleRequest;
-use Omnipay\Alipay\Requests\TradeQueryRequest;
-use Omnipay\Alipay\Requests\TradeRefundQueryRequest;
-use Omnipay\Alipay\Requests\TradeRefundRequest;
+use Omnipay\Alipay\Requests\AopTradeCancelRequest;
+use Omnipay\Alipay\Requests\AopTradeOrderSettleRequest;
+use Omnipay\Alipay\Requests\AopTradeQueryRequest;
+use Omnipay\Alipay\Requests\AopTradeRefundQueryRequest;
+use Omnipay\Alipay\Requests\AopTradeRefundRequest;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Exception\InvalidRequestException;
 
@@ -343,11 +343,11 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return TradeQueryRequest
+     * @return AopTradeQueryRequest
      */
     public function query(array $parameters = [])
     {
-        return $this->createRequest(TradeQueryRequest::class, $parameters);
+        return $this->createRequest(AopTradeQueryRequest::class, $parameters);
     }
 
 
@@ -356,11 +356,11 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return TradeRefundRequest
+     * @return AopTradeRefundRequest
      */
     public function refund(array $parameters = [])
     {
-        return $this->createRequest(TradeRefundRequest::class, $parameters);
+        return $this->createRequest(AopTradeRefundRequest::class, $parameters);
     }
 
 
@@ -369,11 +369,11 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return TradeRefundQueryRequest
+     * @return AopTradeRefundQueryRequest
      */
     public function refundQuery(array $parameters = [])
     {
-        return $this->createRequest(TradeRefundQueryRequest::class, $parameters);
+        return $this->createRequest(AopTradeRefundQueryRequest::class, $parameters);
     }
 
 
@@ -382,11 +382,11 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return TradeCancelRequest
+     * @return AopTradeCancelRequest
      */
     public function cancel(array $parameters = [])
     {
-        return $this->createRequest(TradeCancelRequest::class, $parameters);
+        return $this->createRequest(AopTradeCancelRequest::class, $parameters);
     }
 
 
@@ -395,11 +395,11 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return TradeCancelRequest
+     * @return AopTradeCancelRequest
      */
     public function settle(array $parameters = [])
     {
-        return $this->createRequest(TradeOrderSettleRequest::class, $parameters);
+        return $this->createRequest(AopTradeOrderSettleRequest::class, $parameters);
     }
 
 
