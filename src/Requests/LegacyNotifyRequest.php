@@ -2,14 +2,12 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Guzzle\Http\Client as HttpClient;
 use Omnipay\Alipay\Common\Signer;
 use Omnipay\Alipay\Responses\LegacyNotifyResponse;
 use Omnipay\Alipay\Responses\VerifyNotifyIdResponse;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class LegacyNotifyRequest extends AbstractLegacyRequest
 {
@@ -18,6 +16,10 @@ class LegacyNotifyRequest extends AbstractLegacyRequest
      * @var ParameterBag
      */
     public $params;
+
+    protected $verifyNotifyId = true;
+
+    protected $sort = true;
 
 
     /**
@@ -76,7 +78,7 @@ class LegacyNotifyRequest extends AbstractLegacyRequest
     public function validateParams()
     {
         if (empty($this->params->all())) {
-            throw new InvalidRequestException('The request_params or $_REQUEST is empty');
+            throw new InvalidRequestException('The `params` or $_REQUEST is empty');
         }
 
         if (! $this->params->has('sign_type')) {
@@ -102,7 +104,9 @@ class LegacyNotifyRequest extends AbstractLegacyRequest
         $this->verifySignature();
 
         if ($this->params->has('notify_id')) {
-            $this->verifyNotifyId();
+            if ($this->verifyNotifyId) {
+                $this->verifyNotifyId();
+            }
         }
 
         return $this->response = new LegacyNotifyResponse($this, $data);
@@ -111,34 +115,41 @@ class LegacyNotifyRequest extends AbstractLegacyRequest
 
     protected function verifySignature()
     {
-        if ($this->params->has('alipay_trade_app_pay_response')) {
-            /**
-             * App Return
-             * @see https://doc.open.alipay.com/docs/doc.htm?treeId=193&articleId=105302&docType=1
-             */
-            $params  = $this->params->get('alipay_trade_app_pay_response');
-            $content = json_encode($params);
+        $signer = new Signer($this->params->all());
+        $signer->setSort($this->sort);
+        $content = $signer->getContentToSign();
+
+        $sign     = $this->params->get('sign');
+        $signType = strtoupper($this->params->get('sign_type'));
+
+        if ($signType == 'MD5') {
+
+            if (! $this->getKey()) {
+                throw new InvalidRequestException('The `key` is required for `MD5` sign_type');
+            }
+
+            $match = (new Signer)->verifyWithMD5($content, $sign, $this->getKey());
+        } elseif ($signType == 'RSA') {
+
+            if (! $this->getAlipayPublicKey()) {
+                throw new InvalidRequestException('The `alipay_public_key` is required for `RSA` sign_type');
+            }
+
+            $match = (new Signer)->verifyWithRSA($content, $sign, $this->getAlipayPublicKey());
         } else {
-            /**
-             * Common
-             */
-            $signer  = new Signer($this->params->all());
-            $content = $signer->getContentToSign();
+            throw new InvalidRequestException('The `sign_type` is invalid');
         }
 
-        $sign = $this->params->get('sign');
-
-        $match = (new Signer)->verifyWithRSA($content, $sign, $this->getAlipayPublicKey());
-
         if (! $match) {
-            throw new InvalidRequestException('The sign is not matched');
+            throw new InvalidRequestException('The signature is not match');
         }
     }
 
 
     protected function verifyNotifyId()
     {
-        $request = new VerifyNotifyIdRequest(new HttpClient, new HttpRequest());
+        $request = new VerifyNotifyIdRequest($this->httpClient, $this->httpRequest);
+        $request->initialize($this->parameters->all());
         $request->setPartner($this->getPartner());
         $request->setNotifyId($this->params->get('notify_id'));
 
@@ -148,7 +159,33 @@ class LegacyNotifyRequest extends AbstractLegacyRequest
         $response = $request->send();
 
         if (! $response->isSuccessful()) {
-            throw new InvalidRequestException('The notify_id is not trusted');
+            throw new InvalidRequestException('The `notify_id` verify failed, which TTL is 60s');
         }
+    }
+
+
+    /**
+     * @param boolean $verifyNotifyId
+     *
+     * @return $this
+     */
+    public function setVerifyNotifyId($verifyNotifyId)
+    {
+        $this->verifyNotifyId = $verifyNotifyId;
+
+        return $this;
+    }
+
+
+    /**
+     * @param boolean $sort
+     *
+     * @return LegacyNotifyRequest
+     */
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
+
+        return $this;
     }
 }
