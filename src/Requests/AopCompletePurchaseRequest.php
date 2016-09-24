@@ -50,12 +50,14 @@ class AopCompletePurchaseRequest extends AbstractAopRequest
         if (isset($data['result'])) {
             $request = new AopVerifyAppPayReturnRequest($this->httpClient, $this->httpRequest);
             $request->initialize($this->parameters->all());
+            $request->setEndpoint($this->getEndpoint());
             $request->setResult($data['result']);
             $request->setAlipayPublicKey($this->getAlipayPublicKey());
             $data = $request->send()->getData();
         } else {
             $request = new AopNotifyRequest($this->httpClient, $this->httpRequest);
             $request->initialize(['params' => $data]);
+            $request->setEndpoint($this->getEndpoint());
             $request->setAlipayPublicKey($this->getAlipayPublicKey());
             $data = $request->send()->getData();
 
@@ -64,6 +66,7 @@ class AopCompletePurchaseRequest extends AbstractAopRequest
 
                 $request = new TradeQueryRequest($this->httpClient, $this->httpRequest);
                 $request->initialize($this->getParameters());
+                $request->setEndpoint($this->getEndpoint());
                 $request->setBizContent(['trade_no' => $tn]);
                 $request->setPrivateKey($this->getPrivateKey());
 
