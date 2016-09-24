@@ -255,6 +255,12 @@ abstract class AbstractAopRequest extends AbstractRequest
     }
 
 
+    protected function decode($data)
+    {
+        return json_decode($data, true);
+    }
+
+
     /**
      * @param null $key
      * @param null $default
@@ -270,12 +276,6 @@ abstract class AbstractAopRequest extends AbstractRequest
         } else {
             return array_get($data, $key, $default);
         }
-    }
-
-
-    protected function decode($data)
-    {
-        return json_decode($data, true);
     }
 
 
