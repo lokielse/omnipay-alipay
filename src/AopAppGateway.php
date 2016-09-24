@@ -2,9 +2,7 @@
 
 namespace Omnipay\Alipay;
 
-use Omnipay\Alipay\Requests\AopNotifyRequest;
 use Omnipay\Alipay\Requests\TradeAppPayRequest;
-use Omnipay\Alipay\Requests\VerifyAppPayReturnRequest;
 
 class AopAppGateway extends AbstractAopGateway
 {
@@ -28,21 +26,5 @@ class AopAppGateway extends AbstractAopGateway
     public function purchase(array $parameters = [])
     {
         return $this->createRequest(TradeAppPayRequest::class, $parameters);
-    }
-
-
-    /**
-     * @param array $parameters
-     * @param bool  $isReturn
-     *
-     * @return TradeAppPayRequest|AopNotifyRequest
-     */
-    public function completePurchase(array $parameters = [], $isReturn = false)
-    {
-        if ($isReturn) {
-            return $this->createRequest(VerifyAppPayReturnRequest::class, $parameters);
-        } else {
-            return $this->createRequest(AopNotifyRequest::class, $parameters);
-        }
     }
 }
