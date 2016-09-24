@@ -2,14 +2,12 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Guzzle\Http\Client as HttpClient;
 use Omnipay\Alipay\Common\Signer;
-use Omnipay\Alipay\Responses\LegacyNotifyResponse;
+use Omnipay\Alipay\Responses\AopNotifyResponse;
 use Omnipay\Alipay\Responses\VerifyNotifyIdResponse;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 class AopNotifyRequest extends AbstractAopRequest
 {
@@ -18,6 +16,12 @@ class AopNotifyRequest extends AbstractAopRequest
      * @var ParameterBag
      */
     public $params;
+
+    protected $verifyNotifyId = false;
+
+    protected $sort = true;
+
+    protected $encodePolicy = 'QUERY';
 
 
     /**
@@ -76,15 +80,15 @@ class AopNotifyRequest extends AbstractAopRequest
     public function validateParams()
     {
         if (empty($this->params->all())) {
-            throw new InvalidRequestException('The request_params or $_REQUEST is empty');
+            throw new InvalidRequestException('The `params` or $_REQUEST is empty');
         }
 
         if (! $this->params->has('sign_type')) {
-            throw new InvalidRequestException('The sign_type is required');
+            throw new InvalidRequestException('The `sign_type` is required');
         }
 
         if (! $this->params->has('sign')) {
-            throw new InvalidRequestException('The sign is required');
+            throw new InvalidRequestException('The `sign` is required');
         }
     }
 
@@ -102,43 +106,39 @@ class AopNotifyRequest extends AbstractAopRequest
         $this->verifySignature();
 
         if ($this->params->has('notify_id')) {
-            $this->verifyNotifyId();
+            if ($this->verifyNotifyId) {
+                $this->verifyNotifyId();
+            }
         }
 
-        return $this->response = new LegacyNotifyResponse($this, $data);
+        return $this->response = new AopNotifyResponse($this, $data);
     }
 
 
     protected function verifySignature()
     {
-        if ($this->params->has('alipay_trade_app_pay_response')) {
-            /**
-             * App Return
-             * @see https://doc.open.alipay.com/docs/doc.htm?treeId=193&articleId=105302&docType=1
-             */
-            $params  = $this->params->get('alipay_trade_app_pay_response');
-            $content = json_encode($params);
-        } else {
-            /**
-             * Common
-             */
-            $signer  = new Signer($this->params->all());
-            $content = $signer->getContentToSign();
-        }
+        $signer = new Signer($this->params->all());
+        $signer->setSort($this->sort);
+        $signer->setEncodePolicy($this->encodePolicy);
+        $content = $signer->getContentToSign();
 
         $sign = $this->params->get('sign');
 
         $match = (new Signer)->verifyWithRSA($content, $sign, $this->getAlipayPublicKey());
 
         if (! $match) {
-            throw new InvalidRequestException('The sign is not matched');
+            throw new InvalidRequestException('The signature is not match');
         }
     }
 
 
     protected function verifyNotifyId()
     {
-        $request = new VerifyNotifyIdRequest(new HttpClient, new HttpRequest());
+        if (! $this->getPartner()) {
+            throw new InvalidRequestException('The partner is required for notify_id verify');
+        }
+
+        $request = new VerifyNotifyIdRequest($this->httpClient, $this->httpRequest);
         $request->setPartner($this->getPartner());
         $request->setNotifyId($this->params->get('notify_id'));
 
@@ -150,5 +150,64 @@ class AopNotifyRequest extends AbstractAopRequest
         if (! $response->isSuccessful()) {
             throw new InvalidRequestException('The notify_id is not trusted');
         }
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getPartner()
+    {
+        return $this->getParameter('partner');
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setPartner($value)
+    {
+        return $this->setParameter('partner', $value);
+    }
+
+
+    /**
+     * @param boolean $value
+     *
+     * @return AopNotifyRequest
+     */
+    public function setVerifyNotifyId($value)
+    {
+        $this->verifyNotifyId = $value;
+
+        return $this;
+    }
+
+
+    /**
+     * @param boolean $sort
+     *
+     * @return AopNotifyRequest
+     */
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
+
+    /**
+     * @param string $encodePolicy
+     *
+     * @return AopNotifyRequest
+     */
+    public function setEncodePolicy($encodePolicy)
+    {
+        $this->encodePolicy = $encodePolicy;
+
+        return $this;
     }
 }
