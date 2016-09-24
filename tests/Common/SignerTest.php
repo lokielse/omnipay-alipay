@@ -6,6 +6,7 @@ use Omnipay\Alipay\Common\Signer;
 
 class SignerTest extends \PHPUnit_Framework_TestCase
 {
+
     protected $params;
 
     protected $key;
