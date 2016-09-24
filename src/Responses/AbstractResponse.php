@@ -3,7 +3,6 @@
 namespace Omnipay\Alipay\Responses;
 
 use Omnipay\Common\Message\AbstractResponse as Response;
-use function Omnipay\Alipay\Common\array_get;
 
 abstract class AbstractResponse extends Response
 {

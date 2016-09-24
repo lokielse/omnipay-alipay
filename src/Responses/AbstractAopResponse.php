@@ -2,8 +2,6 @@
 
 namespace Omnipay\Alipay\Responses;
 
-use function Omnipay\Alipay\Common\array_get;
-
 abstract class AbstractAopResponse extends AbstractResponse
 {
 
