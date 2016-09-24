@@ -2,9 +2,7 @@
 
 namespace Omnipay\Alipay\Responses;
 
-use Omnipay\Common\Message\AbstractResponse;
-
-class LegacyAppPurchaseResponse extends AbstractResponse
+class LegacyAppPurchaseResponse extends AbstractLegacyResponse
 {
 
     /**

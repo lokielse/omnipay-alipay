@@ -2,11 +2,11 @@
 
 namespace Omnipay\Alipay\Responses;
 
-use Omnipay\Common\Message\AbstractResponse;
 use function Omnipay\Alipay\Common\array_get;
 
 abstract class AbstractAopResponse extends AbstractResponse
 {
+
     protected $key;
 
 
