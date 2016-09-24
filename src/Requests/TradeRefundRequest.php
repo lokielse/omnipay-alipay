@@ -13,6 +13,7 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class TradeRefundRequest extends AbstractAopRequest
 {
+
     protected $method = 'alipay.trade.refund';
 
     protected $notifiable = true;

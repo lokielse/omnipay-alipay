@@ -2,11 +2,9 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Guzzle\Http\Client as HttpClient;
 use Omnipay\Alipay\Responses\LegacyNotifyResponse;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
-use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 /**
  * Class LegacyVerifyAppPayReturnRequest
@@ -90,7 +88,8 @@ class LegacyVerifyAppPayReturnRequest extends AbstractLegacyRequest
      */
     public function sendData($data)
     {
-        $request = new LegacyNotifyRequest(new HttpClient, new HttpRequest());
+        $request = new LegacyNotifyRequest($this->httpClient, $this->httpRequest);
+        $request->initialize($this->parameters->all());
         $request->setParams($data);
         $request->setSort(false);
         $request->setAlipayPublicKey($this->getAlipayPublicKey());
