@@ -2,13 +2,14 @@
 
 namespace Omnipay\Alipay;
 
+use Omnipay\Alipay\Requests\LegacyCompletePurchaseRequest;
 use Omnipay\Alipay\Requests\LegacyQueryRequest;
 use Omnipay\Alipay\Requests\LegacyRefundRequest;
-use Omnipay\Alipay\Requests\LegacyNotifyRequest;
 use Omnipay\Common\AbstractGateway;
 
 abstract class AbstractLegacyGateway extends AbstractGateway
 {
+
     public function getDefaultParameters()
     {
         return [
@@ -117,6 +118,26 @@ abstract class AbstractLegacyGateway extends AbstractGateway
     public function setPrivateKey($value)
     {
         return $this->setParameter('private_key', $value);
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getAlipayPublicKey()
+    {
+        return $this->getParameter('alipay_public_key');
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setAlipayPublicKey($value)
+    {
+        return $this->setParameter('alipay_public_key', $value);
     }
 
 
@@ -283,17 +304,11 @@ abstract class AbstractLegacyGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Common\Message\AbstractRequest
+     * @return LegacyCompletePurchaseRequest
      */
-    public function handleReturn(array $parameters = [])
+    public function completePurchase(array $parameters = [])
     {
-        return $this->createRequest(LegacyNotifyRequest::class, $parameters);
-    }
-
-
-    public function handleNotify(array $parameters = [])
-    {
-        return $this->createRequest(LegacyNotifyRequest::class, $parameters);
+        return $this->createRequest(LegacyCompletePurchaseRequest::class, $parameters);
     }
 
 
