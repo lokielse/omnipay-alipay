@@ -3,6 +3,7 @@
 namespace Omnipay\Alipay;
 
 use Omnipay\Alipay\Requests\LegacyCompletePurchaseRequest;
+use Omnipay\Alipay\Requests\LegacyCompleteRefundRequest;
 use Omnipay\Alipay\Requests\LegacyQueryRequest;
 use Omnipay\Alipay\Requests\LegacyRefundRequest;
 use Omnipay\Common\AbstractGateway;
@@ -315,7 +316,7 @@ abstract class AbstractLegacyGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Common\Message\AbstractRequest
+     * @return LegacyRefundRequest
      */
     public function refund(array $parameters = [])
     {
@@ -326,7 +327,18 @@ abstract class AbstractLegacyGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Common\Message\AbstractRequest
+     * @return LegacyRefundRequest
+     */
+    public function completeRefund(array $parameters = [])
+    {
+        return $this->createRequest(LegacyCompleteRefundRequest::class, $parameters);
+    }
+
+
+    /**
+     * @param array $parameters
+     *
+     * @return LegacyQueryRequest
      */
     public function query(array $parameters = [])
     {
