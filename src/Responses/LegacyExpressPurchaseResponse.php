@@ -3,10 +3,9 @@
 namespace Omnipay\Alipay\Responses;
 
 use Omnipay\Alipay\Requests\LegacyExpressPurchaseRequest;
-use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
-class LegacyExpressPurchaseResponse extends AbstractResponse implements RedirectResponseInterface
+class LegacyExpressPurchaseResponse extends AbstractLegacyResponse implements RedirectResponseInterface
 {
 
     /**

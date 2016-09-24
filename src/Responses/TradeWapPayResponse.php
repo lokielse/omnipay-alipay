@@ -3,7 +3,6 @@
 namespace Omnipay\Alipay\Responses;
 
 use Omnipay\Alipay\Requests\TradeWapPayRequest;
-use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 
 class TradeWapPayResponse extends AbstractResponse implements RedirectResponseInterface

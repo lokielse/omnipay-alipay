@@ -2,14 +2,21 @@
 
 namespace Omnipay\Alipay\Responses;
 
-use Omnipay\Alipay\Requests\TradePayRequest;
+use Omnipay\Alipay\Requests\TradePreCreateRequest;
 
 class TradePreCreateResponse extends AbstractAopResponse
 {
-    protected $key = 'alipay_trade_pay_response';
+
+    protected $key = 'alipay_trade_precreate_response';
 
     /**
-     * @var TradePayRequest
+     * @var TradePreCreateRequest
      */
     protected $request;
+
+
+    public function getQrCode()
+    {
+        return $this->getAlipayResponse('qr_code');
+    }
 }
