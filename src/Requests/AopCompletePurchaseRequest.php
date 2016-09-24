@@ -4,7 +4,6 @@ namespace Omnipay\Alipay\Requests;
 
 use Omnipay\Alipay\Responses\AopCompletePurchaseResponse;
 use Omnipay\Alipay\Responses\AopTradeQueryResponse;
-use function Omnipay\Alipay\Common\array_get;
 
 class AopCompletePurchaseRequest extends AbstractAopRequest
 {

@@ -3,7 +3,6 @@
 namespace Omnipay\Alipay\Responses;
 
 use Omnipay\Alipay\Requests\LegacyCompletePurchaseRequest;
-use function Omnipay\Alipay\Common\array_get;
 
 class LegacyCompletePurchaseResponse extends AbstractLegacyResponse
 {

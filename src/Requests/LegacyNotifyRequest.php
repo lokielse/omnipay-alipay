@@ -123,14 +123,12 @@ class LegacyNotifyRequest extends AbstractLegacyRequest
         $signType = strtoupper($this->params->get('sign_type'));
 
         if ($signType == 'MD5') {
-
             if (! $this->getKey()) {
                 throw new InvalidRequestException('The `key` is required for `MD5` sign_type');
             }
 
             $match = (new Signer)->verifyWithMD5($content, $sign, $this->getKey());
         } elseif ($signType == 'RSA') {
-
             if (! $this->getAlipayPublicKey()) {
                 throw new InvalidRequestException('The `alipay_public_key` is required for `RSA` sign_type');
             }

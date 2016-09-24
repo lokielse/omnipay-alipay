@@ -5,8 +5,6 @@ namespace Omnipay\Alipay\Requests;
 use Omnipay\Alipay\Common\Signer;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
-use function Omnipay\Alipay\Common\array_get;
-use function Omnipay\Alipay\Common\array_has;
 
 abstract class AbstractAopRequest extends AbstractRequest
 {

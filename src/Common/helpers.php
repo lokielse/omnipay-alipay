@@ -1,7 +1,5 @@
 <?php
 
-namespace Omnipay\Alipay\Common;
-
 /**
  * Get an item from an array using "dot" notation.
  *
@@ -11,7 +9,6 @@ namespace Omnipay\Alipay\Common;
  *
  * @return mixed
  */
-use Closure;
 
 function array_get($array, $key, $default = null)
 {

@@ -191,9 +191,7 @@ abstract class AbstractLegacyRequest extends AbstractRequest
             }
 
             $sign = $signer->signWithMD5($this->getKey());
-
         } elseif ($signType == 'RSA') {
-
             if (! $this->getPrivateKey()) {
                 throw new InvalidRequestException('The `private_key` is required for `RSA` sign_type');
             }
