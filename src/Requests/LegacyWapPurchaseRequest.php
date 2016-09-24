@@ -12,6 +12,7 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class LegacyWapPurchaseRequest extends AbstractLegacyRequest
 {
+
     protected $service = 'alipay.wap.create.direct.pay.by.user';
 
     protected $key;

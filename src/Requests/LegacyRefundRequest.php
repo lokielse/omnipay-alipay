@@ -13,6 +13,7 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class LegacyRefundRequest extends AbstractLegacyRequest
 {
+
     protected $service = 'refund_fastpay_by_platform_pwd';
 
 

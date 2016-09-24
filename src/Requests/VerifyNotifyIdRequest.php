@@ -12,6 +12,7 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class VerifyNotifyIdRequest extends AbstractLegacyRequest
 {
+
     protected $service = 'notify_verify';
 
 
@@ -28,7 +29,8 @@ class VerifyNotifyIdRequest extends AbstractLegacyRequest
             'notify_id'
         );
 
-        $data = $this->parameters->all();
+        $data            = $this->parameters->all();
+        $data['service'] = $this->service;
 
         return $data;
     }
