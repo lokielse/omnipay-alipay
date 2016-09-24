@@ -25,6 +25,15 @@ class LegacyCompletePurchaseRequest extends AbstractLegacyRequest
 
 
     /**
+     * @return mixed
+     */
+    public function getParams()
+    {
+        return $this->getParameter('params');
+    }
+
+
+    /**
      * Send the request with specified data
      *
      * @param  mixed $data The data to send
@@ -63,15 +72,6 @@ class LegacyCompletePurchaseRequest extends AbstractLegacyRequest
         }
 
         return $this->response = new LegacyCompletePurchaseResponse($this, $data);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getParams()
-    {
-        return $this->getParameter('params');
     }
 
 

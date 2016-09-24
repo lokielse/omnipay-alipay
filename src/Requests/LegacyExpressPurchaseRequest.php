@@ -12,6 +12,7 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class LegacyExpressPurchaseRequest extends AbstractLegacyRequest
 {
+
     protected $service = 'create_direct_pay_by_user';
 
 
