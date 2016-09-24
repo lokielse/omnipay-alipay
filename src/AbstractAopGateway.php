@@ -2,6 +2,7 @@
 
 namespace Omnipay\Alipay;
 
+use Omnipay\Alipay\Requests\AopCompletePurchaseRequest;
 use Omnipay\Alipay\Requests\DataServiceBillDownloadUrlQueryRequest;
 use Omnipay\Alipay\Requests\TradeCancelRequest;
 use Omnipay\Alipay\Requests\TradeOrderSettleRequest;
@@ -13,6 +14,7 @@ use Omnipay\Common\Exception\InvalidRequestException;
 
 abstract class AbstractAopGateway extends AbstractGateway
 {
+
     protected $endpoints = [
         'production' => 'https://openapi.alipay.com/gateway.do',
         'sandbox'    => 'https://openapi.alipaydev.com/gateway.do',
@@ -22,11 +24,11 @@ abstract class AbstractAopGateway extends AbstractGateway
     public function getDefaultParameters()
     {
         return [
-            'format'     => 'JSON',
-            'charset'    => 'UTF-8',
-            'signType'   => 'RSA',
-            'version'    => '1.0',
-            'timestamp'  => date('Y-m-d H:i:s'),
+            'format'    => 'JSON',
+            'charset'   => 'UTF-8',
+            'signType'  => 'RSA',
+            'version'   => '1.0',
+            'timestamp' => date('Y-m-d H:i:s'),
             'alipaySdk' => 'lokielse/omnipay-alipay',
         ];
     }
@@ -235,6 +237,26 @@ abstract class AbstractAopGateway extends AbstractGateway
     /**
      * @return mixed
      */
+    public function getAlipayPublicKey()
+    {
+        return $this->getParameter('alipay_public_key');
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setAlipayPublicKey($value)
+    {
+        return $this->setParameter('alipay_public_key', $value);
+    }
+
+
+    /**
+     * @return mixed
+     */
     public function getEndpoint()
     {
         return $this->getParameter('endpoint');
@@ -301,6 +323,18 @@ abstract class AbstractAopGateway extends AbstractGateway
     public function sandbox()
     {
         return $this->setEnvironment('sandbox');
+    }
+
+
+    /**
+     * @param array $parameters
+     *
+     * @return AopCompletePurchaseRequest
+     * @throws InvalidRequestException
+     */
+    public function completePurchase(array $parameters = [])
+    {
+        return $this->createRequest(AopCompletePurchaseRequest::class, $parameters);
     }
 
 
