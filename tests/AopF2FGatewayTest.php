@@ -2,7 +2,9 @@
 
 namespace Omnipay\Alipay\Tests;
 
-use Omnipay\Alipay\AopPosGateway;
+use Omnipay\Alipay\AopF2FGateway;
+use Omnipay\Alipay\Common\Signer;
+use Omnipay\Alipay\Responses\AopCompletePurchaseResponse;
 use Omnipay\Alipay\Responses\DataServiceBillDownloadUrlQueryResponse;
 use Omnipay\Alipay\Responses\TradePayResponse;
 use Omnipay\Alipay\Responses\TradePreCreateResponse;
@@ -10,11 +12,11 @@ use Omnipay\Alipay\Responses\TradeQueryResponse;
 use Omnipay\Alipay\Responses\TradeRefundQueryResponse;
 use Omnipay\Alipay\Responses\TradeRefundResponse;
 
-class AopPosGatewayTest extends AbstractGatewayTestCase
+class AopF2FGatewayTest extends AbstractGatewayTestCase
 {
 
     /**
-     * @var AopPosGateway $gateway
+     * @var AopF2FGateway $gateway
      */
     protected $gateway;
 
@@ -24,12 +26,12 @@ class AopPosGatewayTest extends AbstractGatewayTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->gateway = new AopPosGateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway = new AopF2FGateway($this->getHttpClient(), $this->getHttpRequest());
         $this->gateway->setAppId($this->appId);
         $this->gateway->setPrivateKey($this->appPrivateKey);
         $this->gateway->setEncryptKey($this->appEncryptKey);
         $this->gateway->setNotifyUrl('https://www.example.com/notify');
-        //$this->gateway->sandbox();
+        $this->gateway->sandbox();
     }
 
 
@@ -48,11 +50,10 @@ class AopPosGatewayTest extends AbstractGatewayTestCase
                     'total_amount' => '0.01',
                 ]
             ]
-        )->send();
+        )->setPollingAttempts(1)->send();
 
         $this->assertArrayHasKey('alipay_trade_pay_response', $response->getData());
         $this->assertFalse($response->isSuccessful());
-
     }
 
 
@@ -181,5 +182,44 @@ class AopPosGatewayTest extends AbstractGatewayTestCase
 
         $this->assertArrayHasKey('alipay_data_dataservice_bill_downloadurl_query_response', $response->getData());
         $this->assertFalse($response->isSuccessful());
+    }
+
+
+    public function testCompletePurchase()
+    {
+        $testPrivateKey = ALIPAY_ASSET_DIR . '/dist/common/rsa_private_key.pem';
+        $testPublicKey  = ALIPAY_ASSET_DIR . '/dist/common/rsa_public_key.pem';
+
+        $this->gateway = new AopF2FGateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway->setAppId($this->appId);
+        $this->gateway->setPrivateKey($this->appPrivateKey);
+        $this->gateway->setNotifyUrl('https://www.example.com/notify');
+
+        $str = 'gmt_payment=2015-06-11 22:33:59&notify_id=42af7baacd1d3746cf7b56752b91edcj34&seller_email=testyufabu07@alipay.com&notify_type=trade_status_sync&sign=kPbQIjX+xQc8F0/A6/AocELIjhhZnGbcBN6G4MM/HmfWL4ZiHM6fWl5NQhzXJusaklZ1LFuMo+lHQUELAYeugH8LYFvxnNajOvZhuxNFbN2LhF0l/KL8ANtj8oyPM4NN7Qft2kWJTDJUpQOzCzNnV9hDxh5AaT9FPqRS6ZKxnzM=&trade_no=2015061121001004400068549373&out_trade_no=21repl2ac2eOutTradeNo322&gmt_create=2015-06-11 22:33:46&seller_id=2088211521646673&notify_time=2015-06-11 22:34:03&subject=FACE_TO_FACE_PAYMENT_PRECREATE中文&trade_status=TRADE_SUCCESS&sign_type=RSA';
+
+        parse_str($str, $data);
+
+        $signer = new Signer($data);
+        $signer->setSort(true);
+        $signer->setEncodePolicy(Signer::ENCODE_POLICY_QUERY);
+        $data['sign']      = $signer->signWithRSA($testPrivateKey);
+        $data['sign_type'] = 'RSA';
+
+        $this->gateway->setAlipayPublicKey($testPublicKey);
+
+        /**
+         * @var AopCompletePurchaseResponse $response
+         */
+        $response = $this->gateway->completePurchase(['params' => $data])->send();
+
+        $this->assertEquals(
+            '{"gmt_payment":"2015-06-11 22:33:59","notify_id":"42af7baacd1d3746cf7b56752b91edcj34","seller_email":"testyufabu07@alipay.com","notify_type":"trade_status_sync","sign":"T4JCUXoO5sK\/7UjupKEfsSQnjDnw\/1aSJnC6s53SYJyqdjFl+1Lt8dWdNuuXl5yX39leQsYzmk2CDwZx6F\/YIQWCo1LHZME3DYMqH\/F5wT5uiSUk2KYsYbLluW9pi7YHtBXRWKB6jtnn73DWWbC2sN3tDky9KySPizL5jQ1Cd0I=","trade_no":"2015061121001004400068549373","out_trade_no":"21repl2ac2eOutTradeNo322","gmt_create":"2015-06-11 22:33:46","seller_id":"2088211521646673","notify_time":"2015-06-11 22:34:03","subject":"FACE_TO_FACE_PAYMENT_PRECREATE\u4e2d\u6587","trade_status":"TRADE_SUCCESS","sign_type":"RSA"}',
+            json_encode($response->data())
+        );
+
+        $this->assertEquals('21repl2ac2eOutTradeNo322', $response->data('out_trade_no'));
+        $this->assertTrue($response->isSuccessful());
+        $this->assertTrue($response->isPaid());
+        $this->assertEquals('2015061121001004400068549373', $response->getData()['trade_no']);
     }
 }
