@@ -7,10 +7,10 @@ use Omnipay\Common\Message\ResponseInterface;
 
 /**
  * https://doc.open.alipay.com/docs/doc.htm?treeId=58&articleId=103597&docType=1
- * Class VerifyNotifyIdRequest
+ * Class LegacyVerifyNotifyIdRequest
  * @package Omnipay\Alipay\Requests
  */
-class VerifyNotifyIdRequest extends AbstractLegacyRequest
+class LegacyVerifyNotifyIdRequest extends AbstractLegacyRequest
 {
 
     protected $service = 'notify_verify';

@@ -2,19 +2,21 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Omnipay\Alipay\Responses\TradeQueryResponse;
+use Omnipay\Alipay\Responses\AopTradeQueryResponse;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
- * Class TradeQueryRequest
+ * Class AopTradeRefundRequest
  * @package Omnipay\Alipay\Requests
- * @link    https://doc.open.alipay.com/docs/api.htm?docType=4&apiId=757
+ * @link    https://doc.open.alipay.com/docs/api.htm?docType=4&apiId=759
  */
-class TradeQueryRequest extends AbstractAopRequest
+class AopTradeRefundRequest extends AbstractAopRequest
 {
 
-    protected $method = 'alipay.trade.query';
+    protected $method = 'alipay.trade.refund';
+
+    protected $notifiable = true;
 
 
     /**
@@ -29,7 +31,7 @@ class TradeQueryRequest extends AbstractAopRequest
     {
         $data = parent::sendData($data);
 
-        return $this->response = new TradeQueryResponse($this, $data);
+        return $this->response = new AopTradeQueryResponse($this, $data);
     }
 
 
@@ -37,9 +39,11 @@ class TradeQueryRequest extends AbstractAopRequest
     {
         parent::validateParams();
 
+        $this->validateBizContent('refund_amount');
+
         $this->validateBizContentOne(
-            'trade_no',
-            'out_trade_no'
+            'out_trade_no',
+            'trade_no'
         );
     }
 }

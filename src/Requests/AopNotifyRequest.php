@@ -138,7 +138,7 @@ class AopNotifyRequest extends AbstractAopRequest
             throw new InvalidRequestException('The partner is required for notify_id verify');
         }
 
-        $request = new VerifyNotifyIdRequest($this->httpClient, $this->httpRequest);
+        $request = new LegacyVerifyNotifyIdRequest($this->httpClient, $this->httpRequest);
         $request->setPartner($this->getPartner());
         $request->setNotifyId($this->params->get('notify_id'));
 

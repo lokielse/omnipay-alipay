@@ -2,18 +2,18 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Omnipay\Alipay\Responses\TradeCancelResponse;
-use Omnipay\Alipay\Responses\TradePayResponse;
-use Omnipay\Alipay\Responses\TradeQueryResponse;
+use Omnipay\Alipay\Responses\AopTradeCancelResponse;
+use Omnipay\Alipay\Responses\AopTradePayResponse;
+use Omnipay\Alipay\Responses\AopTradeQueryResponse;
 use Omnipay\Common\Exception\InvalidRequestException;
 
 /**
- * Class TradePayRequest
+ * Class AopTradePayRequest
  * @package Omnipay\Alipay\Requests
  *
  * @link    https://doc.open.alipay.com/docs/api.htm?docType=4&apiId=850
  */
-class TradePayRequest extends AbstractAopRequest
+class AopTradePayRequest extends AbstractAopRequest
 {
 
     protected $method = 'alipay.trade.pay';
@@ -27,7 +27,7 @@ class TradePayRequest extends AbstractAopRequest
     protected $pollingAttempts = 10;
 
     /**
-     * @var TradePayResponse|TradeQueryResponse|TradeCancelResponse
+     * @var AopTradePayResponse|AopTradeQueryResponse|AopTradeCancelResponse
      */
     protected $response;
 
@@ -37,14 +37,14 @@ class TradePayRequest extends AbstractAopRequest
      *
      * @param  mixed $data The data to send
      *
-     * @return TradePayResponse|TradeQueryResponse
+     * @return AopTradePayResponse|AopTradeQueryResponse
      * @throws InvalidRequestException
      */
     public function sendData($data)
     {
         $data = parent::sendData($data);
 
-        $this->response = new TradePayResponse($this, $data);
+        $this->response = new AopTradePayResponse($this, $data);
 
         if ($this->response->isWaitPay() && $this->polling) {
             $this->polling();
@@ -89,7 +89,7 @@ class TradePayRequest extends AbstractAopRequest
 
     protected function query()
     {
-        $request = new TradeQueryRequest($this->httpClient, $this->httpRequest);
+        $request = new AopTradeQueryRequest($this->httpClient, $this->httpRequest);
         $request->initialize($this->parameters->all());
         $request->setEndpoint($this->getEndpoint());
         $request->setPrivateKey($this->getPrivateKey());
@@ -103,7 +103,7 @@ class TradePayRequest extends AbstractAopRequest
 
     protected function cancel()
     {
-        $request = new TradeCancelRequest($this->httpClient, $this->httpRequest);
+        $request = new AopTradeCancelRequest($this->httpClient, $this->httpRequest);
         $request->initialize($this->parameters->all());
         $request->setEndpoint($this->getEndpoint());
         $request->setPrivateKey($this->getPrivateKey());
@@ -137,7 +137,7 @@ class TradePayRequest extends AbstractAopRequest
     /**
      * @param boolean $polling
      *
-     * @return TradePayRequest
+     * @return AopTradePayRequest
      */
     public function setPolling($polling)
     {
@@ -150,7 +150,7 @@ class TradePayRequest extends AbstractAopRequest
     /**
      * @param int $pollingWait
      *
-     * @return TradePayRequest
+     * @return AopTradePayRequest
      */
     public function setPollingWait($pollingWait)
     {
@@ -163,7 +163,7 @@ class TradePayRequest extends AbstractAopRequest
     /**
      * @param int $pollingAttempts
      *
-     * @return TradePayRequest
+     * @return AopTradePayRequest
      */
     public function setPollingAttempts($pollingAttempts)
     {

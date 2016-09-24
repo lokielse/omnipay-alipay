@@ -2,15 +2,15 @@
 
 namespace Omnipay\Alipay\Responses;
 
-use Omnipay\Alipay\Requests\TradeRefundRequest;
+use Omnipay\Alipay\Requests\AopTradeRefundRequest;
 
-class TradeCancelResponse extends AbstractAopResponse
+class AopTradeCancelResponse extends AbstractAopResponse
 {
 
     protected $key = 'alipay_trade_cancel_response';
 
     /**
-     * @var TradeRefundRequest
+     * @var AopTradeRefundRequest
      */
     protected $request;
 }

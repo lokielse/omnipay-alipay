@@ -2,7 +2,7 @@
 
 namespace Omnipay\Alipay;
 
-use Omnipay\Alipay\Requests\TradeWapPayRequest;
+use Omnipay\Alipay\Requests\AopTradeWapPayRequest;
 
 class AopWapGateway extends AbstractAopGateway
 {
@@ -14,7 +14,7 @@ class AopWapGateway extends AbstractAopGateway
      */
     public function getName()
     {
-        return 'Alipay Wap Gateway';
+        return 'Alipay WAP Gateway';
     }
 
 
@@ -45,6 +45,6 @@ class AopWapGateway extends AbstractAopGateway
      */
     public function purchase(array $parameters = [])
     {
-        return $this->createRequest(TradeWapPayRequest::class, $parameters);
+        return $this->createRequest(AopTradeWapPayRequest::class, $parameters);
     }
 }

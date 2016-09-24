@@ -6,11 +6,11 @@ use Omnipay\Alipay\AopF2FGateway;
 use Omnipay\Alipay\Common\Signer;
 use Omnipay\Alipay\Responses\AopCompletePurchaseResponse;
 use Omnipay\Alipay\Responses\DataServiceBillDownloadUrlQueryResponse;
-use Omnipay\Alipay\Responses\TradePayResponse;
-use Omnipay\Alipay\Responses\TradePreCreateResponse;
-use Omnipay\Alipay\Responses\TradeQueryResponse;
-use Omnipay\Alipay\Responses\TradeRefundQueryResponse;
-use Omnipay\Alipay\Responses\TradeRefundResponse;
+use Omnipay\Alipay\Responses\AopTradePayResponse;
+use Omnipay\Alipay\Responses\AopTradePreCreateResponse;
+use Omnipay\Alipay\Responses\AopTradeQueryResponse;
+use Omnipay\Alipay\Responses\AopTradeRefundQueryResponse;
+use Omnipay\Alipay\Responses\AopTradeRefundResponse;
 
 class AopF2FGatewayTest extends AbstractGatewayTestCase
 {
@@ -38,7 +38,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
     public function testCapture()
     {
         /**
-         * @var TradePayResponse $response
+         * @var AopTradePayResponse $response
          */
         $response = $this->gateway->capture(
             [
@@ -60,7 +60,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
     public function testPurchase()
     {
         /**
-         * @var TradePreCreateResponse $response
+         * @var AopTradePreCreateResponse $response
          */
         $response = $this->gateway->purchase(
             [
@@ -81,7 +81,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
     public function testQuery()
     {
         /**
-         * @var TradeQueryResponse $response
+         * @var AopTradeQueryResponse $response
          */
         $response = $this->gateway->query(
             [
@@ -99,7 +99,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
     public function testRefund()
     {
         /**
-         * @var TradeRefundResponse $response
+         * @var AopTradeRefundResponse $response
          */
         $response = $this->gateway->refund(
             [
@@ -118,7 +118,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
     public function testQueryRefund()
     {
         /**
-         * @var TradeRefundQueryResponse $response
+         * @var AopTradeRefundQueryResponse $response
          */
         $response = $this->gateway->refundQuery(
             [
@@ -138,7 +138,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
     public function testSettle()
     {
         /**
-         * @var TradeRefundQueryResponse $response
+         * @var AopTradeRefundQueryResponse $response
          */
         $response = $this->gateway->settle(
             [

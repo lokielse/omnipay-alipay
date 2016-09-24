@@ -2,14 +2,14 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Omnipay\Alipay\Responses\TradeWapPayResponse;
+use Omnipay\Alipay\Responses\AopTradeWapPayResponse;
 
 /**
- * Class TradeWapPayRequest
+ * Class AopTradeWapPayRequest
  * @package Omnipay\Alipay\Requests
  * @link    https://doc.open.alipay.com/doc2/detail.htm?treeId=203&articleId=105463&docType=1
  */
-class TradeWapPayRequest extends AbstractAopRequest
+class AopTradeWapPayRequest extends AbstractAopRequest
 {
 
     protected $method = 'alipay.trade.wap.pay';
@@ -21,7 +21,7 @@ class TradeWapPayRequest extends AbstractAopRequest
 
     public function sendData($data)
     {
-        return $this->response = new TradeWapPayResponse($this, $data);
+        return $this->response = new AopTradeWapPayResponse($this, $data);
     }
 
 
