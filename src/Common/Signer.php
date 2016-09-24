@@ -9,7 +9,15 @@ namespace Omnipay\Alipay\Common;
  */
 class Signer
 {
+
+    const ENCODE_POLICY_QUERY = 'QUERY';
+    const ENCODE_POLICY_JSON = 'JSON';
+
     protected $ignores = ['sign', 'sign_type'];
+
+    protected $sort = true;
+
+    protected $encodePolicy = self::ENCODE_POLICY_QUERY;
 
     /**
      * @var array
@@ -35,7 +43,13 @@ class Signer
     {
         $params = $this->getParamsToSign();
 
-        return urldecode(http_build_query($params));
+        if ($this->encodePolicy == self::ENCODE_POLICY_QUERY) {
+            return urldecode(http_build_query($params));
+        } elseif ($this->encodePolicy == self::ENCODE_POLICY_JSON) {
+            return json_encode($params);
+        } else {
+            return null;
+        }
     }
 
 
@@ -50,7 +64,9 @@ class Signer
 
         $params = $this->filter($params);
 
-        $this->sort($params);
+        if ($this->sort) {
+            $this->sort($params);
+        }
 
         return $params;
     }
@@ -143,6 +159,12 @@ class Signer
     }
 
 
+    public function verifyWithMD5($content, $sign, $key)
+    {
+        return md5($content . $key) == $sign;
+    }
+
+
     public function verifyWithRSA($content, $sign, $publicKey, $alg = OPENSSL_ALGO_SHA1)
     {
         $publicKey = $this->prefix($publicKey);
@@ -158,5 +180,31 @@ class Signer
         openssl_free_key($res);
 
         return $result;
+    }
+
+
+    /**
+     * @param boolean $sort
+     *
+     * @return Signer
+     */
+    public function setSort($sort)
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
+
+    /**
+     * @param int $encodePolicy
+     *
+     * @return Signer
+     */
+    public function setEncodePolicy($encodePolicy)
+    {
+        $this->encodePolicy = $encodePolicy;
+
+        return $this;
     }
 }
