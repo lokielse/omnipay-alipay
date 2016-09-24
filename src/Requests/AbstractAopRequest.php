@@ -5,6 +5,7 @@ namespace Omnipay\Alipay\Requests;
 use Omnipay\Alipay\Common\Signer;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\AbstractRequest;
+use function Omnipay\Alipay\Common\array_get;
 use function Omnipay\Alipay\Common\array_has;
 
 abstract class AbstractAopRequest extends AbstractRequest
@@ -15,6 +16,8 @@ abstract class AbstractAopRequest extends AbstractRequest
     protected $privateKey;
 
     protected $encryptKey;
+
+    protected $alipayPublicKey;
 
     protected $endpoint = 'https://openapi.alipay.com/gateway.do';
 
@@ -151,6 +154,28 @@ abstract class AbstractAopRequest extends AbstractRequest
     }
 
 
+    /**
+     * @return mixed
+     */
+    public function getAlipayPublicKey()
+    {
+        return $this->alipayPublicKey;
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setAlipayPublicKey($value)
+    {
+        $this->alipayPublicKey = $value;
+
+        return $this;
+    }
+
+
     public function sendData($data)
     {
         $url  = $this->getRequestUrl($data);
@@ -227,6 +252,24 @@ abstract class AbstractAopRequest extends AbstractRequest
     public function getBizContent()
     {
         return $this->getParameter('biz_content');
+    }
+
+
+    /**
+     * @param null $key
+     * @param null $default
+     *
+     * @return mixed
+     */
+    public function getBizData($key = null, $default = null)
+    {
+        $data = json_decode($this->getBizContent(), true);
+
+        if (is_null($key)) {
+            return $data;
+        } else {
+            return array_get($data, $key, $default);
+        }
     }
 
 
