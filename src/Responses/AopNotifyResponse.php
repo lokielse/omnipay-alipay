@@ -32,15 +32,4 @@ class AopNotifyResponse extends AbstractResponse
     {
         return true;
     }
-    
-    
-    /**
-     * Is the response successful?
-     *
-     * @return boolean
-     */
-    public function isSuccessful()
-    {
-        return $this->isVerifySuccess();
-    }
 }
