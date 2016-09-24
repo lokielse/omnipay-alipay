@@ -13,6 +13,7 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class LegacyAppPurchaseRequest extends AbstractLegacyRequest
 {
+
     protected $service = 'mobile.securitypay.pay';
 
     protected $privateKey;

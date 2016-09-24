@@ -13,6 +13,7 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class DataServiceBillDownloadUrlQueryRequest extends AbstractAopRequest
 {
+
     protected $method = 'alipay.data.dataservice.bill.downloadurl.query';
 
 
