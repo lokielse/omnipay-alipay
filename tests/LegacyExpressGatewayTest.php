@@ -83,4 +83,29 @@ class LegacyExpressGatewayTest extends AbstractGatewayTestCase
 
         $this->assertFalse($response->isSuccessful());
     }
+
+
+    public function testPurchase1()
+    {
+        $this->gateway = new LegacyExpressGateway($this->getHttpClient(), $this->getHttpRequest());
+        $this->gateway->setPartner($this->partner);
+        $this->gateway->setKey($this->key);
+        $this->gateway->setSignType('RSA');
+        $this->gateway->setPrivateKey(ALIPAY_LEGACY_PRIVATE_KEY);
+        $this->gateway->setSellerId($this->sellerId);
+        $this->gateway->setNotifyUrl('https://www.example.com/notify');
+        $this->gateway->setReturnUrl('https://www.example.com/return');
+        $this->options = [
+            'out_trade_no' => date('Y-m-d H:i:s') . mt_rand(1000, 9999),
+            'subject'      => 'test',
+            'total_fee'    => '0.01',
+        ];
+        /**
+         * @var LegacyExpressPurchaseResponse $response
+         */
+        $response = $this->gateway->purchase($this->options)->send();
+        $this->assertTrue($response->isSuccessful());
+        $this->assertTrue($response->isRedirect());
+        $this->assertNotEmpty($response->getRedirectUrl());
+    }
 }
