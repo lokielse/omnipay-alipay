@@ -103,7 +103,7 @@ or better yet, fork the library and submit a pull request.
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/lokielse/omnipay-alipay.svg
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/lokielse/omnipay-alipay.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/lokielse/omnipay-alipay.svg
-[ico-donate]: https://img.shields.io/badge/%F0%9F%8D%BC-donate-ff69b4.svg
+
 
 [link-packagist]: https://packagist.org/packages/lokielse/omnipay-alipay
 [link-travis]: https://travis-ci.org/lokielse/omnipay-alipay
