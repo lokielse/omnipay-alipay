@@ -46,7 +46,7 @@ The following gateways are provided by this package:
 | Alipay_AopWap 	    		| Alipay WAP Gateway              |手机网站支付 - new     | [Usage][link-wiki-aop-wap]       |
 | Alipay_LegacyApp 	    	| Alipay Legacy APP Gateway       |APP支付      | [Usage][link-wiki-legacy-app]       |
 | Alipay_LegacyExpress 		| Alipay Legacy Express Gateway   |即时到账    | [Usage][link-wiki-legacy-express]      |
-| Alipay_LegacyWap      	| Alipay Legacy Express Gateway   |手机网站支付     | [Usage][link-wiki-legacy-wap]       |
+| Alipay_LegacyWap      	| Alipay Legacy WAP Gateway   |手机网站支付     | [Usage][link-wiki-legacy-wap]       |
 
 ## Usage
 
