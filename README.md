@@ -4,7 +4,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Code Coverage][ico-code-coverage]][link-code-coverage]
-[![Software License][ico-license]](LICENSE.md)
+[![Software License][ico-license]](LICENSE)
 [![Donate][ico-donate-paypal]][link-donate-paypal]
 [![Donate][ico-donate]][link-donate]
 
