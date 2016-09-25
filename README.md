@@ -3,7 +3,7 @@
 [![travis][ico-travis]][link-travis]
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![Software License][ico-license]](LICENSE)
+[![Software License][ico-license]](LICENSE.md)
 
 
 
