@@ -9,7 +9,6 @@ namespace Omnipay\Alipay\Common;
  */
 class Signer
 {
-
     const ENCODE_POLICY_QUERY = 'QUERY';
     const ENCODE_POLICY_JSON = 'JSON';
 
