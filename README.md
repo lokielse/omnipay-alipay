@@ -3,8 +3,8 @@
 [![travis][ico-travis]][link-travis]
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
-[![Software License][ico-license]](LICENSE)
-
+[![Code Coverage][ico-code-coverage]][link-code-coverage]
+[![Software License][ico-license]](LICENSE.md)
 
 
 
@@ -102,6 +102,7 @@ or better yet, fork the library and submit a pull request.
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
 [ico-travis]: https://img.shields.io/travis/lokielse/omnipay-alipay/master.svg
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/lokielse/omnipay-alipay.svg
+[ico-code-coverage]: https://img.shields.io/codecov/c/github/lokielse/omnipay-alipay/master.svg
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/lokielse/omnipay-alipay.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/lokielse/omnipay-alipay.svg
 
@@ -110,6 +111,7 @@ or better yet, fork the library and submit a pull request.
 [link-packagist]: https://packagist.org/packages/lokielse/omnipay-alipay
 [link-travis]: https://travis-ci.org/lokielse/omnipay-alipay
 [link-scrutinizer]: https://scrutinizer-ci.com/g/lokielse/omnipay-alipay/code-structure
+[link-code-coverage]: https://codecov.io/github/lokielse/omnipay-alipay?branch=master
 [link-code-quality]: https://scrutinizer-ci.com/g/lokielse/omnipay-alipay
 [link-downloads]: https://packagist.org/packages/lokielse/omnipay-alipay
 [link-author]: https://github.com/lokielse
