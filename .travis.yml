@@ -11,7 +11,7 @@ before_script:
 
 script:
   - vendor/bin/phpcs --standard=PSR2 src
-  - vendor/bin/phpunit --coverage-text
+  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
