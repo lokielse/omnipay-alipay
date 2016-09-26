@@ -4,6 +4,11 @@ namespace Omnipay\Alipay;
 
 use Omnipay\Alipay\Requests\AopTradeAppPayRequest;
 
+/**
+ * Class AopAppGateway
+ * @package Omnipay\Alipay
+ * @link    https://doc.open.alipay.com/docs/doc.htm?treeId=204&articleId=105051&docType=1
+ */
 class AopAppGateway extends AbstractAopGateway
 {
 
