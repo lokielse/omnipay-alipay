@@ -2,6 +2,8 @@
 
 namespace Omnipay\Alipay\Common;
 
+use Exception;
+
 /**
  * Sign Tool for Alipay
  * Class Signer
@@ -9,8 +11,12 @@ namespace Omnipay\Alipay\Common;
  */
 class Signer
 {
+
     const ENCODE_POLICY_QUERY = 'QUERY';
     const ENCODE_POLICY_JSON = 'JSON';
+
+    const KEY_TYPE_PUBLIC = 1;
+    const KEY_TYPE_PRIVATE = 2;
 
     protected $ignores = ['sign', 'sign_type'];
 
@@ -132,8 +138,21 @@ class Signer
     public function signContentWithRSA($content, $privateKey, $alg = OPENSSL_ALGO_SHA1)
     {
         $privateKey = $this->prefix($privateKey);
+        $privateKey = $this->format($privateKey, self::KEY_TYPE_PRIVATE);
         $res        = openssl_pkey_get_private($privateKey);
-        openssl_sign($content, $sign, $res, $alg);
+
+        $sign = null;
+
+        try {
+            openssl_sign($content, $sign, $res, $alg);
+        } catch (Exception $e) {
+            if ($e->getCode() == 2) {
+                $message = $e->getMessage();
+                $message .= "\n应用私钥格式有误，见 https://github.com/lokielse/omnipay-alipay/wiki/FAQs";
+                throw new Exception($message, $e->getCode(), $e);
+            }
+        }
+
         openssl_free_key($res);
         $sign = base64_encode($sign);
 
@@ -158,6 +177,60 @@ class Signer
     }
 
 
+    /**
+     * Convert key to standard format
+     *
+     * @param $key
+     * @param $type
+     *
+     * @return string
+     */
+    public function format($key, $type)
+    {
+        if (is_file($key)) {
+            $key = file_get_contents($key);
+        }
+
+        if (is_string($key) && strpos($key, '-----') === false) {
+            $key = $this->convertKey($key, $type);
+        }
+
+        return $key;
+    }
+
+
+    /**
+     * Convert one line key to standard format
+     *
+     * @param $key
+     * @param $type
+     *
+     * @return string
+     */
+    public function convertKey($key, $type)
+    {
+        $lines = [];
+
+        if ($type == self::KEY_TYPE_PUBLIC) {
+            $lines[] = '-----BEGIN PUBLIC KEY-----';
+        } else {
+            $lines[] = '-----BEGIN RSA PRIVATE KEY-----';
+        }
+
+        for ($i = 0; $i < strlen($key); $i += 64) {
+            $lines[] = trim(substr($key, $i, 64));
+        }
+
+        if ($type == self::KEY_TYPE_PUBLIC) {
+            $lines[] = '-----END PUBLIC KEY-----';
+        } else {
+            $lines[] = '-----END RSA PRIVATE KEY-----';
+        }
+
+        return implode("\n", $lines);
+    }
+
+
     public function verifyWithMD5($content, $sign, $key)
     {
         return md5($content . $key) == $sign;
@@ -167,11 +240,13 @@ class Signer
     public function verifyWithRSA($content, $sign, $publicKey, $alg = OPENSSL_ALGO_SHA1)
     {
         $publicKey = $this->prefix($publicKey);
+        $publicKey = $this->format($publicKey, self::KEY_TYPE_PUBLIC);
 
         $res = openssl_pkey_get_public($publicKey);
 
         if (! $res) {
-            throw new \Exception('The publicKey is invalid');
+            $message = "The public key is invalid\n支付宝公钥格式有误，见 https://github.com/lokielse/omnipay-alipay/wiki/FAQs";
+            throw new Exception($message);
         }
 
         $result = (bool) openssl_verify($content, base64_decode($sign), $res, $alg);
