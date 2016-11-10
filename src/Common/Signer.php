@@ -245,7 +245,8 @@ class Signer
         $res = openssl_pkey_get_public($publicKey);
 
         if (! $res) {
-            $message = "The public key is invalid\n支付宝公钥格式有误，见 https://github.com/lokielse/omnipay-alipay/wiki/FAQs";
+            $message = "The public key is invalid";
+            $message .= "\n支付宝公钥格式有误，见 https://github.com/lokielse/omnipay-alipay/wiki/FAQs";
             throw new Exception($message);
         }
 
