@@ -2,7 +2,7 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Omnipay\Alipay\Responses\AopTradeQueryResponse;
+use Omnipay\Alipay\Responses\AopTradeRefundResponse;
 use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
 
@@ -31,7 +31,7 @@ class AopTradeRefundRequest extends AbstractAopRequest
     {
         $data = parent::sendData($data);
 
-        return $this->response = new AopTradeQueryResponse($this, $data);
+        return $this->response = new AopTradeRefundResponse($this, $data);
     }
 
 
