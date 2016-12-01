@@ -23,13 +23,8 @@ processing library for PHP. This package implements Alipay support for Omnipay.
 Require this package with composer using the following command:
 
 ```bash
-composer require lokielse/omnipay-alipay
+composer update lokielse/omnipay-alipay
 ```
-
-And run composer to update your dependencies:
-
-    $ curl -s http://getcomposer.org/installer | php
-    $ php composer.phar update
 
 ## Basic Usage
 
