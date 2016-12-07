@@ -16,7 +16,7 @@ processing library for PHP. This package implements Alipay support for Omnipay.
 
 > Cross-border Alipay payment please use [`lokielse/omnipay-global-alipay`](https://github.com/lokielse/omnipay-global-alipay)
  
-> Legacy Version please use [`"lokielse/omnipay-alipay": "legacy"`](https://github.com/lokielse/omnipay-alipay/tree/legacy)
+> Legacy Version please use [`"lokielse/omnipay-alipay": "dev-legacy"`](https://github.com/lokielse/omnipay-alipay/tree/legacy)
 
 ## Installation
 
