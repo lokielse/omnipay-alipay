@@ -50,8 +50,7 @@ class LegacyWapPurchaseRequest extends AbstractLegacyRequest
             'subject',
             'total_fee',
             'seller_id',
-            'payment_type',
-            'show_url'
+            'payment_type'
         );
     }
 
