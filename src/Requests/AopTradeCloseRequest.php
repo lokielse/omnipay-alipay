@@ -9,7 +9,7 @@ use Omnipay\Common\Message\ResponseInterface;
 /**
  * Class AopTradeCancelRequest
  * @package Omnipay\Alipay\Requests
- * @link    https://doc.open.alipay.com/doc2/apiDetail.htm?apiId=866&docType=4
+ * @link    https://doc.open.alipay.com/doc2/apiDetail.htm?apiId=1058&docType=4
  */
 class AopTradeCloseRequest extends AbstractAopRequest
 {
