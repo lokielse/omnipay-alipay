@@ -2,9 +2,9 @@
 
 **Alipay driver for the Omnipay PHP payment processing library**
 
-[![Build Status](https://travis-ci.org/lokielse/omnipay-alipay.png?branch=master)](https://travis-ci.org/lokielse/omnipay-alipay)
-[![Latest Stable Version](https://poser.pugx.org/lokielse/omnipay-alipay/version.png)](https://packagist.org/packages/lokielse/omnipay-alipay)
-[![Total Downloads](https://poser.pugx.org/lokielse/omnipay-alipay/d/total.png)](https://packagist.org/packages/lokielse/omnipay-alipay)
+[![Build Status](https://img.shields.io/travis/lokielse/omnipay-alipay/master.svg)](https://travis-ci.org/lokielse/omnipay-alipay)
+[![Latest Stable Version](https://img.shields.io/packagist/v/lokielse/omnipay-alipay.svg)](https://packagist.org/packages/lokielse/omnipay-alipay)
+[![Total Downloads](https://img.shields.io/packagist/dt/lokielse/omnipay-alipay.svg)](https://packagist.org/packages/lokielse/omnipay-alipay)
 
 [Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements Alipay support for Omnipay.
@@ -18,7 +18,7 @@ Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply
 ```json
 {
     "require": {
-        "lokielse/omnipay-alipay": "legacy"
+        "lokielse/omnipay-alipay": "dev-legacy"
     }
 }
 ```
