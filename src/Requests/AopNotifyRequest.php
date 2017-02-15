@@ -123,8 +123,13 @@ class AopNotifyRequest extends AbstractAopRequest
         $content = $signer->getContentToSign();
 
         $sign = $this->params->get('sign');
-
-        $match = (new Signer)->verifyWithRSA($content, $sign, $this->getAlipayPublicKey());
+        $sign_type = $this->params->get('sign_type');
+        
+        if ($sign_type == 'RSA2') {
+            $match = (new Signer)->verifyWithRSA($content, $sign, $this->getAlipayPublicKey(), OPENSSL_ALGO_SHA256);
+        } else {
+            $match = (new Signer)->verifyWithRSA($content, $sign, $this->getAlipayPublicKey());
+        }
 
         if (! $match) {
             throw new InvalidRequestException('The signature is not match');
