@@ -55,7 +55,7 @@ $gateway->setAppId('the_app_id');
 $gateway->setPrivateKey('the_app_private_key');
 $gateway->setNotifyUrl('https://www.example.com/notify');
 
-$request = $this->gateway->purchase();
+$request = $gateway->purchase();
 $request->setBizContent([
     'subject'      => 'test',
     'out_trade_no' => date('YmdHis') . mt_rand(1000, 9999),
