@@ -23,36 +23,44 @@ class AopAppGatewayTest extends AbstractGatewayTestCase
         parent::setUp();
         $this->gateway = new AopAppGateway($this->getHttpClient(), $this->getHttpRequest());
         $this->gateway->setAppId($this->appId);
-        $this->gateway->setPrivateKey($this->appPrivateKey);
-        $this->gateway->setEncryptKey($this->appEncryptKey);
-        $this->gateway->setNotifyUrl('https://www.example.com/notify');
+        $this->gateway->setPrivateKey(ALIPAY_AOP_PRIVATE_KEY);
+        //$this->gateway->setAlipayPublicKey(file_get_contents($this->appPrivateKey));
+        //$this->gateway->setEncryptKey($this->appEncryptKey);
+        //$this->gateway->setNotifyUrl('http://www.guoshuzc.com/api/pay/alipay_recharge_notify');
+        //$this->gateway->setAlipaySdk('alipay_sdk');
     }
 
 
     public function testPurchase()
     {
+        $tn = date('YmdHis') . mt_rand(1000, 9999);
         /**
          * @var AopTradeAppPayResponse $response
          */
         $response = $this->gateway->purchase(
             [
                 'biz_content' => [
-                    'subject'      => 'test',
-                    'out_trade_no' => date('YmdHis') . mt_rand(1000, 9999),
-                    'total_amount' => '0.01',
-                    'product_code' => 'QUICK_MSECURITY_PAY',
+                    'subject'         => '余额充值'.$tn,
+                    'out_trade_no'    => $tn,
+                    'total_amount'    => '0.01',
+                    'product_code'    => 'QUICK_MSECURITY_PAY',
+                    'passback_params' => urlencode('recharge_id=27')
                 ]
             ]
         )->send();
 
+        //dd(urldecode('alipay_sdk=lokielse%2Fomnipay-alipay&app_id=2016103002419260&biz_content=%7B%22subject%22%3A%22%5Cu4f59%5Cu989d%5Cu5145%5Cu503c%5B201612011342592526%5D%22%2C%22out_trade_no%22%3A%22201612011342592526%22%2C%22total_amount%22%3A%220.01%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22passback_params%22%3A%22recharge_id%3D27%22%7D&charset=UTF-8&format=JSON&method=alipay.trade.app.pay&notify_url=http%3A%2F%2Fwww.guoshuzc.com%2Fapi%2Fpay%2Falipay_recharge_notify&sign_type=RSA&timestamp=2016-12-01+13%3A42%3A59&version=1.0&sign=O3fQSinspo84kXcsuMAytFwUuC%2BlCM%2FgxF49Ylx1mLRUhFYyHeeSCFcy8wvpQGTuqtk0o7GLYoA4WVObF0HZAl4fl2dFues8bDU4imPNZR%2FVDO4sEQYkU2%2FBsNR0TdZDfihBC75X1oVd5ehH6EfFAI7ZPBEVwD83AX2PjAORrJo%3D'));
+
         $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
+        //dd($response->getOrderString());
         $this->assertNotEmpty($response->getOrderString());
     }
 
+
     public function testPurchaseInline()
     {
-        $testPrivateKey  = ALIPAY_ASSET_DIR . '/dist/common/rsa_private_key_inline.pem';
+        $testPrivateKey = ALIPAY_ASSET_DIR . '/dist/common/rsa_private_key_inline.pem';
 
         $this->gateway->setPrivateKey($testPrivateKey);
 
@@ -163,6 +171,7 @@ class AopAppGatewayTest extends AbstractGatewayTestCase
         $this->assertTrue($response->isPaid());
         $this->assertEquals('201609232100100306021234567', $response->getData()['trade_no']);
     }
+
 
     public function testCompletePurchaseNotifyWithInlineKey()
     {
