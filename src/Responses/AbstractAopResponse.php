@@ -25,7 +25,7 @@ abstract class AbstractAopResponse extends AbstractResponse
     }
 
 
-    public function getAlipayResponse($key)
+    public function getAlipayResponse($key = NULL)
     {
         if ($key) {
             return array_get($this->data, "{$this->key}.{$key}");
