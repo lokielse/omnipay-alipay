@@ -45,6 +45,7 @@ class LegacyCompleteRefundRequest extends AbstractLegacyRequest
         $request->initialize($this->parameters->all());
         $request->setAlipayPublicKey($this->getAlipayPublicKey());
         $request->setVerifyNotifyId($this->verifyNotifyId);
+        $request->setKey($this->getKey());
         $response = $request->send();
 
         $data = $response->getData();
