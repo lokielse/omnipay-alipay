@@ -12,7 +12,7 @@ define('ALIPAY_ASSET_DIR', realpath(__DIR__ . '/Assets'));
 
 $configFile = realpath(__DIR__ . '/../config.php');
 
-if (file_exists($configFile)) {
+if (file_exists($configFile) && false) {
     include_once $configFile;
 } else {
     define('ALIPAY_PARTNER', '2088011436420182');
