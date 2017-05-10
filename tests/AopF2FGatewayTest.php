@@ -175,11 +175,10 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
             [
                 'biz_content' => [
                     'bill_type' => 'trade',
-                    'bill_date' => '2016-04-05',
+                    'bill_date' => '1999-04-05',
                 ]
             ]
         )->send();
-
         $this->assertArrayHasKey('alipay_data_dataservice_bill_downloadurl_query_response', $response->getData());
         $this->assertFalse($response->isSuccessful());
     }

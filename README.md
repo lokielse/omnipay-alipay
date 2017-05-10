@@ -35,6 +35,7 @@ The following gateways are provided by this package:
 
 | Gateway       	    		|         Description             |说明                 | Links |
 |:---------------	    	|:---------------------------     |:---------         |:----------:|
+| Alipay_AopPage 	    		| Alipay Page Gateway             |电脑网站支付 - new    | [Usage][link-wiki-aop-page] [Doc][link-doc-aop-page] |
 | Alipay_AopApp 	    		| Alipay APP Gateway              |APP支付 - new    | [Usage][link-wiki-aop-app] [Doc][link-doc-aop-app] |
 | Alipay_AopF2F 	    		| Alipay Face To Face Gateway     |当面付 - new         | [Usage][link-wiki-aop-f2f] [Doc][link-doc-aop-f2f] |
 | Alipay_AopWap 	    		| Alipay WAP Gateway              |手机网站支付 - new     | [Usage][link-wiki-aop-wap] [Doc][link-doc-aop-wap] |
@@ -50,23 +51,25 @@ The following gateways are provided by this package:
 /**
  * @var AopAppGateway $gateway
  */
-$gateway = Omnipay::create('Alipay_AopApp');
+$gateway = Omnipay::create('Alipay_AopPage');
+$gateway->setSignType('RSA2'); // RSA/RSA2/MD5
 $gateway->setAppId('the_app_id');
 $gateway->setPrivateKey('the_app_private_key');
+$gateway->setAlipayPublicKey('the_alipay_public_key');
+$gateway->setReturnUrl('https://www.example.com/return');
 $gateway->setNotifyUrl('https://www.example.com/notify');
 
-$request = $gateway->purchase();
-$request->setBizContent([
+/**
+ * @var AopTradePagePayResponse $response
+ */
+$response = $gateway->purchase()->setBizContent([
     'subject'      => 'test',
     'out_trade_no' => date('YmdHis') . mt_rand(1000, 9999),
     'total_amount' => '0.01',
-    'product_code' => 'QUICK_MSECURITY_PAY',
-]);
+    'product_code' => 'FAST_INSTANT_TRADE_PAY',
+])->send();
 
-/**
- * @var AopTradeAppPayResponse $response
- */
-$response = $request->send();
+$url = $response->getRedirectUrl();
 ```
 
 For general usage instructions, please see the main [Omnipay](https://github.com/omnipay/omnipay)
@@ -113,12 +116,14 @@ or better yet, fork the library and submit a pull request.
 [link-donate]: https://cloud.githubusercontent.com/assets/1573211/18808259/a283d596-828f-11e6-8810-4a2e16d5e319.jpg
 [link-donate-paypal]: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=lokielse%40gmail%2ecom&lc=US&item_name=Omnipay%20Alipay&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 
+[link-wiki-aop-page]: https://github.com/lokielse/omnipay-alipay/wiki/Aop-Page-Gateway
 [link-wiki-aop-app]: https://github.com/lokielse/omnipay-alipay/wiki/Aop-APP-Gateway
 [link-wiki-aop-f2f]: https://github.com/lokielse/omnipay-alipay/wiki/Aop-Face-To-Face-Gateway
 [link-wiki-aop-wap]: https://github.com/lokielse/omnipay-alipay/wiki/Aop-WAP-Gateway
 [link-wiki-legacy-app]: https://github.com/lokielse/omnipay-alipay/wiki/Legacy-APP-Gateway
 [link-wiki-legacy-express]: https://github.com/lokielse/omnipay-alipay/wiki/Legacy-Express-Gateway
 [link-wiki-legacy-wap]: https://github.com/lokielse/omnipay-alipay/wiki/Legacy-WAP-Gateway
+[link-doc-aop-page]: https://doc.open.alipay.com/doc2/detail.htm?treeId=270&articleId=105901&docType=1
 [link-doc-aop-app]: https://doc.open.alipay.com/docs/doc.htm?treeId=204&articleId=105051&docType=1
 [link-doc-aop-f2f]: https://doc.open.alipay.com/docs/doc.htm?treeId=194&articleId=105072&docType=1
 [link-doc-aop-wap]: https://doc.open.alipay.com/docs/doc.htm?treeId=203&articleId=105288&docType=1
