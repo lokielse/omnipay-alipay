@@ -7,7 +7,7 @@ use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
- * Class AopTradeCancelRequest
+ * Class AopTradeCloseRequest
  * @package Omnipay\Alipay\Requests
  * @link    https://doc.open.alipay.com/doc2/apiDetail.htm?apiId=1058&docType=4
  */
