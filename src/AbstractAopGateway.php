@@ -410,7 +410,7 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return AopTradeTransferRequest
+     * @return AopTransferToAccountRequest
      */
     public function transfer(array $parameters = [])
     {
