@@ -5,6 +5,7 @@ namespace Omnipay\Alipay;
 use Omnipay\Alipay\Requests\AopCompletePurchaseRequest;
 use Omnipay\Alipay\Requests\AopTradeCloseRequest;
 use Omnipay\Alipay\Requests\AopTradeCancelRequest;
+use Omnipay\Alipay\Requests\AopTransferToAccountRequest;
 use Omnipay\Alipay\Requests\AopTradeOrderSettleRequest;
 use Omnipay\Alipay\Requests\AopTradeQueryRequest;
 use Omnipay\Alipay\Requests\AopTradeRefundQueryRequest;
@@ -15,6 +16,7 @@ use Omnipay\Common\Exception\InvalidRequestException;
 
 abstract class AbstractAopGateway extends AbstractGateway
 {
+
     protected $endpoints = [
         'production' => 'https://openapi.alipay.com/gateway.do',
         'sandbox'    => 'https://openapi.alipaydev.com/gateway.do',
@@ -400,6 +402,19 @@ abstract class AbstractAopGateway extends AbstractGateway
     public function cancel(array $parameters = [])
     {
         return $this->createRequest(AopTradeCancelRequest::class, $parameters);
+    }
+
+
+    /**
+     * Transfer To Account
+     *
+     * @param array $parameters
+     *
+     * @return AopTradeTransferRequest
+     */
+    public function transfer(array $parameters = [])
+    {
+        return $this->createRequest(AopTransferToAccountRequest::class, $parameters);
     }
 
 
