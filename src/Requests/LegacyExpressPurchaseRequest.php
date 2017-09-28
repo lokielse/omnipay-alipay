@@ -625,7 +625,8 @@ class LegacyExpressPurchaseRequest extends AbstractLegacyRequest
     {
         return $this->setParameter('notify_url', $value);
     }
-    
+
+
     /**
      * @return mixed
      */
@@ -644,5 +645,4 @@ class LegacyExpressPurchaseRequest extends AbstractLegacyRequest
     {
         return $this->setParameter('defaultbank', $value);
     }
-    
 }
