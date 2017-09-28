@@ -3,10 +3,13 @@
 namespace Omnipay\Alipay;
 
 use Omnipay\Alipay\Requests\AopCompletePurchaseRequest;
+use Omnipay\Alipay\Requests\AopTradeCloseRequest;
 use Omnipay\Alipay\Requests\AopTradeCancelRequest;
+use Omnipay\Alipay\Requests\AopTransferToAccountRequest;
 use Omnipay\Alipay\Requests\AopTradeOrderSettleRequest;
 use Omnipay\Alipay\Requests\AopTradeQueryRequest;
 use Omnipay\Alipay\Requests\AopTradeRefundQueryRequest;
+use Omnipay\Alipay\Requests\AopTransferToAccountQueryRequest;
 use Omnipay\Alipay\Requests\AopTradeRefundRequest;
 use Omnipay\Alipay\Requests\DataServiceBillDownloadUrlQueryRequest;
 use Omnipay\Common\AbstractGateway;
@@ -378,6 +381,19 @@ abstract class AbstractAopGateway extends AbstractGateway
 
 
     /**
+     * Close Order
+     *
+     * @param array $parameters
+     *
+     * @return AopTradeCloseRequest
+     */
+    public function close(array $parameters = [])
+    {
+        return $this->createRequest(AopTradeCloseRequest::class, $parameters);
+    }
+
+
+    /**
      * Cancel Order
      *
      * @param array $parameters
@@ -387,6 +403,32 @@ abstract class AbstractAopGateway extends AbstractGateway
     public function cancel(array $parameters = [])
     {
         return $this->createRequest(AopTradeCancelRequest::class, $parameters);
+    }
+
+
+    /**
+     * Transfer To Account
+     *
+     * @param array $parameters
+     *
+     * @return AopTransferToAccountRequest
+     */
+    public function transfer(array $parameters = [])
+    {
+        return $this->createRequest(AopTransferToAccountRequest::class, $parameters);
+    }
+
+
+    /**
+     * Query Transfer Status
+     *
+     * @param array $parameters
+     *
+     * @return AopTransferToAccountQueryRequest
+     */
+    public function transferQuery(array $parameters = [])
+    {
+        return $this->createRequest(AopTransferToAccountQueryRequest::class, $parameters);
     }
 
 

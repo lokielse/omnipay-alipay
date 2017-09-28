@@ -2,20 +2,18 @@
 
 namespace Omnipay\Alipay\Requests;
 
-use Omnipay\Alipay\Responses\AopTradeCloseResponse;
-use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\Alipay\Responses\AopTransferToAccountQueryResponse;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
- * Class AopTradeCloseRequest
+ * Class AopTransferToAccountQueryRequest
+ *
  * @package Omnipay\Alipay\Requests
- * @link    https://doc.open.alipay.com/doc2/apiDetail.htm?apiId=1058&docType=4
+ * @link    https://docs.open.alipay.com/api_28/alipay.fund.trans.order.query
  */
-class AopTradeCloseRequest extends AbstractAopRequest
+class AopTransferToAccountQueryRequest extends AbstractAopRequest
 {
-
-    protected $method = 'alipay.trade.close';
-
+    protected $method = 'alipay.fund.trans.order.query';
 
     /**
      * Send the request with specified data
@@ -23,23 +21,21 @@ class AopTradeCloseRequest extends AbstractAopRequest
      * @param  mixed $data The data to send
      *
      * @return ResponseInterface
-     * @throws InvalidRequestException
      */
     public function sendData($data)
     {
         $data = parent::sendData($data);
 
-        return $this->response = new AopTradeCloseResponse($this, $data);
+        return $this->response = new AopTransferToAccountQueryResponse($this, $data);
     }
-
 
     public function validateParams()
     {
         parent::validateParams();
 
         $this->validateBizContentOne(
-            'out_trade_no',
-            'trade_no'
+            'out_biz_no',
+            'order_id'
         );
     }
 }
