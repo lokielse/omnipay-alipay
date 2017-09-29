@@ -625,4 +625,24 @@ class LegacyExpressPurchaseRequest extends AbstractLegacyRequest
     {
         return $this->setParameter('notify_url', $value);
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getDefaultbank()
+    {
+        return $this->getParameter('defaultbank');
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setDefaultbank($value)
+    {
+        return $this->setParameter('defaultbank', $value);
+    }
 }

@@ -13,7 +13,9 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class AopTransferToAccountRequest extends AbstractAopRequest
 {
+
     protected $method = 'alipay.fund.trans.toaccount.transfer';
+
 
     /**
      * Send the request with specified data
@@ -29,6 +31,7 @@ class AopTransferToAccountRequest extends AbstractAopRequest
         return $this->response = new AopTransferToAccountResponse($this, $data);
     }
 
+
     public function validateParams()
     {
         parent::validateParams();
@@ -38,6 +41,6 @@ class AopTransferToAccountRequest extends AbstractAopRequest
             'payee_type',
             'payee_account',
             'amount'
-            );
+        );
     }
 }
