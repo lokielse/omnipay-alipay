@@ -11,7 +11,6 @@ use Exception;
  */
 class Signer
 {
-
     const ENCODE_POLICY_QUERY = 'QUERY';
     const ENCODE_POLICY_JSON = 'JSON';
 

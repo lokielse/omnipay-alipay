@@ -14,7 +14,6 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class AopVerifyAppPayReturnRequest extends AbstractAopRequest
 {
-
     protected $key = 'alipay_trade_app_pay_response';
 
 

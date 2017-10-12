@@ -4,7 +4,6 @@ namespace Omnipay\Alipay\Responses;
 
 abstract class AbstractAopResponse extends AbstractResponse
 {
-
     protected $key;
 
 

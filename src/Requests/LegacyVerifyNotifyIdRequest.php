@@ -12,7 +12,6 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class LegacyVerifyNotifyIdRequest extends AbstractLegacyRequest
 {
-
     protected $service = 'notify_verify';
 
 
