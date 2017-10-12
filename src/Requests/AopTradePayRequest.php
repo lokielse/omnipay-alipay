@@ -15,7 +15,6 @@ use Omnipay\Common\Exception\InvalidRequestException;
  */
 class AopTradePayRequest extends AbstractAopRequest
 {
-
     protected $method = 'alipay.trade.pay';
 
     protected $notifiable = true;
