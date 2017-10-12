@@ -10,7 +10,6 @@ use Omnipay\Common\AbstractGateway;
 
 abstract class AbstractLegacyGateway extends AbstractGateway
 {
-
     public function getDefaultParameters()
     {
         return [
