@@ -7,7 +7,6 @@ use Omnipay\Common\Message\ResponseInterface;
 
 class LegacyCompleteRefundRequest extends AbstractLegacyRequest
 {
-
     protected $verifyNotifyId = true;
 
 

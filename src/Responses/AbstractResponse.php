@@ -6,7 +6,6 @@ use Omnipay\Common\Message\AbstractResponse as Response;
 
 abstract class AbstractResponse extends Response
 {
-
     public function data($key = null, $default = null)
     {
         if (is_null($key)) {
