@@ -12,7 +12,6 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class LegacyQueryRequest extends AbstractLegacyRequest
 {
-
     protected $service = 'single_trade_query';
 
 

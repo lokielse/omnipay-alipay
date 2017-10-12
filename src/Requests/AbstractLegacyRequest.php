@@ -8,7 +8,6 @@ use Omnipay\Common\Message\AbstractRequest;
 
 abstract class AbstractLegacyRequest extends AbstractRequest
 {
-
     protected $endpoint = 'https://mapi.alipay.com/gateway.do';
 
     protected $service;
