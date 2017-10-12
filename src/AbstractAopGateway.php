@@ -17,7 +17,6 @@ use Omnipay\Common\Exception\InvalidRequestException;
 
 abstract class AbstractAopGateway extends AbstractGateway
 {
-
     protected $endpoints = [
         'production' => 'https://openapi.alipay.com/gateway.do',
         'sandbox'    => 'https://openapi.alipaydev.com/gateway.do',

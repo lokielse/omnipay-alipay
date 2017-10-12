@@ -13,7 +13,6 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class AopTradeOrderSettleRequest extends AbstractAopRequest
 {
-
     protected $method = 'alipay.trade.order.settle';
 
 
