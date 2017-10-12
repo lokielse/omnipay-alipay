@@ -6,7 +6,6 @@ use Omnipay\Alipay\Requests\AopTradeQueryRequest;
 
 class AopTradeQueryResponse extends AbstractAopResponse
 {
-
     protected $key = 'alipay_trade_query_response';
 
     /**

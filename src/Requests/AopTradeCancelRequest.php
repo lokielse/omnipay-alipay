@@ -13,7 +13,6 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class AopTradeCancelRequest extends AbstractAopRequest
 {
-
     protected $method = 'alipay.trade.cancel';
 
 

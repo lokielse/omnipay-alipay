@@ -8,7 +8,6 @@ use Omnipay\Common\Message\AbstractRequest;
 
 abstract class AbstractAopRequest extends AbstractRequest
 {
-
     protected $method;
 
     protected $privateKey;
