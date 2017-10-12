@@ -13,7 +13,6 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class AopTradeQueryRequest extends AbstractAopRequest
 {
-
     protected $method = 'alipay.trade.query';
 
 

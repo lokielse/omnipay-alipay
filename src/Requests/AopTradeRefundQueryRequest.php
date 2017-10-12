@@ -13,7 +13,6 @@ use Omnipay\Common\Message\ResponseInterface;
  */
 class AopTradeRefundQueryRequest extends AbstractAopRequest
 {
-
     protected $method = 'alipay.trade.fastpay.refund.query';
 
 

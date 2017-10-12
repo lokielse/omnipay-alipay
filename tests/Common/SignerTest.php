@@ -6,7 +6,6 @@ use Omnipay\Alipay\Common\Signer;
 
 class SignerTest extends \PHPUnit_Framework_TestCase
 {
-
     protected $params;
 
     protected $key;
@@ -135,7 +134,8 @@ class SignerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('aaa=111&bbb=2222&ccc=3333&s="."', $content);
     }
 
-    public function testConvert(){
+    public function testConvert()
+    {
         $key = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB';
 
         $signer = new Signer();
