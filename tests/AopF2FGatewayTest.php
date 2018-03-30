@@ -37,6 +37,8 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
 
     public function testCapture()
     {
+        $this->setMockHttpResponse('AopF2F_Capture_Failure.txt');
+
         /**
          * @var AopTradePayResponse $response
          */
@@ -59,7 +61,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
 
     public function testPurchase()
     {
-        $this->setMockHttpResponse('AopF2F_purchase_fail.txt');
+        $this->setMockHttpResponse('AopF2F_Purchase_Failure.txt');
 
         /**
          * @var AopTradePreCreateResponse $response
@@ -82,6 +84,8 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
 
     public function testQuery()
     {
+        $this->setMockHttpResponse('AopF2F_Query_Failure.txt');
+
         /**
          * @var AopTradeQueryResponse $response
          */
@@ -100,6 +104,8 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
 
     public function testRefund()
     {
+        $this->setMockHttpResponse('AopF2F_Refund_Failure.txt');
+
         /**
          * @var AopTradeRefundResponse $response
          */
@@ -119,6 +125,8 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
 
     public function testQueryRefund()
     {
+        $this->setMockHttpResponse('AopF2F_QueryRefund_Failure.txt');
+
         /**
          * @var AopTradeRefundQueryResponse $response
          */
@@ -139,6 +147,8 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
 
     public function testSettle()
     {
+        $this->setMockHttpResponse('AopF2F_Settle_Failure.txt');
+
         /**
          * @var AopTradeRefundQueryResponse $response
          */
@@ -170,6 +180,8 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
 
     public function testQueryBillDownloadUrl()
     {
+        $this->setMockHttpResponse('AopF2F_QueryBillDownloadUrl_Failure.txt');
+
         /**
          * @var DataServiceBillDownloadUrlQueryResponse $response
          */
