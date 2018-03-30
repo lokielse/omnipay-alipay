@@ -27,6 +27,8 @@ class AopJsGatewayTest extends AbstractGatewayTestCase
 
     public function testPurchase()
     {
+        $this->setMockHttpResponse('AopJs_Purchase_Failure.txt');
+
         /**
          * @var AopTradeCreateResponse $response
          */
