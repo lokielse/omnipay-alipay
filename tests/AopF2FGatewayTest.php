@@ -59,6 +59,8 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
 
     public function testPurchase()
     {
+        $this->setMockHttpResponse('AopF2F_purchase_fail.txt');
+
         /**
          * @var AopTradePreCreateResponse $response
          */
