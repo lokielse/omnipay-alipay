@@ -3,7 +3,6 @@
 namespace Omnipay\Alipay\Requests;
 
 use Omnipay\Alipay\Responses\AopTradePreCreateResponse;
-use Omnipay\Common\Exception\InvalidRequestException;
 use Omnipay\Common\Message\ResponseInterface;
 
 /**
@@ -22,7 +21,8 @@ class AopTradePreCreateRequest extends AbstractAopRequest
      * @param  mixed $data The data to send
      *
      * @return ResponseInterface
-     * @throws InvalidRequestException
+     * @throws \Psr\Http\Client\Exception\NetworkException
+     * @throws \Psr\Http\Client\Exception\RequestException
      */
     public function sendData($data)
     {
@@ -32,6 +32,9 @@ class AopTradePreCreateRequest extends AbstractAopRequest
     }
 
 
+    /**
+     * @throws \Omnipay\Common\Exception\InvalidRequestException
+     */
     public function validateParams()
     {
         parent::validateParams();
