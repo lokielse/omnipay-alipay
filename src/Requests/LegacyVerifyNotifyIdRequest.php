@@ -46,7 +46,7 @@ class LegacyVerifyNotifyIdRequest extends AbstractLegacyRequest
     {
         $url = sprintf('%s?%s', $this->getEndpoint(), http_build_query($data));
 
-        $response = $this->httpClient->get($url)->send()->getBody();
+        $response = $this->httpClient->get($url)->request('GET', $url, [], '')->getBody();
 
         $data = [
             'result' => $response
