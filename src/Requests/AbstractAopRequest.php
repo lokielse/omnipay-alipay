@@ -173,18 +173,37 @@ abstract class AbstractAopRequest extends AbstractRequest
     }
 
 
+    /**
+     * @param mixed $data
+     *
+     * @return mixed|\Omnipay\Common\Message\ResponseInterface|\Psr\Http\Message\StreamInterface
+     * @throws \Psr\Http\Client\Exception\NetworkException
+     * @throws \Psr\Http\Client\Exception\RequestException
+     */
     public function sendData($data)
     {
-        $url  = $this->getRequestUrl($data);
-        $body = $this->getRequestBody();
+        $method = $this->getRequestMethod();
+        $url    = $this->getRequestUrl($data);
+        $body   = $this->getRequestBody();
 
-        $response = $this->httpClient->post($url)/**/
-        ->setBody($body, 'application/x-www-form-urlencoded')/**/
-        ->send()->getBody();
+        $headers = [
+            'Content-Type' => 'application/x-www-form-urlencoded'
+        ];
 
-        $response = $this->decode($response);
+        $response = $this->httpClient->request($method, $url, $headers, $body);
 
-        return $response;
+        $payload = $this->decode($response->getBody());
+
+        return $payload;
+    }
+
+
+    /**
+     * @return string
+     */
+    protected function getRequestMethod()
+    {
+        return 'POST';
     }
 
 
