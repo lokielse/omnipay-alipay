@@ -54,6 +54,13 @@ class AopTradeCreateRequest extends AbstractAopRequest
     }
 
 
+    /**
+     * @param mixed $data
+     *
+     * @return mixed|AopTradeCreateResponse|\Omnipay\Common\Message\ResponseInterface|\Psr\Http\Message\StreamInterface
+     * @throws \Psr\Http\Client\Exception\NetworkException
+     * @throws \Psr\Http\Client\Exception\RequestException
+     */
     public function sendData($data)
     {
         $data = parent::sendData($data);
