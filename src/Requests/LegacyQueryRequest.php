@@ -55,7 +55,7 @@ class LegacyQueryRequest extends AbstractLegacyRequest
             'trade_no'       => $this->getTradeNo(),
             'out_trade_no'   => $this->getOutTradeNo(),
             '_input_charset' => $this->getInputCharset(),
-            ‘sign_type'      => $this->getSignType()
+            'sign_type'      => $this->getSignType()
         ];
         $data['sign'] = $this->sign($data, $this->getSignType());
         
