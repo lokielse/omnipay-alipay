@@ -88,7 +88,7 @@ class LegacyCompletePurchaseRequest extends AbstractLegacyRequest
     /**
      * @param boolean $verifyNotifyId
      *
-     * @return LegacyCompletePurchaseRequest
+     * @return \Omnipay\Alipay\Requests\LegacyCompletePurchaseRequest
      */
     public function setVerifyNotifyId($verifyNotifyId)
     {
