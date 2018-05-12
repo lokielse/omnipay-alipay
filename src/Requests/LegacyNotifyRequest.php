@@ -178,7 +178,7 @@ class LegacyNotifyRequest extends AbstractLegacyRequest
     /**
      * @param boolean $sort
      *
-     * @return LegacyNotifyRequest
+     * @return \Omnipay\Alipay\Requests\LegacyNotifyRequest
      */
     public function setSort($sort)
     {

@@ -26,7 +26,7 @@ class AopAppGateway extends AbstractAopGateway
     /**
      * @param array $parameters
      *
-     * @return AopTradeAppPayRequest
+     * @return \Omnipay\Alipay\Requests\AopTradeAppPayRequest
      */
     public function purchase(array $parameters = [])
     {
