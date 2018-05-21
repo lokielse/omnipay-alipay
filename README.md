@@ -7,8 +7,6 @@
 [![Software License][ico-license]](LICENSE)
 
 
-
-
 **Alipay driver for the Omnipay PHP payment processing library**
 
 [Omnipay](https://github.com/omnipay/omnipay) is a framework agnostic, multi-gateway payment
@@ -23,11 +21,7 @@ processing library for PHP. This package implements Alipay support for Omnipay.
 Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply add it
 to your `composer.json` file:
 
-    "lokielse/omnipay-alipay": "^2.0",
-
-And run composer to update your dependencies:
-
-    $ composer update -vvv
+    composer require lokielse/omnipay-alipay
 
 ## Basic Usage
 
@@ -104,8 +98,6 @@ or better yet, fork the library and submit a pull request.
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/lokielse/omnipay-alipay.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/lokielse/omnipay-alipay.svg
 
-
-
 [link-packagist]: https://packagist.org/packages/lokielse/omnipay-alipay
 [link-travis]: https://travis-ci.org/lokielse/omnipay-alipay
 [link-scrutinizer]: https://scrutinizer-ci.com/g/lokielse/omnipay-alipay/code-structure
@@ -114,8 +106,6 @@ or better yet, fork the library and submit a pull request.
 [link-downloads]: https://packagist.org/packages/lokielse/omnipay-alipay
 [link-author]: https://github.com/lokielse
 [link-contributors]: ../../contributors
-
-
 
 [link-wiki-aop-page]: https://github.com/lokielse/omnipay-alipay/wiki/Aop-Page-Gateway
 [link-wiki-aop-app]: https://github.com/lokielse/omnipay-alipay/wiki/Aop-APP-Gateway
