@@ -64,10 +64,11 @@ class LegacyAppGateway extends AbstractLegacyGateway
         return $this->createRequest(LegacyAppPurchaseRequest::class, $parameters);
     }
 
+
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Common\Message\AbstractRequest
+     * @return LegacyRefundNoPwdRequest
      */
     public function refundNoPwd(array $parameters = [])
     {
