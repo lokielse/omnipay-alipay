@@ -37,7 +37,8 @@ class LegacyAppGateway extends AbstractLegacyGateway
     /**
      * @return mixed
      */
-    public function getRnCheck(){
+    public function getRnCheck()
+    {
         return $this->getParameter('rn_check');
     }
 
@@ -47,7 +48,8 @@ class LegacyAppGateway extends AbstractLegacyGateway
      *
      * @return $this
      */
-    public function setRnCheck($value){
+    public function setRnCheck($value)
+    {
         return $this->setParameter('rn_check', $value);
     }
 
@@ -68,7 +70,8 @@ class LegacyAppGateway extends AbstractLegacyGateway
      *
      * @return LegacyRefundNoPwdRequest
      */
-    public function refundNoPwd(array $parameters = []){
+    public function refundNoPwd(array $parameters = [])
+    {
         return $this->createRequest(LegacyRefundNoPwdRequest::class, $parameters);
     }
 }
