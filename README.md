@@ -64,8 +64,10 @@ $response = $gateway->purchase()->setBizContent([
 $url = $response->getRedirectUrl();
 ```
 
-For general usage instructions, please see the main [Omnipay](https://github.com/omnipay/omnipay)
-repository.
+For general usage instructions, please see the
+
+- [Omnipay Basic Documentation](https://github.com/thephpleague/omnipay)
+- [Omnipay Alipay Wiki](https://github.com/lokielse/omnipay-alipay/wiki)
 
 ## Related
 
