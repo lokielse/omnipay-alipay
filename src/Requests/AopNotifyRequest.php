@@ -181,7 +181,7 @@ class AopNotifyRequest extends AbstractAopRequest
     /**
      * @param boolean $value
      *
-     * @return AopNotifyRequest
+     * @return \Omnipay\Alipay\Requests\AopNotifyRequest
      */
     public function setVerifyNotifyId($value)
     {
@@ -194,7 +194,7 @@ class AopNotifyRequest extends AbstractAopRequest
     /**
      * @param boolean $sort
      *
-     * @return AopNotifyRequest
+     * @return \Omnipay\Alipay\Requests\AopNotifyRequest
      */
     public function setSort($sort)
     {
@@ -207,7 +207,7 @@ class AopNotifyRequest extends AbstractAopRequest
     /**
      * @param string $encodePolicy
      *
-     * @return AopNotifyRequest
+     * @return \Omnipay\Alipay\Requests\AopNotifyRequest
      */
     public function setEncodePolicy($encodePolicy)
     {

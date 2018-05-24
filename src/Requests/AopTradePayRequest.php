@@ -5,7 +5,6 @@ namespace Omnipay\Alipay\Requests;
 use Omnipay\Alipay\Responses\AopTradeCancelResponse;
 use Omnipay\Alipay\Responses\AopTradePayResponse;
 use Omnipay\Alipay\Responses\AopTradeQueryResponse;
-use Omnipay\Common\Exception\InvalidRequestException;
 
 /**
  * Class AopTradePayRequest
@@ -36,8 +35,9 @@ class AopTradePayRequest extends AbstractAopRequest
      *
      * @param  mixed $data The data to send
      *
-     * @return AopTradePayResponse|AopTradeQueryResponse
-     * @throws InvalidRequestException
+     * @return \Omnipay\Alipay\Responses\AopTradePayResponse|\Omnipay\Alipay\Responses\AopTradeQueryResponse
+     * @throws \Psr\Http\Client\Exception\NetworkException
+     * @throws \Psr\Http\Client\Exception\RequestException
      */
     public function sendData($data)
     {
@@ -136,7 +136,7 @@ class AopTradePayRequest extends AbstractAopRequest
     /**
      * @param boolean $polling
      *
-     * @return AopTradePayRequest
+     * @return \Omnipay\Alipay\Requests\AopTradePayRequest
      */
     public function setPolling($polling)
     {
@@ -149,7 +149,7 @@ class AopTradePayRequest extends AbstractAopRequest
     /**
      * @param int $pollingWait
      *
-     * @return AopTradePayRequest
+     * @return \Omnipay\Alipay\Requests\AopTradePayRequest
      */
     public function setPollingWait($pollingWait)
     {
@@ -162,7 +162,7 @@ class AopTradePayRequest extends AbstractAopRequest
     /**
      * @param int $pollingAttempts
      *
-     * @return AopTradePayRequest
+     * @return \Omnipay\Alipay\Requests\AopTradePayRequest
      */
     public function setPollingAttempts($pollingAttempts)
     {

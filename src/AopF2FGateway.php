@@ -27,7 +27,7 @@ class AopF2FGateway extends AbstractAopGateway
     /**
      * @param array $parameters
      *
-     * @return AopTradePayRequest
+     * @return \Omnipay\Alipay\Requests\AopTradePayRequest
      */
     public function capture(array $parameters = [])
     {
@@ -38,7 +38,7 @@ class AopF2FGateway extends AbstractAopGateway
     /**
      * @param array $parameters
      *
-     * @return AopTradePreCreateRequest
+     * @return \Omnipay\Alipay\Requests\AopTradePreCreateRequest
      */
     public function purchase(array $parameters = [])
     {
