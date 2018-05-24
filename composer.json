@@ -1,5 +1,5 @@
 {
-  "name": "lokielse/omnipay-alipay",
+  "name": "laraveler/omnipay-alipay",
   "type": "library",
   "description": "Alipay gateway for Omnipay payment processing library",
   "keywords": [
@@ -11,12 +11,12 @@
     "payment",
     "purchase"
   ],
-  "homepage": "https://github.com/lokielse/omnipay-alipay",
+  "homepage": "https://github.com/laraveler/omnipay-alipay",
   "license": "MIT",
   "authors": [
     {
-      "name": "Loki Else",
-      "email": "lokielse@gmail.com"
+      "name": "Mr.Awei",
+      "email": "515242609@qq.com"
     }
   ],
   "autoload": {
