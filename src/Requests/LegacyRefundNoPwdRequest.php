@@ -237,7 +237,7 @@ class LegacyRefundNoPwdRequest extends AbstractLegacyRequest
     {
         $url = sprintf('%s?%s', $this->getEndpoint(), http_build_query($this->getData()));
 
-        $result = $this->httpClient->request('get',$url)->getBody();
+        $result = $this->httpClient->request('get', $url)->getBody();
 
         $xml = simplexml_load_string($result);
         $json = json_encode($xml);
