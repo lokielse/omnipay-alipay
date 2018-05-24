@@ -331,7 +331,7 @@ abstract class AbstractAopGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return AopCompletePurchaseRequest
+     * @return \Omnipay\Alipay\Requests\AopCompletePurchaseRequest
      * @throws InvalidRequestException
      */
     public function completePurchase(array $parameters = [])
@@ -345,7 +345,7 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return AopTradeQueryRequest
+     * @return \Omnipay\Alipay\Requests\AopTradeQueryRequest
      */
     public function query(array $parameters = [])
     {
@@ -358,7 +358,7 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return AopTradeRefundRequest
+     * @return \Omnipay\Alipay\Requests\AopTradeRefundRequest
      */
     public function refund(array $parameters = [])
     {
@@ -371,7 +371,7 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return AopTradeRefundQueryRequest
+     * @return \Omnipay\Alipay\Requests\AopTradeRefundQueryRequest
      */
     public function refundQuery(array $parameters = [])
     {
@@ -384,7 +384,7 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return AopTradeCloseRequest
+     * @return \Omnipay\Alipay\Requests\AopTradeCloseRequest
      */
     public function close(array $parameters = [])
     {
@@ -397,7 +397,7 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return AopTradeCancelRequest
+     * @return \Omnipay\Alipay\Requests\AopTradeCancelRequest
      */
     public function cancel(array $parameters = [])
     {
@@ -410,7 +410,7 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return AopTransferToAccountRequest
+     * @return \Omnipay\Alipay\Requests\AopTransferToAccountRequest
      */
     public function transfer(array $parameters = [])
     {
@@ -423,7 +423,7 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return AopTransferToAccountQueryRequest
+     * @return \Omnipay\Alipay\Requests\AopTransferToAccountQueryRequest
      */
     public function transferQuery(array $parameters = [])
     {
@@ -436,7 +436,7 @@ abstract class AbstractAopGateway extends AbstractGateway
      *
      * @param array $parameters
      *
-     * @return AopTradeCancelRequest
+     * @return \Omnipay\Alipay\Requests\AopTradeCancelRequest
      */
     public function settle(array $parameters = [])
     {

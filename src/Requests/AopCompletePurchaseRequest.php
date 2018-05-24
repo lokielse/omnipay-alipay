@@ -42,7 +42,7 @@ class AopCompletePurchaseRequest extends AbstractAopRequest
      *
      * @param  mixed $data The data to send
      *
-     * @return AopCompletePurchaseResponse
+     * @return \Omnipay\Alipay\Responses\AopCompletePurchaseResponse
      */
     public function sendData($data)
     {

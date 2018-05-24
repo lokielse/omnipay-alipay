@@ -26,7 +26,7 @@ class LegacyWapGateway extends AbstractLegacyGateway
     /**
      * @param array $parameters
      *
-     * @return LegacyWapPurchaseRequest
+     * @return \Omnipay\Alipay\Requests\LegacyWapPurchaseRequest
      */
     public function purchase(array $parameters = [])
     {
