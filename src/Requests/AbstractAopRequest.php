@@ -488,7 +488,7 @@ abstract class AbstractAopRequest extends AbstractRequest
      */
     public function getAppAuthToken()
     {
-      return $this->getParameter('app_auth_token');
+        return $this->getParameter('app_auth_token');
     }
 
 
@@ -499,7 +499,7 @@ abstract class AbstractAopRequest extends AbstractRequest
      */
     public function setAppAuthToken($value)
     {
-      return $this->setParameter('app_auth_token', $value);
+        return $this->setParameter('app_auth_token', $value);
     }
 
 
