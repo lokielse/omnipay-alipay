@@ -241,7 +241,7 @@ abstract class AbstractAopGateway extends AbstractGateway
      */
     public function getSysServiceProviderId()
     {
-         return $this->getParameter('sys_service_provider_id');
+        return $this->getParameter('sys_service_provider_id');
     }
 
 
