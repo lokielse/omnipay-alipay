@@ -239,6 +239,26 @@ abstract class AbstractAopGateway extends AbstractGateway
     /**
      * @return mixed
      */
+    public function getSysServiceProviderId()
+    {
+         return $this->getParameter('sys_service_provider_id');
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setSysServiceProviderId($value)
+    {
+        return $this->setParameter('sys_service_provider_id', $value);
+    }
+
+
+    /**
+     * @return mixed
+     */
     public function getAlipayPublicKey()
     {
         return $this->getParameter('alipay_public_key');
