@@ -3,14 +3,14 @@
 namespace Omnipay\Alipay;
 
 use Omnipay\Alipay\Requests\AopCompletePurchaseRequest;
-use Omnipay\Alipay\Requests\AopTradeCloseRequest;
 use Omnipay\Alipay\Requests\AopTradeCancelRequest;
-use Omnipay\Alipay\Requests\AopTransferToAccountRequest;
+use Omnipay\Alipay\Requests\AopTradeCloseRequest;
 use Omnipay\Alipay\Requests\AopTradeOrderSettleRequest;
 use Omnipay\Alipay\Requests\AopTradeQueryRequest;
 use Omnipay\Alipay\Requests\AopTradeRefundQueryRequest;
-use Omnipay\Alipay\Requests\AopTransferToAccountQueryRequest;
 use Omnipay\Alipay\Requests\AopTradeRefundRequest;
+use Omnipay\Alipay\Requests\AopTransferToAccountQueryRequest;
+use Omnipay\Alipay\Requests\AopTransferToAccountRequest;
 use Omnipay\Alipay\Requests\DataServiceBillDownloadUrlQueryRequest;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Exception\InvalidRequestException;
@@ -233,6 +233,26 @@ abstract class AbstractAopGateway extends AbstractGateway
     public function setAppAuthToken($value)
     {
         return $this->setParameter('app_auth_token', $value);
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getSysServiceProviderId()
+    {
+        return $this->getParameter('sys_service_provider_id');
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setSysServiceProviderId($value)
+    {
+        return $this->setParameter('sys_service_provider_id', $value);
     }
 
 
