@@ -483,6 +483,26 @@ abstract class AbstractAopRequest extends AbstractRequest
     }
 
 
+    /**
+     * @return mixed
+     */
+    public function getAppAuthToken()
+    {
+        return $this->getParameter('app_auth_token');
+    }
+
+
+    /**
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setAppAuthToken($value)
+    {
+        return $this->setParameter('app_auth_token', $value);
+    }
+
+
     public function validateBizContent()
     {
         $data = $this->getBizContent();
