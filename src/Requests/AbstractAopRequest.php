@@ -4,7 +4,10 @@ namespace Omnipay\Alipay\Requests;
 
 use Omnipay\Alipay\Common\Signer;
 use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\Common\Http\Exception\NetworkException;
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 abstract class AbstractAopRequest extends AbstractRequest
 {
@@ -28,6 +31,7 @@ abstract class AbstractAopRequest extends AbstractRequest
      * gateway, but will usually be either an associative array, or a SimpleXMLElement.
      *
      * @return mixed
+     * @throws InvalidRequestException
      */
     public function getData()
     {
@@ -49,6 +53,9 @@ abstract class AbstractAopRequest extends AbstractRequest
     }
 
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function validateParams()
     {
         $this->validate(
@@ -101,6 +108,13 @@ abstract class AbstractAopRequest extends AbstractRequest
     }
 
 
+    /**
+     * @param array  $params
+     * @param string $signType
+     *
+     * @return string|null
+     * @throws InvalidRequestException
+     */
     protected function sign($params, $signType)
     {
         $signer = new Signer($params);
@@ -176,9 +190,8 @@ abstract class AbstractAopRequest extends AbstractRequest
     /**
      * @param mixed $data
      *
-     * @return mixed|\Omnipay\Common\Message\ResponseInterface|\Psr\Http\Message\StreamInterface
-     * @throws \Psr\Http\Client\Exception\NetworkException
-     * @throws \Psr\Http\Client\Exception\RequestException
+     * @return mixed|ResponseInterface|StreamInterface
+     * @throws NetworkException
      */
     public function sendData($data)
     {
@@ -503,6 +516,9 @@ abstract class AbstractAopRequest extends AbstractRequest
     }
 
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function validateBizContent()
     {
         $data = $this->getBizContent();
@@ -519,6 +535,9 @@ abstract class AbstractAopRequest extends AbstractRequest
     }
 
 
+    /**
+     * @throws InvalidRequestException
+     */
     public function validateBizContentOne()
     {
         $data = $this->getBizContent();
@@ -558,6 +577,9 @@ abstract class AbstractAopRequest extends AbstractRequest
     }
 
 
+    /**
+     * @throws InvalidRequestException
+     */
     protected function validateOne()
     {
         $keys = func_get_args();
