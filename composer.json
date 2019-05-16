@@ -36,11 +36,11 @@
     "ext-json": "*",
     "ext-openssl": "*",
     "omnipay/common": "^3.0",
-    "php-http/guzzle6-adapter": "*"
+    "php-http/guzzle6-adapter": "^2.0"
   },
   "require-dev": {
     "omnipay/tests": "^3.0",
-    "squizlabs/php_codesniffer": "3.*"
+    "squizlabs/php_codesniffer": "^3.4"
   },
   "minimum-stability": "dev",
   "prefer-stable": true
