@@ -249,7 +249,6 @@ class AopAppGatewayTest extends AbstractGatewayTestCase
 
         if ($response->isSuccessful() && $response->isRefunded()) {
             // Refund successful
-
         } else {
             // Refund not successful
         }
