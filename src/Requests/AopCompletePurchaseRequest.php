@@ -4,6 +4,7 @@ namespace Omnipay\Alipay\Requests;
 
 use Omnipay\Alipay\Responses\AopCompletePurchaseResponse;
 use Omnipay\Alipay\Responses\AopTradeQueryResponse;
+use Omnipay\Common\Exception\InvalidRequestException;
 
 class AopCompletePurchaseRequest extends AbstractAopRequest
 {
@@ -13,6 +14,7 @@ class AopCompletePurchaseRequest extends AbstractAopRequest
      * gateway, but will usually be either an associative array, or a SimpleXMLElement.
      *
      * @return mixed
+     * @throws InvalidRequestException
      */
     public function getData()
     {
@@ -40,9 +42,9 @@ class AopCompletePurchaseRequest extends AbstractAopRequest
     /**
      * Send the request with specified data
      *
-     * @param  mixed $data The data to send
+     * @param mixed $data The data to send
      *
-     * @return \Omnipay\Alipay\Responses\AopCompletePurchaseResponse
+     * @return AopCompletePurchaseResponse
      */
     public function sendData($data)
     {
