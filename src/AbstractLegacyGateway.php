@@ -7,6 +7,7 @@ use Omnipay\Alipay\Requests\LegacyCompleteRefundRequest;
 use Omnipay\Alipay\Requests\LegacyQueryRequest;
 use Omnipay\Alipay\Requests\LegacyRefundRequest;
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Common\Message\AbstractRequest;
 
 abstract class AbstractLegacyGateway extends AbstractGateway
 {
@@ -304,7 +305,7 @@ abstract class AbstractLegacyGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Alipay\Requests\LegacyCompletePurchaseRequest
+     * @return LegacyCompletePurchaseRequest|AbstractRequest
      */
     public function completePurchase(array $parameters = [])
     {
@@ -315,7 +316,7 @@ abstract class AbstractLegacyGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Alipay\Requests\LegacyRefundRequest
+     * @return LegacyRefundRequest|AbstractRequest
      */
     public function refund(array $parameters = [])
     {
@@ -326,7 +327,7 @@ abstract class AbstractLegacyGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Alipay\Requests\LegacyRefundRequest
+     * @return LegacyRefundRequest|AbstractRequest
      */
     public function completeRefund(array $parameters = [])
     {
@@ -337,7 +338,7 @@ abstract class AbstractLegacyGateway extends AbstractGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Alipay\Requests\LegacyQueryRequest
+     * @return LegacyQueryRequest|AbstractRequest
      */
     public function query(array $parameters = [])
     {
