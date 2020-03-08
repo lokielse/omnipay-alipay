@@ -2,6 +2,7 @@
 
 namespace Omnipay\Alipay\Requests;
 
+use Exception;
 use Omnipay\Alipay\Common\Signer;
 use Omnipay\Alipay\Responses\AopNotifyResponse;
 use Omnipay\Alipay\Responses\VerifyNotifyIdResponse;
@@ -115,6 +116,10 @@ class AopNotifyRequest extends AbstractAopRequest
     }
 
 
+    /**
+     * @throws InvalidRequestException
+     * @throws Exception
+     */
     protected function verifySignature()
     {
         $signer = new Signer($this->params->all());
@@ -136,7 +141,9 @@ class AopNotifyRequest extends AbstractAopRequest
         }
     }
 
-
+    /**
+     * @throws InvalidRequestException
+     */
     protected function verifyNotifyId()
     {
         if (! $this->getPartner()) {
@@ -181,7 +188,7 @@ class AopNotifyRequest extends AbstractAopRequest
     /**
      * @param boolean $value
      *
-     * @return \Omnipay\Alipay\Requests\AopNotifyRequest
+     * @return AopNotifyRequest
      */
     public function setVerifyNotifyId($value)
     {
@@ -194,7 +201,7 @@ class AopNotifyRequest extends AbstractAopRequest
     /**
      * @param boolean $sort
      *
-     * @return \Omnipay\Alipay\Requests\AopNotifyRequest
+     * @return AopNotifyRequest
      */
     public function setSort($sort)
     {
@@ -207,7 +214,7 @@ class AopNotifyRequest extends AbstractAopRequest
     /**
      * @param string $encodePolicy
      *
-     * @return \Omnipay\Alipay\Requests\AopNotifyRequest
+     * @return AopNotifyRequest
      */
     public function setEncodePolicy($encodePolicy)
     {

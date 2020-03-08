@@ -29,6 +29,7 @@
     ]
   },
   "require": {
+    "ext-bcmath": "*",
     "ext-json": "*",
     "ext-openssl": "*",
     "omnipay/common": "^3.0",
