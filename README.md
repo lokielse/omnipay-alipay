@@ -13,7 +13,7 @@
 processing library for PHP. This package implements Alipay support for Omnipay.
 
 > Cross-border Alipay payment please use [`lokielse/omnipay-global-alipay`](https://github.com/lokielse/omnipay-global-alipay)
- 
+
 > Legacy Version please use [`"lokielse/omnipay-alipay": "dev-legacy"`](https://github.com/lokielse/omnipay-alipay/tree/legacy)
 
 ## Installation
@@ -44,12 +44,18 @@ The following gateways are provided by this package:
  * @var AopAppGateway $gateway
  */
 $gateway = Omnipay::create('Alipay_AopPage');
-$gateway->setSignType('RSA2'); // RSA/RSA2/MD5
+$gateway->setSignType('RSA2'); // RSA/RSA2/MD5. Use certificate mode must set RSA2
 $gateway->setAppId('the_app_id');
 $gateway->setPrivateKey('the_app_private_key');
-$gateway->setAlipayPublicKey('the_alipay_public_key');
+$gateway->setAlipayPublicKey('the_alipay_public_key'); // Need not set this when used certificate mode
 $gateway->setReturnUrl('https://www.example.com/return');
 $gateway->setNotifyUrl('https://www.example.com/notify');
+
+// Must set cert path if you used certificate mode
+//$gateway->setAlipayRootCert('the_alipay_root_cert'); // alipayRootCert.crt
+//$gateway->setAlipayPublicCert('the_alipay_public_cert'); // alipayCertPublicKey_RSA2.crt
+//$gateway->setAppCert('the_app_public_cert'); // appCertPublicKey.crt
+//$gateway->setCheckAlipayPublicCert(true);
 
 /**
  * @var AopTradePagePayResponse $response
