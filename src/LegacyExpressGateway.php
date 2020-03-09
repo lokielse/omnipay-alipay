@@ -3,11 +3,21 @@
 namespace Omnipay\Alipay;
 
 use Omnipay\Alipay\Requests\LegacyExpressPurchaseRequest;
+use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Message\RequestInterface;
 
 /**
  * Class LegacyExpressGateway
+ *
  * @package Omnipay\Alipay
- * @link    https://doc.open.alipay.com/docs/doc.htm?treeId=108&articleId=103950&docType=1
+ * @link    https://alipay.open.taobao.com/docs/doc.htm?treeId=108&articleId=103950&docType=1
+ * @method RequestInterface authorize(array $options = [])
+ * @method RequestInterface completeAuthorize(array $options = [])
+ * @method RequestInterface capture(array $options = [])
+ * @method RequestInterface void(array $options = [])
+ * @method RequestInterface createCard(array $options = [])
+ * @method RequestInterface updateCard(array $options = [])
+ * @method RequestInterface deleteCard(array $options = [])
  */
 class LegacyExpressGateway extends AbstractLegacyGateway
 {
@@ -26,7 +36,7 @@ class LegacyExpressGateway extends AbstractLegacyGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Common\Message\AbstractRequest
+     * @return AbstractRequest
      */
     public function purchase(array $parameters = [])
     {

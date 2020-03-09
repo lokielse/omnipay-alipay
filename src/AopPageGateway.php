@@ -3,11 +3,21 @@
 namespace Omnipay\Alipay;
 
 use Omnipay\Alipay\Requests\AopTradePagePayRequest;
+use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Message\RequestInterface;
 
 /**
  * Class AopPageGateway
+ *
  * @package Omnipay\Alipay
- * @link    https://doc.open.alipay.com/doc2/detail.htm?treeId=270&articleId=105901&docType=1
+ * @link    https://docs.open.alipay.com/api_1/alipay.trade.page.pay
+ * @method RequestInterface authorize(array $options = array())
+ * @method RequestInterface completeAuthorize(array $options = array())
+ * @method RequestInterface capture(array $options = array())
+ * @method RequestInterface void(array $options = array())
+ * @method RequestInterface createCard(array $options = array())
+ * @method RequestInterface updateCard(array $options = array())
+ * @method RequestInterface deleteCard(array $options = [])
  */
 class AopPageGateway extends AbstractAopGateway
 {
@@ -46,7 +56,7 @@ class AopPageGateway extends AbstractAopGateway
     /**
      * @param array $parameters
      *
-     * @return \Omnipay\Common\Message\AbstractRequest
+     * @return AbstractRequest
      */
     public function purchase(array $parameters = [])
     {

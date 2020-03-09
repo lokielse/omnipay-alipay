@@ -6,12 +6,12 @@ use Omnipay\Alipay\AopF2FGateway;
 use Omnipay\Alipay\Common\Signer;
 use Omnipay\Alipay\Responses\AopCompletePurchaseResponse;
 use Omnipay\Alipay\Responses\AopCompleteRefundResponse;
-use Omnipay\Alipay\Responses\DataServiceBillDownloadUrlQueryResponse;
 use Omnipay\Alipay\Responses\AopTradePayResponse;
 use Omnipay\Alipay\Responses\AopTradePreCreateResponse;
 use Omnipay\Alipay\Responses\AopTradeQueryResponse;
 use Omnipay\Alipay\Responses\AopTradeRefundQueryResponse;
 use Omnipay\Alipay\Responses\AopTradeRefundResponse;
+use Omnipay\Alipay\Responses\DataServiceBillDownloadUrlQueryResponse;
 
 class AopF2FGatewayTest extends AbstractGatewayTestCase
 {
@@ -47,9 +47,9 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
             [
                 'biz_content' => [
                     'out_trade_no' => date('YmdHis') . mt_rand(1000, 9999),
-                    'scene'        => 'bar_code',
-                    'auth_code'    => '288412621343841260',
-                    'subject'      => 'test',
+                    'scene' => 'bar_code',
+                    'auth_code' => '288412621343841260',
+                    'subject' => 'test',
                     'total_amount' => '0.01',
                 ]
             ]
@@ -71,7 +71,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
             [
                 'biz_content' => [
                     'out_trade_no' => date('YmdHis') . mt_rand(1000, 9999),
-                    'subject'      => 'test',
+                    'subject' => 'test',
                     'total_amount' => '0.01',
                 ]
             ]
@@ -114,7 +114,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
             [
                 'biz_content' => [
                     'refund_amount' => '10.01',
-                    'out_trade_no'  => '201609220542532413'
+                    'out_trade_no' => '201609220542532413'
                 ]
             ]
         )->send();
@@ -134,8 +134,8 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
         $response = $this->gateway->refundQuery(
             [
                 'biz_content' => [
-                    'refund_amount'  => '10.01',
-                    'out_trade_no'   => '201609220542532412',
+                    'refund_amount' => '10.01',
+                    'out_trade_no' => '201609220542532412',
                     'out_request_no' => '201609220542532412'
                 ]
             ]
@@ -156,18 +156,18 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
         $response = $this->gateway->settle(
             [
                 'biz_content' => [
-                    'out_request_no'     => '201609220542532412',
-                    'trade_no'           => '2014030411001007850000672009',
+                    'out_request_no' => '201609220542532412',
+                    'trade_no' => '2014030411001007850000672009',
                     'royalty_parameters' => [
                         [
                             'trans_out' => '111111',
-                            'trans_in'  => '222222',
-                            'amount'    => '0.01',
+                            'trans_in' => '222222',
+                            'amount' => '0.01',
                         ],
                         [
                             'trans_out' => '111111',
-                            'trans_in'  => '333333',
-                            'amount'    => '0.02',
+                            'trans_in' => '333333',
+                            'amount' => '0.02',
                         ]
                     ]
                 ]
@@ -202,7 +202,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
     public function testCompletePurchase()
     {
         $testPrivateKey = ALIPAY_ASSET_DIR . '/dist/common/rsa_private_key.pem';
-        $testPublicKey  = ALIPAY_ASSET_DIR . '/dist/common/rsa_public_key.pem';
+        $testPublicKey = ALIPAY_ASSET_DIR . '/dist/common/rsa_public_key.pem';
 
         $this->gateway = new AopF2FGateway($this->getHttpClient(), $this->getHttpRequest());
         $this->gateway->setAppId($this->appId);
@@ -216,7 +216,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
         $signer = new Signer($data);
         $signer->setSort(true);
         $signer->setEncodePolicy(Signer::ENCODE_POLICY_QUERY);
-        $data['sign']      = $signer->signWithRSA($testPrivateKey);
+        $data['sign'] = $signer->signWithRSA($testPrivateKey);
         $data['sign_type'] = 'RSA';
 
         $this->gateway->setAlipayPublicKey($testPublicKey);
@@ -227,7 +227,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
         $response = $this->gateway->completePurchase(['params' => $data])->send();
 
         $this->assertEquals(
-            '{"gmt_payment":"2015-06-11 22:33:59","notify_id":"42af7baacd1d3746cf7b56752b91edcj34","seller_email":"testyufabu07@alipay.com","notify_type":"trade_status_sync","sign":"T4JCUXoO5sK\/7UjupKEfsSQnjDnw\/1aSJnC6s53SYJyqdjFl+1Lt8dWdNuuXl5yX39leQsYzmk2CDwZx6F\/YIQWCo1LHZME3DYMqH\/F5wT5uiSUk2KYsYbLluW9pi7YHtBXRWKB6jtnn73DWWbC2sN3tDky9KySPizL5jQ1Cd0I=","trade_no":"2015061121001004400068549373","out_trade_no":"21repl2ac2eOutTradeNo322","gmt_create":"2015-06-11 22:33:46","seller_id":"2088211521646673","notify_time":"2015-06-11 22:34:03","subject":"FACE_TO_FACE_PAYMENT_PRECREATE\u4e2d\u6587","trade_status":"TRADE_SUCCESS","sign_type":"RSA"}',
+            '{"gmt_payment":"2015-06-11 22:33:59","notify_id":"42af7baacd1d3746cf7b56752b91edcj34","seller_email":"testyufabu07@alipay.com","notify_type":"trade_status_sync","sign":"cJfsQ18JD4CfM1x9MlXY+dO1Q4L647giOmVQvtDJ+4QgpxFL7mEcU8InkAySWxr\/fRXuy8+FMtowYoN2Pmy7z3WcaX0qC5u8rr5hiidnKq\/m4\/7Tt6v5T4xDnYde6GWRchexsTFpMEFDVYs3Hy\/7ga+1Fgvs4bt0borNcjKNJNQ=","trade_no":"2015061121001004400068549373","out_trade_no":"21repl2ac2eOutTradeNo322","gmt_create":"2015-06-11 22:33:46","seller_id":"2088211521646673","notify_time":"2015-06-11 22:34:03","subject":"FACE_TO_FACE_PAYMENT_PRECREATE\u4e2d\u6587","trade_status":"TRADE_SUCCESS","sign_type":"RSA"}',
             json_encode($response->data())
         );
 
@@ -240,7 +240,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
     public function testCompleteRefund()
     {
         $testPrivateKey = ALIPAY_ASSET_DIR . '/dist/common/rsa_private_key.pem';
-        $testPublicKey  = ALIPAY_ASSET_DIR . '/dist/common/rsa_public_key.pem';
+        $testPublicKey = ALIPAY_ASSET_DIR . '/dist/common/rsa_public_key.pem';
 
         $this->gateway = new AopF2FGateway($this->getHttpClient(), $this->getHttpRequest());
         $this->gateway->setAppId($this->appId);
@@ -254,7 +254,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
         $signer = new Signer($data);
         $signer->setSort(true);
         $signer->setEncodePolicy(Signer::ENCODE_POLICY_QUERY);
-        $data['sign']      = $signer->signWithRSA($testPrivateKey);
+        $data['sign'] = $signer->signWithRSA($testPrivateKey);
         $data['sign_type'] = 'RSA';
 
         $this->gateway->setAlipayPublicKey($testPublicKey);
@@ -265,7 +265,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
         $response = $this->gateway->completeRefund(['params' => $data])->send();
 
         $this->assertEquals(
-            '{"gmt_payment":"2015-06-11 22:33:59","notify_id":"42af7baacd1d3746cf7b56752b91edcj34","seller_email":"testyufabu07@alipay.com","notify_type":"trade_status_sync","sign":"T4JCUXoO5sK\/7UjupKEfsSQnjDnw\/1aSJnC6s53SYJyqdjFl+1Lt8dWdNuuXl5yX39leQsYzmk2CDwZx6F\/YIQWCo1LHZME3DYMqH\/F5wT5uiSUk2KYsYbLluW9pi7YHtBXRWKB6jtnn73DWWbC2sN3tDky9KySPizL5jQ1Cd0I=","trade_no":"2015061121001004400068549373","out_trade_no":"21repl2ac2eOutTradeNo322","gmt_create":"2015-06-11 22:33:46","seller_id":"2088211521646673","notify_time":"2015-06-11 22:34:03","subject":"FACE_TO_FACE_PAYMENT_PRECREATE\u4e2d\u6587","trade_status":"TRADE_SUCCESS","sign_type":"RSA"}',
+            '{"gmt_payment":"2015-06-11 22:33:59","notify_id":"42af7baacd1d3746cf7b56752b91edcj34","seller_email":"testyufabu07@alipay.com","notify_type":"trade_status_sync","sign":"cJfsQ18JD4CfM1x9MlXY+dO1Q4L647giOmVQvtDJ+4QgpxFL7mEcU8InkAySWxr\/fRXuy8+FMtowYoN2Pmy7z3WcaX0qC5u8rr5hiidnKq\/m4\/7Tt6v5T4xDnYde6GWRchexsTFpMEFDVYs3Hy\/7ga+1Fgvs4bt0borNcjKNJNQ=","trade_no":"2015061121001004400068549373","out_trade_no":"21repl2ac2eOutTradeNo322","gmt_create":"2015-06-11 22:33:46","seller_id":"2088211521646673","notify_time":"2015-06-11 22:34:03","subject":"FACE_TO_FACE_PAYMENT_PRECREATE\u4e2d\u6587","trade_status":"TRADE_SUCCESS","sign_type":"RSA"}',
             json_encode($response->data())
         );
 
