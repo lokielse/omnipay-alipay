@@ -56,17 +56,16 @@ class AopAppGatewayTest extends AbstractGatewayTestCase
 
     public function testPurchaseUseCert()
     {
-        $gateway = new AopAppGateway($this->getHttpClient(), $this->getHttpRequest());
-        $gateway->setAppId('2016101900723821');
-        $gateway->setSignType('RSA2');
-        $gateway->setPrivateKey(ALIPAY_ASSET_DIR . '/dist/cert/appPrivateKey');
-        $gateway->setAlipayRootCert(ALIPAY_ASSET_DIR . '/dist/cert/alipayRootCert.crt');
-        $gateway->setAlipayPublicCert(ALIPAY_ASSET_DIR . '/dist/cert/alipayCertPublicKey_RSA2.crt');
-        $gateway->setAppCert(ALIPAY_ASSET_DIR . '/dist/cert/appCertPublicKey_2016101900723821.crt');
-        $gateway->setCheckAlipayPublicCert(true);
+        $this->gateway->setAppId('2016101900723821');
+        $this->gateway->setSignType('RSA2');
+        $this->gateway->setPrivateKey(ALIPAY_ASSET_DIR . '/dist/cert/appPrivateKey');
+        $this->gateway->setAlipayRootCert(ALIPAY_ASSET_DIR . '/dist/cert/alipayRootCert.crt');
+        $this->gateway->setAlipayPublicCert(ALIPAY_ASSET_DIR . '/dist/cert/alipayCertPublicKey_RSA2.crt');
+        $this->gateway->setAppCert(ALIPAY_ASSET_DIR . '/dist/cert/appCertPublicKey.crt');
+        $this->gateway->setCheckAlipayPublicCert(true);
 
         /** @var AopTradeAppPayResponse $response */
-        $response = $gateway->purchase()->setBizContent([
+        $response = $this->gateway->purchase()->setBizContent([
             'subject' => 'test',
             'out_trade_no' => date('YmdHis') . mt_rand(1000, 9999),
             'total_amount' => '0.01',
