@@ -26,7 +26,7 @@ class AopAppGatewayTest extends AbstractGatewayTestCase
         $this->gateway = new AopAppGateway($this->getHttpClient(), $this->getHttpRequest());
         $this->gateway->setAppId($this->appId);
         $this->gateway->setPrivateKey(ALIPAY_AOP_PRIVATE_KEY);
-        //$this->gateway->setAlipayPublicKey(file_get_contents($this->appPrivateKey));
+        //$this->gateway->setAlipayPublicKey(file_get_contents($this->alipayPublicKey));
         //$this->gateway->setEncryptKey($this->appEncryptKey);
         //$this->gateway->setNotifyUrl('http://www.guoshuzc.com/api/pay/alipay_recharge_notify');
         //$this->gateway->setAlipaySdk('alipay_sdk');

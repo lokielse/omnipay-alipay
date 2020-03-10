@@ -22,8 +22,6 @@ abstract class AbstractAopRequest extends AbstractRequest
 
     protected $alipayRootCert;
 
-    protected $alipayPublicCert;
-
     protected $appCert;
 
     protected $checkAlipayPublicCert = true;
@@ -89,7 +87,6 @@ abstract class AbstractAopRequest extends AbstractRequest
             if (is_file($alipayRootCert) && is_file($appCert)) {
                 $this->setParameter('alipay_root_cert_sn', getRootCertSN($alipayRootCert));
                 $this->setParameter('app_cert_sn', getCertSN($appCert));
-                $this->setAlipayPublicKey(getPublicKey($this->getAlipayPublicCert()));
             }
         }
     }
@@ -198,28 +195,6 @@ abstract class AbstractAopRequest extends AbstractRequest
     public function setAlipayRootCert($value)
     {
         $this->alipayRootCert = $value;
-
-        return $this;
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getAlipayPublicCert()
-    {
-        return $this->alipayPublicCert;
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return $this
-     */
-    public function setAlipayPublicCert($value)
-    {
-        $this->alipayPublicCert = $value;
 
         return $this;
     }
