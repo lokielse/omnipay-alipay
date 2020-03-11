@@ -16,6 +16,8 @@ abstract class AbstractGatewayTestCase extends GatewayTestCase
 
     protected $appPrivateKey = ALIPAY_APP_PRIVATE_KEY;
 
+    protected $alipayPublicKey = ALIPAY_PUBLIC_KEY;
+
     protected $appEncryptKey = ALIPAY_APP_ENCRYPT_KEY;
 
 

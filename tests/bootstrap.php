@@ -18,7 +18,7 @@ if (file_exists($configFile) && false) {
     define('ALIPAY_PARTNER', '2088011436420182');
     define('ALIPAY_KEY', '18x8lAi0a1520st1hvxcnt7m4w1whkbs');
     define('ALIPAY_SELLER_ID', '2088011436420182');
-    define('ALIPAY_PUBLIC_KEY', ALIPAY_ASSET_DIR . '/alipay_public_key.pem');
+    define('ALIPAY_PUBLIC_KEY', ALIPAY_ASSET_DIR . '/dist/aop/alipay_public_key.pem');
     define('ALIPAY_LEGACY_PRIVATE_KEY', ALIPAY_ASSET_DIR . '/dist/legacy/rsa_private_key.pem');
     define('ALIPAY_LEGACY_PUBLIC_KEY', ALIPAY_ASSET_DIR . '/dist/legacy/alipay_public_key.pem');
     define('ALIPAY_AOP_PUBLIC_KEY', ALIPAY_ASSET_DIR . '/dist/aop/alipay_public_key.pem');
