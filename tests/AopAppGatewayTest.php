@@ -136,7 +136,7 @@ class AopAppGatewayTest extends AbstractGatewayTestCase
         }
 
         $this->assertEquals(
-            '{"total_amount":"0.01","buyer_id":"20882025611234567","trade_no":"201609232100100306021234567","refund_fee":"0.00","notify_time":"2016-09-23 19:12:33","subject":"test","sign_type":"RSA","notify_type":"trade_status_sync","out_trade_no":"2016092313071234567","gmt_close":"2016-09-23 19:08:10","trade_status":"TRADE_FINISHED","gmt_payment":"2016-09-23 19:08:10","sign":"Pj9CrLMvcQB5w1wN0ngelHCSonoe3j6zjYcZsU8kqsE3ZqLb9pHxVuStyztHCKB5\/gzRCVIrJpSjLw0XvuWeu3mz47LMLJo3vi+ODhZOGqFqWzlvSpsWuGSyIVWsVtl4b9gTdu0VzjUn+XpHkrdrZr7y517NvT8Deb1MtYVKasM=","gmt_create":"2016-09-23 19:08:09","app_id":"20151128001234567","seller_id":"20880114661234567","notify_id":"da3e56af64bcb163f167240dc0f781agge"}',
+            '{"total_amount":"0.01","buyer_id":"20882025611234567","trade_no":"201609232100100306021234567","refund_fee":"0.00","notify_time":"2016-09-23 19:12:33","subject":"test","sign_type":"RSA","notify_type":"trade_status_sync","out_trade_no":"2016092313071234567","gmt_close":"2016-09-23 19:08:10","trade_status":"TRADE_FINISHED","gmt_payment":"2016-09-23 19:08:10","sign":"Xa2NyOsxOBjW\/q\/RUFZhii2epa4B3ka+2aGsG8knqkiCD8llXrTDm11QtGkSRVw\/hbfcgFPiTkuaKnaaDu\/UfypsVSHToy28PiH5xkBSSd6zHNZCP\/jvjzOa6GPf4tIpfYNVvjaRMRcbn+TRlOFtHOnMMubjsg7K52P+LCugZIA=","gmt_create":"2016-09-23 19:08:09","app_id":"20151128001234567","seller_id":"20880114661234567","notify_id":"da3e56af64bcb163f167240dc0f781agge"}',
             json_encode($response->data())
         );
 
@@ -179,7 +179,7 @@ class AopAppGatewayTest extends AbstractGatewayTestCase
         }
 
         $this->assertEquals(
-            '{"total_amount":"0.01","buyer_id":"20882025611234567","trade_no":"201609232100100306021234567","refund_fee":"0.00","notify_time":"2016-09-23 19:12:33","subject":"test","sign_type":"RSA","notify_type":"trade_status_sync","out_trade_no":"2016092313071234567","gmt_close":"2016-09-23 19:08:10","trade_status":"TRADE_FINISHED","gmt_payment":"2016-09-23 19:08:10","sign":"Pj9CrLMvcQB5w1wN0ngelHCSonoe3j6zjYcZsU8kqsE3ZqLb9pHxVuStyztHCKB5\/gzRCVIrJpSjLw0XvuWeu3mz47LMLJo3vi+ODhZOGqFqWzlvSpsWuGSyIVWsVtl4b9gTdu0VzjUn+XpHkrdrZr7y517NvT8Deb1MtYVKasM=","gmt_create":"2016-09-23 19:08:09","app_id":"20151128001234567","seller_id":"20880114661234567","notify_id":"da3e56af64bcb163f167240dc0f781agge"}',
+            '{"total_amount":"0.01","buyer_id":"20882025611234567","trade_no":"201609232100100306021234567","refund_fee":"0.00","notify_time":"2016-09-23 19:12:33","subject":"test","sign_type":"RSA","notify_type":"trade_status_sync","out_trade_no":"2016092313071234567","gmt_close":"2016-09-23 19:08:10","trade_status":"TRADE_FINISHED","gmt_payment":"2016-09-23 19:08:10","sign":"Xa2NyOsxOBjW\/q\/RUFZhii2epa4B3ka+2aGsG8knqkiCD8llXrTDm11QtGkSRVw\/hbfcgFPiTkuaKnaaDu\/UfypsVSHToy28PiH5xkBSSd6zHNZCP\/jvjzOa6GPf4tIpfYNVvjaRMRcbn+TRlOFtHOnMMubjsg7K52P+LCugZIA=","gmt_create":"2016-09-23 19:08:09","app_id":"20151128001234567","seller_id":"20880114661234567","notify_id":"da3e56af64bcb163f167240dc0f781agge"}',
             json_encode($response->data())
         );
 

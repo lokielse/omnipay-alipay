@@ -61,7 +61,7 @@ class SignerTest extends TestCase
 
     public function testIgnore()
     {
-        $this->assertSame(['sign'], (new Signer())->getIgnores());
+        $this->assertSame(['sign', 'sign_type'], (new Signer())->getIgnores());
 
         $params1 = [
             'aaa'   => '111',
