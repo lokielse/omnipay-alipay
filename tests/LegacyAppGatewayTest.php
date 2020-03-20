@@ -53,6 +53,6 @@ class LegacyAppGatewayTest extends AbstractGatewayTestCase
          * @var LegacyAppPurchaseResponse $response
          */
         $response = $this->gateway->purchase($this->options)->send();
-        $this->assertEquals('29e66f48d681c68d70164028aeb22b33', md5($response->getOrderString()));
+        $this->assertEquals('e16fdd8098c197201986cd9c3a8fb276', md5($response->getOrderString()));
     }
 }

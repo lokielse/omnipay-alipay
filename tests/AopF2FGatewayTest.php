@@ -227,7 +227,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
         $response = $this->gateway->completePurchase(['params' => $data])->send();
 
         $this->assertEquals(
-            '{"gmt_payment":"2015-06-11 22:33:59","notify_id":"42af7baacd1d3746cf7b56752b91edcj34","seller_email":"testyufabu07@alipay.com","notify_type":"trade_status_sync","sign":"cJfsQ18JD4CfM1x9MlXY+dO1Q4L647giOmVQvtDJ+4QgpxFL7mEcU8InkAySWxr\/fRXuy8+FMtowYoN2Pmy7z3WcaX0qC5u8rr5hiidnKq\/m4\/7Tt6v5T4xDnYde6GWRchexsTFpMEFDVYs3Hy\/7ga+1Fgvs4bt0borNcjKNJNQ=","trade_no":"2015061121001004400068549373","out_trade_no":"21repl2ac2eOutTradeNo322","gmt_create":"2015-06-11 22:33:46","seller_id":"2088211521646673","notify_time":"2015-06-11 22:34:03","subject":"FACE_TO_FACE_PAYMENT_PRECREATE\u4e2d\u6587","trade_status":"TRADE_SUCCESS","sign_type":"RSA"}',
+            '{"gmt_payment":"2015-06-11 22:33:59","notify_id":"42af7baacd1d3746cf7b56752b91edcj34","seller_email":"testyufabu07@alipay.com","notify_type":"trade_status_sync","sign":"T4JCUXoO5sK\/7UjupKEfsSQnjDnw\/1aSJnC6s53SYJyqdjFl+1Lt8dWdNuuXl5yX39leQsYzmk2CDwZx6F\/YIQWCo1LHZME3DYMqH\/F5wT5uiSUk2KYsYbLluW9pi7YHtBXRWKB6jtnn73DWWbC2sN3tDky9KySPizL5jQ1Cd0I=","trade_no":"2015061121001004400068549373","out_trade_no":"21repl2ac2eOutTradeNo322","gmt_create":"2015-06-11 22:33:46","seller_id":"2088211521646673","notify_time":"2015-06-11 22:34:03","subject":"FACE_TO_FACE_PAYMENT_PRECREATE\u4e2d\u6587","trade_status":"TRADE_SUCCESS","sign_type":"RSA"}',
             json_encode($response->data())
         );
 
@@ -265,7 +265,7 @@ class AopF2FGatewayTest extends AbstractGatewayTestCase
         $response = $this->gateway->completeRefund(['params' => $data])->send();
 
         $this->assertEquals(
-            '{"gmt_payment":"2015-06-11 22:33:59","notify_id":"42af7baacd1d3746cf7b56752b91edcj34","seller_email":"testyufabu07@alipay.com","notify_type":"trade_status_sync","sign":"cJfsQ18JD4CfM1x9MlXY+dO1Q4L647giOmVQvtDJ+4QgpxFL7mEcU8InkAySWxr\/fRXuy8+FMtowYoN2Pmy7z3WcaX0qC5u8rr5hiidnKq\/m4\/7Tt6v5T4xDnYde6GWRchexsTFpMEFDVYs3Hy\/7ga+1Fgvs4bt0borNcjKNJNQ=","trade_no":"2015061121001004400068549373","out_trade_no":"21repl2ac2eOutTradeNo322","gmt_create":"2015-06-11 22:33:46","seller_id":"2088211521646673","notify_time":"2015-06-11 22:34:03","subject":"FACE_TO_FACE_PAYMENT_PRECREATE\u4e2d\u6587","trade_status":"TRADE_SUCCESS","sign_type":"RSA"}',
+            '{"gmt_payment":"2015-06-11 22:33:59","notify_id":"42af7baacd1d3746cf7b56752b91edcj34","seller_email":"testyufabu07@alipay.com","notify_type":"trade_status_sync","sign":"T4JCUXoO5sK\/7UjupKEfsSQnjDnw\/1aSJnC6s53SYJyqdjFl+1Lt8dWdNuuXl5yX39leQsYzmk2CDwZx6F\/YIQWCo1LHZME3DYMqH\/F5wT5uiSUk2KYsYbLluW9pi7YHtBXRWKB6jtnn73DWWbC2sN3tDky9KySPizL5jQ1Cd0I=","trade_no":"2015061121001004400068549373","out_trade_no":"21repl2ac2eOutTradeNo322","gmt_create":"2015-06-11 22:33:46","seller_id":"2088211521646673","notify_time":"2015-06-11 22:34:03","subject":"FACE_TO_FACE_PAYMENT_PRECREATE\u4e2d\u6587","trade_status":"TRADE_SUCCESS","sign_type":"RSA"}',
             json_encode($response->data())
         );
 
