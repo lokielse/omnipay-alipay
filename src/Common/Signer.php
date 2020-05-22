@@ -18,7 +18,7 @@ class Signer
     const KEY_TYPE_PUBLIC = 1;
     const KEY_TYPE_PRIVATE = 2;
 
-    protected $ignores = ['sign', 'sign_type'];
+    protected $ignores = ['sign'];
 
     protected $sort = true;
 
