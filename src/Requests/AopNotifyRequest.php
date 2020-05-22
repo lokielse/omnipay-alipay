@@ -125,6 +125,7 @@ class AopNotifyRequest extends AbstractAopRequest
         $signer = new Signer($this->params->all());
         $signer->setSort($this->sort);
         $signer->setEncodePolicy($this->encodePolicy);
+        $signer->setIgnores(['sign','sign_type']);
         $content = $signer->getContentToSign();
 
         $sign = $this->params->get('sign');
