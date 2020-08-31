@@ -107,7 +107,7 @@ if (!function_exists('getRootCertSN')) {
         foreach ($array as $i) {
             $ssl = openssl_x509_parse($i . '-----END CERTIFICATE-----');
 
-            if (in_array($ssl['signatureTypeLN'], ['sha1WithRSAEncryption', 'sha256WithRSAEncryption'])) {
+            if ($ssl && in_array($ssl['signatureTypeLN'], ['sha1WithRSAEncryption', 'sha256WithRSAEncryption'])) {
                 $sn = getCertSN($ssl, true);
                 if (is_null($rootSN)) {
                     $rootSN = $sn;
