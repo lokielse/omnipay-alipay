@@ -1,5 +1,5 @@
 {
-  "name": "lokielse/omnipay-alipay",
+  "name": "hinet/omnipay-alipay",
   "type": "library",
   "description": "Alipay gateway for Omnipay payment processing library",
   "keywords": [
@@ -33,7 +33,7 @@
     "ext-json": "*",
     "ext-openssl": "*",
     "omnipay/common": "^3.0",
-    "php-http/guzzle6-adapter": "^2.0"
+    "php-http/guzzle7-adapter": "^0.1"
   },
   "require-dev": {
     "omnipay/tests": "^3.0",
