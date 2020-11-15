@@ -46,7 +46,7 @@ class AopVerifyAppPayReturnRequest extends AbstractAopRequest
     /**
      * @throws InvalidRequestException
      */
-    public function validate()
+    public function validate(...$args)
     {
         parent::validate(
             'result'
