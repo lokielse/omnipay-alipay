@@ -71,6 +71,10 @@ class AopCompletePurchaseRequest extends AbstractAopRequest
                 $request->setBizContent(['trade_no' => $tn]);
                 $request->setPrivateKey($this->getPrivateKey());
 
+                // Must set cert path if you used certificate mode
+                $request->setAlipayRootCert($this->getAlipayRootCert());
+                $request->setAppCert($this->getAppCert());
+
                 /**
                  * @var AopTradeQueryResponse $response
                  */
